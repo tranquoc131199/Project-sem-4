@@ -1,10 +1,10 @@
 ﻿-- chỉnh sửa mới
--- tạo csdl QTCStore
-create database QTCStore
+-- tạo csdl QTBStore
+create database QTBStore
 go
 
--- sử dụng csdl QTCStore vừa tạo
-use QTCStore
+-- sử dụng csdl QTBStore vừa tạo
+use QTBStore
 go
 
 -- bảng quản trị viên lưu thông tin người quản trị
@@ -12,7 +12,7 @@ create table Admins (
 	AdminId int not null primary key identity, -- khoá chính
 	AdminEmail varchar(250) not null unique, -- email đăng nhập
 	AdminPassword varchar(128) not null, -- mật khẩu đăng nhập
-	AdminFullname nvarchar(250) not null, -- họ và tên người quản trị
+	AdminFullName nvarchar(250) not null, -- họ và tên người quản trị
 	AdminBirthday date not null default getdate(), -- ngày tháng năm sinh
 	AdminIdCard varchar(20) not null unique, -- chứng minh nhân dân
 	AdminGender int not null default 1, -- giới tính
@@ -27,7 +27,7 @@ go
 -- bảng khách hàng
 create table Customers (
 	CustomerId int not null primary key identity, -- khoá chính
-	CustomerFullname nvarchar(250) not null, -- họ và tên khách hàng
+	CustomerFullName nvarchar(250) not null, -- họ và tên khách hàng
 	CustomerEmail varchar(250) not null unique, -- email để đăng nhập
 	CustomerPhone varchar(20) null unique, -- số điện thoại
 	CustomerPassword varchar(128) not null, -- mật khẩu
