@@ -65,6 +65,10 @@
             </props>
         </property>
     </bean>
+    
+    <bean id="categoryDAO" class="dao.implement.CategoryDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
    
 </beans>
