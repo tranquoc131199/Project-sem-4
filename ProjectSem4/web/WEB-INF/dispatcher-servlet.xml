@@ -4,12 +4,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd ">
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    <context:component-scan base-package="controller"></context:component-scan>
+    <context:annotation-config></context:annotation-config>
+    <mvc:annotation-driven></mvc:annotation-driven>
 
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
@@ -20,6 +27,48 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/jsp/Customer"
           p:suffix=".jsp" />
+    
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=QTBStore"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="131199"/>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>entities.Admins</value>
+                <value>entities.Banners</value>
+                <value>entities.Brands</value>
+                <value>entities.Catalogs</value>
+                <value>entities.Categories</value>
+                <value>entities.Customers</value>
+                <value>entities.FeedbackCatalogs</value>
+                <value>entities.Feedbacks</value>
+                <value>entities.Introductions</value>
+                <value>entities.Logoes</value>
+                <value>entities.News</value>
+                <value>entities.OrderDetails</value>
+                <value>entities.Orders</value>
+                <value>entities.ProductComments</value>
+                <value>entities.ProductImages</value>
+                <value>entities.Products</value>
+                <value>entities.Wishlists</value>      
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="categoryDAO" class="dao.implement.CategoryDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
    
 </beans>
