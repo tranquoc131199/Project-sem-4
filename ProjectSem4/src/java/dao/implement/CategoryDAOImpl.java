@@ -8,6 +8,7 @@ package dao.implement;
 import dao.CategoryDAO;
 import entities.Categories;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,12 @@ public class CategoryDAOImpl implements CategoryDAO {
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
-        }finally{
+        } finally {
             session.close();
         }
-        return null;       
+        return null;
     }
-    
+
     @Override
     public Boolean insertCategory(Categories category) {
         Session session = sessionFactory.openSession();
@@ -58,13 +59,29 @@ public class CategoryDAOImpl implements CategoryDAO {
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
-        }finally{
+        } finally {
             session.close();
         }
         return false;
 
     }
 
-    
+    @Override
+    public Integer getMaxCategoryPiority() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Integer max = 0;
+        try {
+            Query query = session.createQuery("select max(categoryPiority) from Categories");
+            max = (Integer) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+        }
+        return max;    
+    }
 
 }

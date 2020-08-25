@@ -13,22 +13,28 @@ import java.util.List;
  * @author Acer Nitro 5
  */
 public interface CategoryDAO {
-    
+
     /**
-     * Thêm mới danh mục sản phẩm
-     * @param category
-     * @return 
-     */
-    public Boolean insertCategory(Categories category);
-    
-     /**
      * hiển thị tất cả danh mục sản phẩm
+     *
      * @param category
-     * @return 
+     * @return
      */
     public List<Categories> getAllCategory();
-    
-    
-    
-    
+
+    /**
+     * Lấy giá trị lớn nhất của độ ưu tiên
+     *
+     * @return
+     */
+    public Integer getMaxCategoryPiority();
+
+    /**
+     * Thêm mới danh mục sản phẩm
+     *
+     * @param category
+     * @return
+     */
+    public Boolean insertCategory(Categories category);
+
 }

@@ -16,7 +16,6 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
-    
     <filter>
         <filter-name>encoding-filter</filter-name>
         <filter-class>
@@ -31,13 +30,13 @@
         <filter-name>encoding-filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
+        <welcome-file>jsp/Admin/index.jsp</welcome-file>
         <welcome-file>redirect.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
