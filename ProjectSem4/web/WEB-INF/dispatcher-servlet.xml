@@ -25,7 +25,7 @@
     -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/jsp/Customer"
+          p:prefix="/jsp/"
           p:suffix=".jsp" />
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

@@ -4,6 +4,7 @@
     Author     : Acer Nitro 5
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true" />
 <jsp:include page="widget/navbar.jsp" flush="true" />
@@ -33,138 +34,45 @@
                         <div class="card">
                             <h3 class="card-header"><b>Danh sách</b></h3>
                             <div class="card-body">
-                                <a href="/Admin/BackendCategory/Create" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới danh mục sản phẩm</a>
+                                <a href="${pageContext.request.contextPath}/admin/category/initInsertCategory.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới danh mục sản phẩm</a>
                                 <div class="clearfix"><br></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">
                                         <thead>
                                             <tr>
                                                 <th>Tên danh mục</th>
+                                                <th>Độ ưu tiên</th>
                                                 <th>Danh mục cha</th>
                                                 <th>Trạng thái</th>
                                                 <th>Hành động</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Loa</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=29" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=29" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Game bản quyền</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=28" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=28" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>K&#237;nh thực tế ảo</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=27" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=27" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>M&#225;y chơi game console</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=26" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=26" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>B&#224;n di chuột</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=25" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=25" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tay cầm game</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=24" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=24" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tai nghe chơi game</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=23" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=23" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>B&#224;n gaming</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=22" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=22" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ghế chơi game</td>
-                                                <td>Gaming Gear & Console</td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=21" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=21" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Chuột chơi game</td>
-                                                <td>
-                                                    Gaming Gear & Console                                                        </td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendCategory/Edit?CategoryId=20" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                    <a href="/Admin/BackendCategory/Disable?CategoryId=20" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
-                                                </td>
-                                            </tr>
+                                            <c:if test="${not empty allCategory}">
+                                                <c:forEach items="${allCategory}" var="allCate"> 
+                                                    <tr>
+                                                        <td>${allCate.categoryName}</td>
+                                                        <td>${allCate.categoryPiority}</td>
+                                                        <td>${allCate.parentName}</td>
+                                                        <td>
+                                                            <c:if test="${allCate.categoryStatus == 1}">
+                                                                <span class="badge badge-success">Kích hoạt</span>
+                                                            </c:if>
+                                                            <c:if test="${allCate.categoryStatus == 0}">
+                                                                <span class="badge badge-danger">Không kích hoạt</span>
+                                                            </c:if>
+                                                        </td>
+                                                        <td>
+                                                            <c:if test="${allCate.categoryStatus == 1}">
+                                                                <a href="${pageContext.request.contextPath}/admin/category/disable.html?categoryId=${c.categoryId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
+                                                            </c:if>
+                                                            <c:if test="${allCate.categoryStatus == 0}">
+                                                                <a href="${pageContext.request.contextPath}/admin/category/enable.html?categoryId=${c.categoryId}" class="btn btn-sm btn-success"><i class="fas fa-lock-open"></i> Kích hoạt</a>
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>  
+                                                </c:forEach>
+                                            </c:if>
                                         </tbody>
                                     </table>
                                     <nav aria-label='Page navigation example'>

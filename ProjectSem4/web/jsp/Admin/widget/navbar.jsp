@@ -29,7 +29,7 @@
                                             <a class="nav-link" href="/Admin/BackendBrand"><i class="fas fa-fw fa-building"></i> Hãng sản xuất</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendCategory"><i class="fas fa-fw fa-list"></i> Danh mục sản phẩm</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/category.htm"><i class="fas fa-fw fa-list"></i> Danh mục sản phẩm</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendProduct"><i class="fas fa-fw fa-lightbulb"></i> Sản phẩm</a>
