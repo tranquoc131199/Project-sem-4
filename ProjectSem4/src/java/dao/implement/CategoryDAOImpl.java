@@ -51,19 +51,18 @@ public class CategoryDAOImpl implements CategoryDAO {
     public Boolean insertCategory(Categories category) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        Boolean result = false;
         try {
             session.save(category);
             session.getTransaction().commit();
-            session.close();
-            return true;
+            result = true;
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return false;
-
+        return result;
     }
 
     @Override
@@ -78,10 +77,53 @@ public class CategoryDAOImpl implements CategoryDAO {
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
-        }finally{
+        } finally {
             session.close();
         }
-        return max;    
+        return max;
+    }
+
+    @Override
+    public Boolean checkCategoryNameExists(String categoryName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        try {
+            Query query = session.createQuery("from Categories where categoryName = :categoryName");
+            query.setParameter("categoryName", categoryName);
+            Categories categories = (Categories) query.uniqueResult();
+            session.getTransaction().commit();
+            if (categories != null) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
+    public Categories getCategoryById(Integer categoryId) {
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        Categories categories = new Categories();
+        try {
+            Query query = session.createQuery("from Categories where categoryId = :categoryId");
+            query.setParameter("categoryId", categoryId);
+            categories = (Categories) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return categories;
     }
 
 }

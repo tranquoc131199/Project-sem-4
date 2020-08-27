@@ -5,6 +5,9 @@
  */
 package common;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Acer Nitro 5
@@ -35,6 +38,41 @@ public class validate {
         }
 
         return check;
+    }
+
+    // Kiểm tra có phải là email hay không ?
+    public static boolean isMail(String email) {
+        boolean check = false;
+
+        if (email != null) {
+            String emailPattern = "^[a-zA-Z][a-zA-Z0-9_\\.]{2,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$";
+            Pattern p = Pattern.compile(emailPattern);
+            Matcher m = p.matcher(email);
+            check = m.matches();
+        }
+
+        return check;
+    }
+
+    // Kiểm tra có phải là số điện thoại
+    public static boolean isPhoneNumber(String phone) {
+        boolean check = false;
+
+        if (phone != null) {
+            String emailPattern = "^[0][1-9][0-9]{8}$";
+            Pattern p = Pattern.compile(emailPattern);
+            Matcher m = p.matcher(phone);
+            check = m.matches();
+        }
+
+        return check;
+    }
+
+    //convert String sang int
+    public static int convertStringToInt(String data, int defaultValue) {
+        defaultValue = Integer.parseInt(data);
+
+        return defaultValue;
     }
 
 }
