@@ -37,4 +37,19 @@ public interface CategoryDAO {
      */
     public Boolean insertCategory(Categories category);
 
+    /**
+     * kiểm tra tên danh mục đã tồn tại hay chưa
+     *
+     * @param categoryName
+     * @return
+     */
+    public Boolean checkCategoryNameExists(String categoryName);
+    
+        /**
+     * lấy danh mục sản phẩm theo categoryId
+     * @param categoryId
+     * @return 
+     */
+    public Categories getCategoryById(Integer categoryId);
+
 }

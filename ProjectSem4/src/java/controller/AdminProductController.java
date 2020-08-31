@@ -5,14 +5,17 @@
  */
 package controller;
 
+import common.validate;
 import dao.CategoryDAO;
 import entities.Categories;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -48,8 +51,56 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "category/insertCategory")
-    public String insertCategory(Model model) {
-        return null;
+    public String insertCategory(RedirectAttributes attributes, String categoryName, String parentId, String categoryPiority, String categoryStatus) {
+        if (validate.isEmpty(categoryName)) {
+            attributes.addFlashAttribute("error", "Tên danh mục không được để trống");
+            return "redirect:/admin/category/initInsertCategory.htm";
+        }
+        if (!validate.checkMaxLenght(categoryName, 250)) {
+            attributes.addFlashAttribute("error", "Độ dài tên danh mục không được quá 250 kí tự");
+            return "redirect:/admin/category/initInsertCategory.htm";
+        }
+
+        boolean check = categoryDAO.checkCategoryNameExists(categoryName);
+        if (check) {
+            attributes.addFlashAttribute("error", "Tên danh mục đã tồn tại");
+            return "redirect:/admin/category/initInsertCategory.htm";
+        }
+        int parentIdInsert = validate.convertStringToInt(parentId, 0);
+        String parentName;
+        if (parentIdInsert <= 0) {
+            parentName = "Không có";
+        } else {
+            Categories categories = categoryDAO.getCategoryById(parentIdInsert);
+            if (categories == null) {
+                attributes.addFlashAttribute("error", "Danh mục cha không tồn tại!");
+                return "redirect:/admin/category/initInsertCategory.htm";
+            } else {
+                parentName = categories.getCategoryName();
+            }
+        }
+
+        int categoryStatusInsert = validate.convertStringToInt(categoryStatus, 0);
+        int categoryPiorityInsert = validate.convertStringToInt(categoryPiority, 0);
+
+        Categories category = new Categories();
+        category.setCategoryName(categoryName);
+        category.setCategoryPiority(categoryPiorityInsert);
+        category.setCategoryStatus(categoryStatusInsert);
+        category.setParentId(parentIdInsert);
+        category.setParentName(parentName);
+        category.setCreatedDate(new Date());
+        category.setUpdatedDate(new Date());
+
+        check = categoryDAO.insertCategory(category);
+        if (check) {
+            attributes.addFlashAttribute("success", "Thêm mới danh mục sản phẩm thành công");
+            return "redirect:/admin/category.htm";
+
+        } else {
+            attributes.addFlashAttribute("error", "Thêm mới danh mục không thành công!");
+            return "redirect:/admin/category/initInsertCategory.htm";
+        }
     }
 
 }
