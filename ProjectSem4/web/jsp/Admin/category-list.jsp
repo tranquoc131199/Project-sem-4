@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Trang quản trị QTCStore</h2>
+                        <h2 class="pageheader-title">Trang quản trị QTB-Store</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -63,11 +63,12 @@
                                                             </c:if>
                                                         </td>
                                                         <td>
+                                                             <a href="${pageContext.request.contextPath}/admin/category/preUpdate.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
                                                             <c:if test="${allCate.categoryStatus == 1}">
-                                                                <a href="${pageContext.request.contextPath}/admin/category/disable.html?categoryId=${c.categoryId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
+                                                                <a href="${pageContext.request.contextPath}/admin/category/disable.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
                                                             </c:if>
                                                             <c:if test="${allCate.categoryStatus == 0}">
-                                                                <a href="${pageContext.request.contextPath}/admin/category/enable.html?categoryId=${c.categoryId}" class="btn btn-sm btn-success"><i class="fas fa-lock-open"></i> Kích hoạt</a>
+                                                                <a href="${pageContext.request.contextPath}/admin/category/enable.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-success"><i class="fas fa-lock-open"></i> Kích hoạt</a>
                                                             </c:if>
                                                         </td>
                                                     </tr>  

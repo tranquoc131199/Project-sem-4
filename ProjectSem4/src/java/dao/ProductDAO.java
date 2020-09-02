@@ -5,10 +5,21 @@
  */
 package dao;
 
+import entities.Products;
+import java.util.List;
+
 /**
  *
  * @author Acer Nitro 5
  */
-public class ProductDAO {
-    
+public interface ProductDAO {
+
+    /**
+     * hiển thị tất cả danh mục sản phẩm
+     *
+     * @param product
+     * @return
+     */
+    public List<Products> getAllProducts();
+
 }
