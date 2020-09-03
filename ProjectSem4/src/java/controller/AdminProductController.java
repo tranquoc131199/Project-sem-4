@@ -103,4 +103,47 @@ public class AdminProductController {
         }
     }
 
+    @RequestMapping(value = "category/disable")
+    public String disableCategory(RedirectAttributes attributes, Integer categoryId) {
+
+        boolean check = categoryDAO.disableCategory(categoryId);
+        if (check) {
+            attributes.addFlashAttribute("success", "Cập nhật danh mục sản phẩm thành công");
+            attributes.addFlashAttribute("categoryId", categoryId);
+            return "redirect:/admin/category.htm";
+        } else {
+            attributes.addFlashAttribute("error", "Cập nhật danh mục sản phẩm không thành công!");
+            attributes.addFlashAttribute("categoryId", categoryId);
+            return "redirect:/admin/category.htm";
+        }
+    }
+
+    @RequestMapping(value = "category/enable")
+    public String enableCategory(RedirectAttributes attributes, Integer categoryId) {
+
+        boolean check = categoryDAO.enableCategory(categoryId);
+        if (check) {
+            attributes.addFlashAttribute("success", "Cập nhật danh mục sản phẩm thành công");
+            attributes.addFlashAttribute("categoryId", categoryId);
+            return "redirect:/admin/category.htm";
+        } else {
+            attributes.addFlashAttribute("error", "Cập nhật danh mục sản phẩm không thành công!");
+            attributes.addFlashAttribute("categoryId", categoryId);
+            return "redirect:/admin/category.htm";
+        }
+    }
+
+//    @RequestMapping(value = "category/preUpdate")
+//    public String preUpdateCategory(RedirectAttributes attributes, Model model, Integer categoryId) {
+//               
+//        return null;
+//
+//    }
+//
+//    @RequestMapping(value = "category/preUpdate")
+//    public String updateCategory(RedirectAttributes attributes, Integer categoryId) {
+//        return null;
+//
+//    }
+
 }

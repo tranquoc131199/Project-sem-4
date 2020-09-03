@@ -5,10 +5,48 @@
  */
 package dao.implement;
 
+import dao.ProductDAO;
+import entities.Products;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Acer Nitro 5
  */
-public class ProductDAOImpl {
-    
+public class ProductDAOImpl implements ProductDAO {
+
+    @Autowired
+
+    private SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public List<Products> getAllProducts() {
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+
+        try {
+            List listProduct = session.createQuery("from Products").list();
+            session.getTransaction().commit();         
+            return listProduct;
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
 }

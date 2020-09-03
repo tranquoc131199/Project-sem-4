@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
             <footer class="footer">
                 <div class="container-fluid">
@@ -29,5 +30,22 @@
     <script src="${pageContext.request.contextPath}/jsp/Admin/assets/vendor/datepicker/tempusdominus-bootstrap-4.js"></script>
     <script src="${pageContext.request.contextPath}/jsp/Admin/assets/vendor/datepicker/datepicker.js"></script>
     <script src="${pageContext.request.contextPath}/jsp/Admin/assets/libs/js/main-js.js"></script>
+    
+    <c:if test="${not empty error}">
+        <script>
+            Swal.fire({
+                type: 'error',
+                title: '${error}'
+            });
+        </script>
+    </c:if>
+    <c:if test="${not empty success}">
+        <script>
+            Swal.fire({
+                type: 'success',
+                title: '${success}'
+            });
+        </script>
+    </c:if>
 </body>
 </html>
