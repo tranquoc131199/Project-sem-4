@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entities.ProductImages;
 import entities.Products;
 import java.util.List;
 
@@ -15,11 +16,35 @@ import java.util.List;
 public interface ProductDAO {
 
     /**
-     * hiển thị tất cả danh mục sản phẩm
+     * hiển thị tất cả sản phẩm
      *
      * @param product
      * @return
      */
     public List<Products> getAllProducts();
+
+    /**
+     * Thêm mới sản phẩm, 
+     *
+     * @param product
+     * @return
+     */
+    public Boolean insertProduct(Products product);
+    
+    /**
+     * Thêm mới hình ảnh sản phẩm 
+     *
+     * @param ProductImages
+     * @return
+     */
+    public Boolean insertProductImage(ProductImages productImage);
+    
+//    /**
+//     * Thêm mới 
+//     *
+//     * @param ProductImages
+//     * @return
+//     */
+//    public Boolean insertProductImage(ProductImages productImage);
 
 }

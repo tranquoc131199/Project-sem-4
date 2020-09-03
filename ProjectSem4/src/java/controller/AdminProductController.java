@@ -7,7 +7,9 @@ package controller;
 
 import common.validate;
 import dao.CategoryDAO;
+import dao.ProductDAO;
 import entities.Categories;
+import entities.Products;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,16 @@ public class AdminProductController {
 
     private CategoryDAO categoryDAO;
 
+    private ProductDAO productDAO;
+
     @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;
+    }
+
+    @Autowired
+    public void setProductDAO(ProductDAO productDAO) {
+        this.productDAO = productDAO;
     }
 
     @RequestMapping(value = "category", method = RequestMethod.GET)
@@ -145,5 +154,10 @@ public class AdminProductController {
 //        return null;
 //
 //    }
-
+    @RequestMapping(value = "product", method = RequestMethod.GET)
+    public String loadproduct(Model model) {
+        List<Products> allProduct = productDAO.getAllProducts();
+        model.addAttribute("allProduct", allProduct);
+        return "Admin/product-list";
+    }
 }

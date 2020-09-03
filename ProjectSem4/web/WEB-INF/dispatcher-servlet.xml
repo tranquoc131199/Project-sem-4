@@ -69,6 +69,10 @@
     <bean id="categoryDAO" class="dao.implement.CategoryDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
+    <bean id="productDAO" class="dao.implement.ProductDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
    
 </beans>
