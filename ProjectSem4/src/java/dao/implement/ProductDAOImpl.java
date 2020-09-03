@@ -6,6 +6,7 @@
 package dao.implement;
 
 import dao.ProductDAO;
+import entities.ProductImages;
 import entities.Products;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,16 @@ public class ProductDAOImpl implements ProductDAO {
             session.close();
         }
         return null;
+    }
+
+    @Override
+    public Boolean insertProduct(Products product) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean insertProductImage(ProductImages productImage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

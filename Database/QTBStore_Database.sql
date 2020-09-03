@@ -70,29 +70,20 @@ create table Products (
 	ProductName nvarchar(250) not null unique, -- tên sản phẩm
 	ProductCode varchar(50) not null, -- mã hiệu sản phẩm
 	ProductStarAvg float not null default 5, -- số sao trung bình của sản phẩm (sao được đánh giá) - mặc định là 5 sao, cộng trung bình với các đánh giá khác để ra cái này
-	ProductFeatureImage varchar(250) not null, -- hình ảnh sản phẩm
+	ProductFeatureImage ntext not null, -- hình ảnh sản phẩm
+	ProductImages ntext not null , -- list hình ảnh sản phẩm. 
 	ProductPrice float not null default 0, -- giá sản phẩm
 	ProductSale int not null default 0, -- phần trăm hạ giá
 	ProductWarranty int not null default 0, -- thời gian bảo hành (tính theo tháng)
 	ProductSaleQuantity int not null default 0, -- số sản phẩm đã bán
 	ProductDescription ntext not null default N'Đang cập nhật', -- mô tả sản phẩm
-	SpecificationValue nvarchar(1000) not null, -- giá trị thông số kỹ thuật
+	SpecificationName  nvarchar(1000) not null;    -- tên thông số kĩ thuật
+	SpecificationValue ntext not null, -- giá trị thông số kỹ thuật
 	CategoryId int not null foreign key references Categories(CategoryId), -- khoá ngoại mã danh mục
 	BrandId int not null foreign key references Brands(BrandId), -- khoá ngoại mã hãng sản xuất
 	CreatedDate datetime not null default getdate(), -- ngày tạo bản ghi
 	UpdatedDate datetime not null default getdate(), -- ngày cập nhật bản ghi
 	ProductStatus int not null default 1 -- trạng thái
-)
-go
-
--- bảng hình ảnh sản phẩm
-create table ProductImages (
-	ProductImageId int not null primary key identity, -- khoá chính
-	ProductId int not null foreign key references Products(ProductId), -- khoá ngoại mã sản phẩm
-	ProductImage varchar(250) not null unique, -- hình ảnh sản phẩm
-	CreatedDate datetime not null default getdate(), -- ngày tạo bản ghi
-	UpdatedDate datetime not null default getdate(), -- ngày cập nhật bản ghi
-	ProductImageStatus int not null default 1 -- trạng thái
 )
 go
 

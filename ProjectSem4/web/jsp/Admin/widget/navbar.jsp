@@ -32,7 +32,7 @@
                                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/category.htm"><i class="fas fa-fw fa-list"></i> Danh mục sản phẩm</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendProduct"><i class="fas fa-fw fa-lightbulb"></i> Sản phẩm</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/product.htm"><i class="fas fa-fw fa-lightbulb"></i> Sản phẩm</a>
                                         </li>
                                     </ul>
                                 </div>
