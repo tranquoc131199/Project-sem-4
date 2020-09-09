@@ -31,7 +31,7 @@
             <div class="ecommerce-widget" id="append-products">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
-                        <a href="${pageContext.request.contextPath}/admin/product/initInsertProduct.html" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới sản phẩm</a>
+                        <a href="${pageContext.request.contextPath}/admin/product/initInsertProduct.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới sản phẩm</a>
                         <div class="clearfix"><br></div>
                         <div class="row">
                             <c:if test="${not empty allProduct}">
@@ -93,8 +93,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="${pageContext.request.contextPath}/admin/product/detail.html?productId=${allPro.productId}" class="btn btn-primary">Xem chi tiết</a>
-                                                    <a href="${pageContext.request.contextPath}/admin/product/detail.html?productId=${allPro.productId}" class="btn btn-outline-light">Sửa sản phẩm</a>
+                                                    <a href="${pageContext.request.contextPath}/admin/product/detailProduct.htm?productId=${allPro.productId}" class="btn btn-primary">Xem chi tiết</a>
+                                                    <a href="${pageContext.request.contextPath}/admin/product/initUpdateProduct.htm?productId=${allPro.productId}" class="btn btn-outline-light">Sửa sản phẩm</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,20 +126,27 @@
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Danh mục</h4>
-                                <a href="/Admin/BackendProduct/Index/?brandId=0&categoryId=1&page=1&keyword=">
-                                    <div class="custom-control span-around ">
-                                        <span>Laptop &amp; phụ kiện</span>
-                                    </div>
-                                </a>
-
+                                <c:if test="${not empty category}">
+                                    <c:forEach items="${category}" var="c">
+                                        <a href="${pageContext.request.contextPath}/admin/product.htm?brandId=${brandId}&categoryId=${c.categoryId}">
+                                            <div class="custom-control span-around <c:if test="${c.categoryId == categoryId}">active</c:if>">
+                                                <span>${c.categoryName}</span>
+                                            </div>
+                                        </a>
+                                    </c:forEach>
+                                </c:if>
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Hãng</h4>
-                                <a href="/Admin/BackendProduct/Index/?brandId=2&categoryId=0&page=1&keyword=">
-                                    <div class="custom-control span-around ">
-                                        <span>Asus</span>
-                                    </div>
-                                </a>
+                                <c:if test="${not empty brand}">
+                                    <c:forEach items="${brand}" var="b">
+                                        <a href="${pageContext.request.contextPath}/admin/product.html?brandId=${b.brandId}&categoryId=${categoryId}">
+                                            <div class="custom-control span-around <c:if test="${brandId == b.brandId}">active</c:if>">
+                                                <span>${b.brandName}</span>
+                                            </div>
+                                        </a>
+                                    </c:forEach>
+                                </c:if>
 
                             </div>
                             <div class="product-sidebar-widget">

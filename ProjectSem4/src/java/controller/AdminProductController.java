@@ -8,10 +8,15 @@ package controller;
 import common.validate;
 import dao.CategoryDAO;
 import dao.ProductDAO;
+import entities.Admins;
+import entities.Brands;
 import entities.Categories;
+import entities.ProductImages;
 import entities.Products;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -155,9 +160,294 @@ public class AdminProductController {
 //
 //    }
     @RequestMapping(value = "product", method = RequestMethod.GET)
-    public String loadproduct(Model model) {
+    public String loadproduct(RedirectAttributes attributes, Model model, String brandId, String categoryId) {
         List<Products> allProduct = productDAO.getAllProducts();
+        List<Categories> category = categoryDAO.getAllCategory();
+        List<Brands> brand = productDAO.getAllBrands();
+        model.addAttribute("brand", brand);
+        model.addAttribute("category", category);
         model.addAttribute("allProduct", allProduct);
         return "Admin/product-list";
     }
+
+    @RequestMapping(value = "product/initInsertProduct")
+    public String initInsertProduct(RedirectAttributes attributes, Model model) {
+        List<Categories> listCategory = categoryDAO.getAllCategory();
+        List<Brands> listBrand = productDAO.getAllBrands();
+        if (listCategory.size() <= 0) {
+            attributes.addFlashAttribute("error", "Chưa có danh mục sản phẩm nào, vui lòng thêm mới trước !");
+            return "redirect:/admin/initInsertProduct.htm";
+        } else {
+            model.addAttribute("listCategory", listCategory);
+        }
+        if (listBrand.size() <= 0) {
+            attributes.addFlashAttribute("error", "Chưa có hãng sản phẩm nào, vui lòng thêm mới trước !");
+            return "redirect:/admin/initInsertProduct.htm";
+        } else {
+            model.addAttribute("listBrand", listBrand);
+        }
+        return "Admin/product-insert";
+    }
+
+    @RequestMapping(value = "product/insertProduct", method = RequestMethod.POST)
+    public String insertProduct(String productFeatureImage, HttpServletRequest request,
+            RedirectAttributes attributes, String productName,
+            String productCode, String productSale, String productWarranty, String categoryId, String brandId, String productPrice, String productDescription, String productStatus, String specificationName, String specificationValue
+    ) {
+
+        if (validate.isEmpty(productName)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm không được để trống !");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productCode)) {
+            attributes.addFlashAttribute("error", "Mã sản phẩm không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (!validate.checkMaxLenght(productName, 250)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm không được quá 250 ký tự!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (productDAO.checkProductNameExists(productName)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm đã tồn tại!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productCode)) {
+            attributes.addFlashAttribute("error", "Mã sản phẩm không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productPrice)) {
+            attributes.addFlashAttribute("error", "Giá sản phẩm không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productSale)) {
+            attributes.addFlashAttribute("error", "Mức giảm giá phẩm không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productWarranty)) {
+            attributes.addFlashAttribute("error", "Tháng bảo hành không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+
+        if (validate.isEmpty(productFeatureImage)) {
+            attributes.addFlashAttribute("error", "Ảnh đại diện không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+        if (validate.isEmpty(productDescription)) {
+            attributes.addFlashAttribute("error", "Mô tả sản phẩm không được để trống!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+
+        Categories category = categoryDAO.getCategoryById(validate.convertStringToInt(categoryId, 0));
+        Brands brand = productDAO.getBrandById(validate.convertStringToInt(brandId, 0));
+
+        Products product = new Products();
+        product.setProductName(productName);
+        product.setProductCode(productCode);
+        product.setProductPrice(validate.convertStringToDouble(productPrice, 0));
+        product.setProductSale(validate.convertStringToInt(productSale, 0));
+        product.setCategoryId(category);
+        product.setBrandId(brand);
+        product.setProductFeatureImage(productFeatureImage);
+        product.setProductWarranty(validate.convertStringToInt(productWarranty, 0));
+        product.setProductSaleQuantity(0);
+        product.setProductStarAvg(5);
+        product.setProductDescription(productDescription);
+        product.setSpecificationName(specificationName);
+        product.setSpecificationValue(specificationValue);
+        product.setCreatedDate(new Date());
+        product.setUpdatedDate(new Date());
+        product.setProductStatus(validate.convertStringToInt(productStatus, 0));
+        boolean check = productDAO.insertProduct(product);
+        if (check) {
+            attributes.addFlashAttribute("success", "Thêm mới sản phẩm thành công!");
+
+            return "redirect:/admin/product.htm";
+        } else {
+            attributes.addFlashAttribute("error", "Thêm mới sản phẩm không thành công!");
+            return "redirect:/admin/product/initInsertProduct.htm";
+        }
+    }
+
+    @RequestMapping(value = "product/initUpdateProduct")
+    public String initUpdateProduct(RedirectAttributes attributes, Model model, Integer productId) {
+        List<Categories> listCategory = categoryDAO.getAllCategory();
+        List<Brands> listBrand = productDAO.getAllBrands();
+
+        Products product = productDAO.getProductById(productId);
+
+        if (listCategory.size() <= 0) {
+            attributes.addFlashAttribute("error", "Chưa có danh mục sản phẩm nào, vui lòng thêm mới trước !");
+            return "redirect:/admin/initUpdateProduct.htm";
+        } else {
+            model.addAttribute("listCategory", listCategory);
+        }
+        if (listBrand.size() <= 0) {
+            attributes.addFlashAttribute("error", "Chưa có hãng sản phẩm nào, vui lòng thêm mới trước !");
+            return "redirect:/admin/initUpdateProduct.htm";
+        } else {
+            model.addAttribute("listBrand", listBrand);
+        }
+
+        model.addAttribute("product", product);
+        model.addAttribute("title", "Cập nhật sản phẩm");
+        return "Admin/product-update";
+
+    }
+
+    @RequestMapping(value = "product/updateProduct", method = RequestMethod.POST)
+    public String updateProduct(RedirectAttributes attributes, String productFeatureImage, Integer productId, String productName,
+            String productCode, String productSale, String productWarranty, String categoryId, String brandId, String productPrice, String productDescription, String productStatus, String specificationName, String specificationValue) {
+        if (validate.isEmpty(productName)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm không được để trống !");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (validate.isEmpty(productCode)) {
+            attributes.addFlashAttribute("error", "Mã sản phẩm không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (!validate.checkMaxLenght(productName, 250)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm không được quá 250 ký tự!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (productDAO.checkProductNameExists(productName)) {
+            attributes.addFlashAttribute("error", "Tên sản phẩm đã tồn tại!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (validate.isEmpty(productCode)) {
+            attributes.addFlashAttribute("error", "Mã sản phẩm không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (validate.isEmpty(productPrice)) {
+            attributes.addFlashAttribute("error", "Giá sản phẩm không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (validate.isEmpty(productSale)) {
+            attributes.addFlashAttribute("error", "Mức giảm giá phẩm không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        if (validate.isEmpty(productWarranty)) {
+            attributes.addFlashAttribute("error", "Tháng bảo hành không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+
+        if (validate.isEmpty(productDescription)) {
+            attributes.addFlashAttribute("error", "Mô tả sản phẩm không được để trống!");
+            return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+        }
+        Categories category = categoryDAO.getCategoryById(validate.convertStringToInt(categoryId, 0));
+        Brands brand = productDAO.getBrandById(validate.convertStringToInt(brandId, 0));
+
+        Products product = productDAO.getProductById(productId);
+        if (!productFeatureImage.equals("")) {
+            product.setProductName(productName);
+            product.setProductCode(productCode);
+            product.setProductPrice(validate.convertStringToDouble(productPrice, 0));
+            product.setProductSale(validate.convertStringToInt(productSale, 0));
+            product.setCategoryId(category);
+            product.setBrandId(brand);
+            product.setProductFeatureImage(productFeatureImage);
+            product.setProductWarranty(validate.convertStringToInt(productWarranty, 0));
+            product.setProductDescription(productDescription);
+            product.setSpecificationName(specificationName);
+
+            product.setSpecificationValue(specificationValue);
+            product.setUpdatedDate(new Date());
+            product.setProductStatus(validate.convertStringToInt(productStatus, 0));
+            boolean check = productDAO.updateProduct(product);
+            if (!check) {
+                attributes.addFlashAttribute("error", "Cập nhật sản phẩm thất bại!");
+                return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+            }
+        } else {
+            product.setProductName(productName);
+            product.setProductCode(productCode);
+            product.setProductPrice(validate.convertStringToDouble(productPrice, 0));
+            product.setProductSale(validate.convertStringToInt(productSale, 0));
+            product.setCategoryId(category);
+            product.setBrandId(brand);
+            product.setProductWarranty(validate.convertStringToInt(productWarranty, 0));
+            product.setProductDescription(productDescription);
+            product.setSpecificationName(specificationName);
+
+            product.setSpecificationValue(specificationValue);
+            product.setUpdatedDate(new Date());
+            product.setProductStatus(validate.convertStringToInt(productStatus, 0));
+            boolean check = productDAO.updateProduct(product);
+            if (!check) {
+                attributes.addFlashAttribute("error", "Cập nhật sản phẩm thất bại!");
+                return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
+            }
+        }
+
+        attributes.addFlashAttribute("success", "Cập nhật sản phẩm thành công!");
+        return "redirect:/admin/product.htm";
+
+    }
+
+    @RequestMapping(value = "product/detailProduct")
+    public String detailProduct(RedirectAttributes attributes, Model model, Integer productId) {
+        List<ProductImages> listImage = productDAO.getAllImagesByProductId(productId);
+
+        Products product = productDAO.getProductById(productId);
+        if (listImage.size() > 0) {
+            model.addAttribute("listImage", listImage);
+        }
+        model.addAttribute("product", product);
+        model.addAttribute("title", "Chi tiết sản phẩm");
+        return "Admin/product-detail";
+    }
+
+    @RequestMapping(value = "product/insertProductImage", method = RequestMethod.POST)
+    public String insertProductImage(RedirectAttributes attributes, Integer productId, String productImage) {
+        Products product = productDAO.getProductById(productId);
+
+        if ("".equals(productImage)) {
+            attributes.addFlashAttribute("error", "Vui lòng chọn ảnh!");
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        }
+        try {
+            ProductImages img = new ProductImages();
+            img.setProductImage(productImage);
+            img.setProductId(product);
+            img.setProductImageStatus(1);
+            img.setCreatedDate(new Date());
+            img.setUpdatedDate(new Date());
+            boolean check = productDAO.insertProductImage(img);
+            if (!check) {
+                attributes.addFlashAttribute("error", "Thêm hình ảnh không thành công?");
+                return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+            }
+
+        } catch (Exception e) {
+            attributes.addFlashAttribute("error", "Tải file thất bại! \n" + e.getMessage());
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        }
+        attributes.addFlashAttribute("success", "Thêm mới hình ảnh sản phẩm thành công!");
+        return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+    }
+
+    @RequestMapping(value = "product/disable")
+    public String disableProduct(RedirectAttributes attributes, Integer productId) {
+        boolean check = productDAO.disableProduct(productId);
+        if (check) {
+            attributes.addFlashAttribute("success", "Khóa sản phẩm thành công");
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        } else {
+            attributes.addFlashAttribute("error", "Cập nhật sản phẩm không thành công!");
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        }
+    }
+
+    @RequestMapping(value = "product/enable")
+    public String enableProduct(RedirectAttributes attributes, Integer productId) {
+        boolean check = productDAO.enableProduct(productId);
+        if (check) {
+            attributes.addFlashAttribute("success", "Mở khóa sản phẩm thành công");
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        } else {
+            attributes.addFlashAttribute("error", "Cập nhật sản phẩm không thành công!");
+            return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        }
+    }
+
 }
