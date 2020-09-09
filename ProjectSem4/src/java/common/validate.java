@@ -5,6 +5,7 @@
  */
 package common;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,4 +76,42 @@ public class validate {
         return defaultValue;
     }
 
+    /**
+     * Sinh ra 1 chuỗi sử dụng cho việc đặt tên file ảnh hoặc các trường String
+     * mà có giá trị unique trong hệ thống Cách làm: nối tên của bảng cần đặt
+     * tên với ngày giờ hiện tại kiểu long
+     *
+     * @param tableName
+     * @return
+     */
+    public static String generateNameTypeB(String tableName) {
+        long millis = System.currentTimeMillis();
+        return tableName + String.valueOf(millis);
+    }
+
+    /**
+     * Kiểm tra đuôi mở rộng của file có nằm trong danh sách cho phép hay không
+     *
+     * @param extension
+     * @return
+     */
+    public static Boolean isValidImage(String extension) {
+        String[] valid = {"jpg", "jpeg", "png"};
+
+        return Arrays.asList(valid).contains(extension);
+    }
+
+    // Chuyển đổi dữ liệu từ giá trị String sang kiểu Int
+    public static double convertStringToDouble(String data, double defaultValue) {
+        try {
+            defaultValue = Double.parseDouble(data);
+            return defaultValue;
+        } catch (NumberFormatException ex) {
+
+            ex.getMessage();
+            return defaultValue;
+        }
+    }
+
+   
 }

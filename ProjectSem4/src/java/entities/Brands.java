@@ -37,7 +37,6 @@ public class Brands implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "BrandId")
     private Integer brandId;
     @Basic(optional = false)

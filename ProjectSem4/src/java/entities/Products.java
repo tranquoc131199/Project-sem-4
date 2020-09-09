@@ -6,8 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -56,11 +60,6 @@ public class Products implements Serializable {
     @Size(min = 1, max = 1073741823)
     @Column(name = "ProductFeatureImage")
     private String productFeatureImage;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1073741823)
-    @Column(name = "ProductImages")
-    private String productImages;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ProductPrice")
@@ -112,6 +111,8 @@ public class Products implements Serializable {
     @JoinColumn(name = "CategoryId", referencedColumnName = "CategoryId")
     @ManyToOne(optional = false)
     private Categories categoryId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<ProductImages> productImagesCollection;
 
     public Products() {
     }
@@ -120,13 +121,12 @@ public class Products implements Serializable {
         this.productId = productId;
     }
 
-    public Products(Integer productId, String productName, String productCode, double productStarAvg, String productFeatureImage, String productImages, double productPrice, int productSale, int productWarranty, int productSaleQuantity, String productDescription, String specificationName, String specificationValue, Date createdDate, Date updatedDate, int productStatus) {
+    public Products(Integer productId, String productName, String productCode, double productStarAvg, String productFeatureImage, double productPrice, int productSale, int productWarranty, int productSaleQuantity, String productDescription, String specificationName, String specificationValue, Date createdDate, Date updatedDate, int productStatus) {
         this.productId = productId;
         this.productName = productName;
         this.productCode = productCode;
         this.productStarAvg = productStarAvg;
         this.productFeatureImage = productFeatureImage;
-        this.productImages = productImages;
         this.productPrice = productPrice;
         this.productSale = productSale;
         this.productWarranty = productWarranty;
@@ -177,14 +177,6 @@ public class Products implements Serializable {
 
     public void setProductFeatureImage(String productFeatureImage) {
         this.productFeatureImage = productFeatureImage;
-    }
-
-    public String getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(String productImages) {
-        this.productImages = productImages;
     }
 
     public double getProductPrice() {
@@ -283,6 +275,15 @@ public class Products implements Serializable {
         this.categoryId = categoryId;
     }
 
+    @XmlTransient
+    public Collection<ProductImages> getProductImagesCollection() {
+        return productImagesCollection;
+    }
+
+    public void setProductImagesCollection(Collection<ProductImages> productImagesCollection) {
+        this.productImagesCollection = productImagesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -307,5 +308,5 @@ public class Products implements Serializable {
     public String toString() {
         return "entities.Products[ productId=" + productId + " ]";
     }
-    
+
 }

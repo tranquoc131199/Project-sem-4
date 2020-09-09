@@ -53,8 +53,8 @@
                 <value>entities.OrderDetails</value>
                 <value>entities.Orders</value>
                 <value>entities.ProductComments</value>
-                <value>entities.ProductImages</value>
                 <value>entities.Products</value>
+                <value>entities.ProductImages</value>
                 <value>entities.Wishlists</value>      
             </list>
         </property>
