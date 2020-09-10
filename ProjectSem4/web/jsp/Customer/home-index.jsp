@@ -3,7 +3,8 @@
     Created on : Aug 17, 2020, 12:12:32 AM
     Author     : Acer Nitro 5
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true"/>
 <jsp:include page="widget/navbar.jsp" flush="true"/>
@@ -90,60 +91,82 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single product-hot">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
+            <c:if test="${not empty bestSaleProduct}">
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="product product-single product-hot">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                <c:if test="${bestSaleProduct.isNewProduct}">
+                                    <span class='text-center'>Mới</span>
+                                </c:if>
+                                <c:if test="${bestSaleProduct.product.productSale > 0}">
+                                    <span class="sale">-${bestSaleProduct.product.productSale}%</span>
+                                </c:if>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSaleProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${bestSaleProduct.product.productFeatureImage}" alt="${bestSaleProduct.product.productName}">
                         </div>
-                        <a href="/Product/Detail?ProductId=11" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Corsair/RAM/Corsair16GbDDR43000/ram_dominator_platinum_1.png" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">1,350,000 <del class="product-old-price">1,350,000</del></h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=11" title="(16G DDR4 2x8G 3000 ) Corsair Dominator Platinum RGB">
-                                (16G DDR4 2x8G 3000 ) Corsair Dominator Platinum R...                                </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                        <div class="product-body">
+                            <h3 class="product-price">${bestSaleProduct.priceString}</h3>
+                            <div class="product-rating">
+                                ${bestSaleProduct.productStarString}
+                            </div>
+                            <h2 class="product-name">
+                                <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSaleProduct.product.productId}" title="${bestSaleProduct.product.productName}">
+                                    <c:if test="${fn:length(bestSaleProduct.product.productName) > 50}">
+                                        ${fn:substring(bestSaleProduct.product.productName, 0, 50)}...
+                                    </c:if>
+                                    <c:if test="${fn:length(bestSaleProduct.product.productName) <= 50}">
+                                        ${bestSaleProduct.product.productName}
+                                    </c:if>
+                                </a>                                </a>
+                            </h2>
+                            <div class="product-btns">
+                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </c:if>
 
             <div class="col-md-9 col-sm-6 col-xs-6">
                 <div class="row">
                     <div id="product-slick-1" class="product-slick">
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
+                        <c:forEach items="${best12SaleProducts}" var="p">
+                            <div class="product product-single">
+                                <div class="product-thumb">
+                                    <div class="product-label">
+                                        <c:if test="${p.isNewProduct}">
+                                            <span class='text-center'>Mới</span>
+                                        </c:if>
+                                        <c:if test="${p.product.productSale > 0}">
+                                            <span class="sale">-${p.product.productSale}%</span>
+                                        </c:if>
+                                    </div>
+                                    <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                                    <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}">
                                 </div>
-                                <a href="/Product/Detail?ProductId=10" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Corsair/RAM/Corsair8GbDDR42666/ddr4_veng_lpx_blk_02_gearvn_1.png" alt="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">1,350,000 <del class="product-old-price">1,350,000</del></h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
+                                <div class="product-body">
+                                    <h3 class="product-price">
+                                        ${p.priceString}
+                                    </h3>
+                                    <div class="product-rating">
+                                        ${p.productStarString}
+                                    </div>
+                                    <h2 class="product-name">
+                                        <a href="/Product/Detail?ProductId=10" title="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX">
+                                            (8G DDR4 1x8G 2666 ) Corsair Vengeance LPX                                            </a>
+                                    </h2>
+                                    <div class="product-btns">
+                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-heart  "></i></a>
+                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-exchange"></i></a>
+                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="10"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                    </div>
                                 </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=10" title="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX">
-                                        (8G DDR4 1x8G 2666 ) Corsair Vengeance LPX                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="10"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>                        
+                            </div>  
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -151,281 +174,100 @@
     </div>
 </section>
 
-<section class="section section-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="section-title">
-                    <h2 class="title">Sản phẩm bán chạy</h2>
-                    <div class="pull-right">
-                        <div class="product-slick-dots-2 custom-dots">
+<c:if test="${not empty best12SellProducts}">
+    <section class="section section-grey">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h2 class="title">Sản phẩm bán chạy</h2>
+                        <div class="pull-right">
+                            <div class="product-slick-dots-2 custom-dots">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single product-hot">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
-                            <span class="sale">Bán chạy nhất</span>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="product product-single product-hot">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                <c:if test="${bestSellProduct.isNewProduct}">
+                                    <span class='text-center'>Mới</span>
+                                </c:if>
+                                <c:if test="${bestSellProduct.product.productSale > 0}">
+                                    <span class="sale">-${bestSellProduct.product.productSale}%</span>
+                                </c:if>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSellProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${bestSellProduct.product.productFeatureImage}" alt="${bestSellProduct.product.productName}">
                         </div>
-                        <a href="/Product/Detail?ProductId=11" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Corsair/RAM/Corsair16GbDDR43000/ram_dominator_platinum_1.png" class="img-responsive" alt="(16G DDR4 2x8G 3000 ) Corsair Dominator Platinum RGB">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">4,290,000</h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=11" title="(16G DDR4 2x8G 3000 ) Corsair Dominator Platinum RGB">
-                                (16G DDR4 2x8G 3000 ) Corsair Dominator Platinum R...                                </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                        <div class="product-body">
+                            <h3 class="product-price">
+                                ${bestSellProduct.priceString}
+                            </h3>
+                            <div class="product-rating">
+                                ${bestSellProduct.productStarString}
+                            </div>
+                            <h2 class="product-name">
+                                <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSellProduct.product.productId}" title="${bestSellProduct.product.productName}">
+                                    <c:if test="${fn:length(bestSellProduct.product.productName) > 50}">
+                                        ${fn:substring(bestSellProduct.product.productName, 0, 50)}...
+                                    </c:if>
+                                    <c:if test="${fn:length(bestSellProduct.product.productName) <= 50}">
+                                        ${bestSellProduct.product.productName}
+                                    </c:if>
+                                </a>
+                            </h2>
+                            <div class="product-btns">
+                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-9 col-sm-6 col-xs-6">
-                <div class="row">
-                    <div id="product-slick-2" class="product-slick">
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
+                <div class="col-md-9 col-sm-6 col-xs-6">
+                    <div class="row">
+                        <div id="product-slick-2" class="product-slick">
+                            <c:forEach items="${best12SellProducts}" var="p">
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        <div class="product-label">
+                                            <c:if test="${p.isNewProduct}">
+                                                <span class='text-center'>Mới</span>
+                                            </c:if>
+                                            <c:if test="${p.product.productSale > 0}">
+                                                <span class="sale">-${p.product.productSale}%</span>
+                                            </c:if>
+                                        </div>
+                                        <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
+                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}" />
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-price">
+                                            ${p.priceString}
+                                        </h3>
+                                        <div class="product-rating">
+                                            ${p.productStarString}
+                                        </div>
+                                        <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a></h2>
+                                        <div class="product-btns">
+                                            <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-heart <c:if test="${p.isWishlist}">active</c:if>"></i></a>
+                                            <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-exchange"></i></a>
+                                            <a href="" class="primary-btn add-to-cart pull-right" data-id="${p.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="/Product/Detail?ProductId=10" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Corsair/RAM/Corsair8GbDDR42666/ddr4_veng_lpx_blk_02_gearvn_1.png" alt="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    1,350,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=10" title="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX">
-                                        (8G DDR4 1x8G 2666 ) Corsair Vengeance LPX                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="10"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=9" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Intel/SSD/Optane32GB/optan1.jpg" alt="Intel Optane Memory 32GB - M.2 NVMe Read 1350MB/s Write 290MB/s" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    990,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=9" title="Intel Optane Memory 32GB - M.2 NVMe Read 1350MB/s Write 290MB/s">
-                                        Intel Optane Memory 32GB - M.2 NVMe Read 1350MB/s ...                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="9"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="9"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="9"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=8" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Samsung/SSD/860Evo250g/860-evo-250gb_gearvn_00.jpg" alt="Samsung SSD 860 Evo 250GB 2.5&quot; Sata 3 550/520 MB/s ( MZ-76E250BW )" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    1,850,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=8" title="Samsung SSD 860 Evo 250GB 2.5&quot; Sata 3 550/520 MB/s ( MZ-76E250BW )">
-                                        Samsung SSD 860 Evo 250GB 2.5" Sata 3 550/520 MB/s...                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="8"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="8"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="8"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=7" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Samsung/SSD/970evo250g/970_evo_250gb_1.jpg" alt="Samsung SSD 970 Evo 250G M.2 NVMe ( MZ-V7E250BW )" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    2,650,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=7" title="Samsung SSD 970 Evo 250G M.2 NVMe ( MZ-V7E250BW )">
-                                        Samsung SSD 970 Evo 250G M.2 NVMe ( MZ-V7E250BW )                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="7"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="7"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="7"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=6" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Intel/CPU/i7%208700/intel_core_i7_8700.jpg" alt="Intel Core i7 8700 / 12M / 3.2GHz / 6 nh&#226;n 12 luồng" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    8,350,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=6" title="Intel Core i7 8700 / 12M / 3.2GHz / 6 nh&#226;n 12 luồng">
-                                        Intel Core i7 8700 / 12M / 3.2GHz / 6 nhân 12 luồn...                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="6"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="6"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="6"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=5" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Asus/mainboard/ASUS%20Z390%20ROG%20MAXIMUS%20XI%20HERO%20LGA1151v2/ASUS%20Z390%20ROG%2001.png" alt="ASUS Z390 ROG MAXIMUS XI HERO LGA1151v2" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    7,990,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=5" title="ASUS Z390 ROG MAXIMUS XI HERO LGA1151v2">
-                                        ASUS Z390 ROG MAXIMUS XI HERO LGA1151v2                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="5"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="5"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="5"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=4" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Gigabyte/Mainboard/B360M/b360m_aorus_pro_gearvn.jpg" alt="GIGABYTE B360M AORUS PRO LGA1151" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    2,050,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=4" title="GIGABYTE B360M AORUS PRO LGA1151">
-                                        GIGABYTE B360M AORUS PRO LGA1151                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="4"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="4"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="4"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-
-                                </div>
-                                <a href="/Product/Detail?ProductId=3" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Gigabyte/Mainboard/B360M/b360m_aorus_pro_gearvn.jpg" alt="GIGABYTE B360M AORUS PRO LGA1151v2" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    2,050,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=3" title="GIGABYTE B360M AORUS PRO LGA1151v2">
-                                        GIGABYTE B360M AORUS PRO LGA1151v2                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="3"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="3"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="3"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class='text-center'>Mới</span>
-                                </div>
-                                <a href="/Product/Detail?ProductId=2" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Intel/CPU/i5%208400/untitled-1_6e92f263a5c1446f98f837bf820cdb12.jpg" alt="Intel Core i5 8400 / 9M / 2.8GHz / 6 nh&#226;n 6 luồng" class="img-responsive" />
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">
-                                    5,250,000                                        </h3>
-                                <div class="product-rating">
-                                    <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                </div>
-                                <h2 class="product-name">
-                                    <a href="/Product/Detail?ProductId=2" title="Intel Core i5 8400 / 9M / 2.8GHz / 6 nh&#226;n 6 luồng">
-                                        Intel Core i5 8400 / 9M / 2.8GHz / 6 nhân 6 luồng                                            </a>
-                                </h2>
-                                <div class="product-btns">
-                                    <a href="" class="main-btn icon-btn" data-id="2"><i class="fa fa-heart  "></i></a>
-                                    <a href="" class="main-btn icon-btn" data-id="2"><i class="fa fa-exchange"></i></a>
-                                    <a href="" class="primary-btn add-to-cart pull-right" data-id="2"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</c:if>
 
 <section class="section">
     <div class="container">

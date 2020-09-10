@@ -103,11 +103,40 @@ public interface ProductDAO {
      * @return
      */
     public List<ProductImages> getAllImagesByProductId(Integer productId);
-    
-   /**
+
+    /**
      * Lấy 1 sản phẩm bán chạy nhất
-     * @return 
+     *
+     * @return
      */
-    public Products getBestSaleProduct(); 
-    
+    public Products getBestSellProduct();
+
+    /**
+     * Lấy danh sách 12 sản phẩm bán nhiều nhất
+     *
+     * @return
+     */
+    public List<Products> getTopTwelveBestSellForProducts();
+
+    /**
+     * Lấy 1 sản phẩm giảm giá nhiều nhất
+     *
+     * @return
+     */
+    public Products getBestSaleProduct();
+
+    /**
+     * Lấy danh sách 12 sản phẩm giảm giá nhiều nhất
+     *
+     * @return
+     */
+    public List<Products> getTopTwelveBestSaleForProducts();
+
+    /**
+     * kiểm tra sản phẩm có phải là sản phẩm mới không
+     *
+     * @return
+     */
+    public Boolean checkNewProduct(Integer productId);
+
 }

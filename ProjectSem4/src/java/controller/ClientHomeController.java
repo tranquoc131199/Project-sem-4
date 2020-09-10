@@ -5,11 +5,15 @@
  */
 package controller;
 
+import common.CompleteProduct;
 import dao.CategoryDAO;
+import dao.CustomerDAO;
 import dao.ProductDAO;
 import entities.Categories;
 import entities.Customers;
 import entities.Products;
+import entities.Wishlists;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,7 @@ public class ClientHomeController {
 
     private ProductDAO productDAO;
     private CategoryDAO categoryDAO;
+    private CustomerDAO customerDAO;
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
@@ -41,16 +46,98 @@ public class ClientHomeController {
     public String homeIndex(HttpSession session, Model model) {
         //set session
         Customers customer = (Customers) session.getAttribute("customerLogin");
+        //hiển thị thanh nvarbar(các category Parntent)
         String navbarHtm = generateNavbar();
         //lây 1 sản phẩm có % giảm giá cao nhất
-        Products bestSaleProduct = productDAO.getBestSaleProduct();
-        
+        Products bestSaleOneProduct = productDAO.getBestSaleProduct();
+        //lây 1 sản phẩm bán chạy nhất
+        Products bestSellOneProduct = productDAO.getBestSellProduct();
+        //lây 12 sản phẩm có % giảm giá cao nhất
+        List<Products> bestSaleTweProduct = productDAO.getTopTwelveBestSaleForProducts();
+        //lây 12 sản phẩm bán chạy nhất
+        List<Products> bestSellTweProduct = productDAO.getTopTwelveBestSellForProducts();
+
+        //gọi hàm sử lý common của product để gọi ra list các sản phẩm.() n 
+        CompleteProduct productSale = null;
+        CompleteProduct productSell = null;
+        List<CompleteProduct> pro12Sale = new ArrayList<>();
+        List<CompleteProduct> pro12Sell = new ArrayList<>();
+
+        //nếu chưa đăng nhập chỉ hiên thị sản phẩm và không hiển thị ra whislist
+        if (customer == null) {
+            if (bestSaleOneProduct != null) {
+                productSale = new CompleteProduct(bestSaleOneProduct, null, null);
+            }
+
+            if (bestSaleOneProduct != null) {
+                productSell = new CompleteProduct(bestSellOneProduct, null, null);
+            }
+            //hiển thị ra 12 sản phâm giảm giá nhiều nhất từ database lên màn hình
+            if (bestSaleTweProduct.size() > 0) {
+                for (Products product : bestSaleTweProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, null, null);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    pro12Sale.add(completeProduct);
+                }
+            }
+            //get 12 product have the highest sellQty
+            if (bestSellTweProduct.size() > 0) {
+                for (Products product : bestSellTweProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, null, null);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    pro12Sell.add(completeProduct);
+                }
+            }
+        } // khi người dugnf đăng nhập thì hiển thị thêm thông tin của wishlists ở ngoài trang chủ
+        else {
+            List<Wishlists> wishlists = customerDAO.getWishlistsByCustomerId(customer.getCustomerId());
+
+            if (bestSaleOneProduct != null) {
+                productSale = new CompleteProduct(bestSaleOneProduct, customer, wishlists);
+            }
+
+            if (bestSaleOneProduct != null) {
+                productSell = new CompleteProduct(bestSellOneProduct, customer, wishlists);
+            }
+            //hiển thị ra 12 sản phâm giảm giá nhiều nhất từ database lên màn hình
+            if (bestSaleTweProduct.size() > 0) {
+                for (Products product : bestSaleTweProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    pro12Sale.add(completeProduct);
+                }
+            }
+            //get 12 product have the highest sellQty
+            if (bestSellTweProduct.size() > 0) {
+                for (Products product : bestSellTweProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    pro12Sell.add(completeProduct);
+                }
+            }
+        }
 
         if (customer != null) {
             model.addAttribute("customer", customer);
         }
         if (navbarHtm.length() > 0) {
             model.addAttribute("navbarHtm", navbarHtm);
+        }
+
+        if (productSale != null) {
+            model.addAttribute("bestSaleProduct", productSale);
+        }
+
+        if (productSell != null) {
+            model.addAttribute("bestSellProduct", productSell);
+        }
+
+        if (pro12Sale.size() > 0) {
+            model.addAttribute("best12SaleProducts", pro12Sale);
+        }
+
+        if (pro12Sell.size() > 0) {
+            model.addAttribute("best12SellProducts", pro12Sell);
         }
 
         model.addAttribute("title", "QTB-Store");
