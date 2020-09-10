@@ -73,6 +73,15 @@
     <bean id="productDAO" class="dao.implement.ProductDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
+    
+    <bean id="customerDAO" class="dao.implement.CustomerDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+     <bean id="ưishlistDAO" class="dao.implement.WishlistDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    
    
 </beans>

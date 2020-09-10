@@ -8,10 +8,10 @@ package dao.implement;
 import dao.CategoryDAO;
 import entities.Categories;
 import entities.Products;
+import entities.Wishlists;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -235,7 +235,6 @@ public class CategoryDAOImpl implements CategoryDAO {
             result = updateCategory(category);
 
             //chỗ này để viết enable ProductByCategory nhưng mà chưa hiểu nên chưa viết nhé
-            
             enableAllCategory(categoryId);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -279,5 +278,104 @@ public class CategoryDAOImpl implements CategoryDAO {
     public Boolean enableAllProducty(Integer categoryId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Categories> getParentCategories() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Categories> categories = new ArrayList<>();
+        try {
+            categories = session.createQuery("from Categories where parentId = 0 and categoryStatus=1 order by categoryPiority desc").list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return categories;
+    }
+
+    @Override
+    public Boolean isParentCategory(Integer categoryId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("from Categories where parentId = :parentId");
+            query.setParameter("parentId", categoryId);
+            List<Categories> categories = query.list();
+            session.getTransaction().commit();
+
+            if (categories.size() > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<Categories> getChildrenCategoriesByParentId(Integer parentId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Categories> categories = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Categories where categoryStatus = 1 and parentId = :parentId order by categoryPiority desc");
+            query.setParameter("parentId", parentId);
+            categories = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return categories;
+    }
+
+    @Override
+    public String generateNavbar() {
+        String htm = "";
+        List<Categories> categories = getParentCategories();
+
+        for (Categories c : categories) {
+            if (isParentCategory(c.getCategoryId())) {
+                htm += "<li class='dropdown side-dropdown'>";
+                htm += "<a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true'>" + c.getCategoryName() + "<i class='fa fa-angle-right'></i></a>";
+                htm += "<div class='custom-menu'>";
+                htm += "<div class='row'>";
+
+                List<Categories> children = getChildrenCategoriesByParentId(c.getCategoryId());
+
+                for (Categories ct : children) {
+                    htm += "<div class='col-md-4'>";
+                    htm += "<ul class='list-links'>";
+                    htm += "<li>";
+                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
+                    htm += "</li>";
+                    htm += "</ul>";
+                    htm += "<hr>";
+                    htm += "<hr class='hidden-md hidden-lg'>";
+                    htm += "</div>";
+                }
+                htm += "</div>";
+                htm += "</div>";
+                htm += "</li>";
+            } else {
+                htm += "<li><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
+            }
+        }
+        return htm;
+    }
+
+ 
 
 }
