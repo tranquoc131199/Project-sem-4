@@ -12,6 +12,7 @@ import entities.Products;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -269,6 +270,113 @@ public class ProductDAOImpl implements ProductDAO {
             session.close();
         }
         return product;
+    }
+
+    @Override
+    public Products getBestSellProduct() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Products product = new Products();
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productSaleQuantity desc");
+            query.setMaxResults(1);
+            product = (Products) query.list().get(0);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return product;
+    }
+
+    @Override
+    public List<Products> getTopTwelveBestSellForProducts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Products> products = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productSaleQuantity desc");
+            query.setMaxResults(13);
+            products = query.list();
+
+            for (Products p : products) {
+                Products pro = getBestSellProduct();
+
+                if (Objects.equals(p.getProductId(), pro.getProductId())) {
+                    products.remove(p);
+                    break;
+                }
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {           
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return products;
+    }
+
+    @Override
+    public List<Products> getTopTwelveBestSaleForProducts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Products> products = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productSale desc");
+            query.setMaxResults(13);
+            products = query.list();
+
+            for (Products p : products) {
+                Products pro = getBestSaleProduct();
+
+                if (Objects.equals(p.getProductId(), pro.getProductId())) {
+                    products.remove(p);
+                    break;
+                }
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {           
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return products;
+    }
+
+    @Override
+    public Boolean checkNewProduct(Integer productId) {
+       Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;  
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productId desc");
+            query.setMaxResults(4);
+            List<Products> products = query.list();
+            Products product = getProductById(productId);
+            
+            for (Products p : products) {
+                if (Objects.equals(p.getProductId(), product.getProductId())) {
+                    result = true;
+                    break;
+                }
+            }            
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        
+        return result;
     }
 
 }
