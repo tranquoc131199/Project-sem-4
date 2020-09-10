@@ -104,4 +104,10 @@ public interface ProductDAO {
      */
     public List<ProductImages> getAllImagesByProductId(Integer productId);
     
+   /**
+     * Lấy 1 sản phẩm bán chạy nhất
+     * @return 
+     */
+    public Products getBestSaleProduct(); 
+    
 }

@@ -7,7 +7,6 @@ package dao.implement;
 
 import dao.ProductDAO;
 import entities.Brands;
-import entities.Categories;
 import entities.ProductImages;
 import entities.Products;
 import java.util.ArrayList;
@@ -251,6 +250,25 @@ public class ProductDAOImpl implements ProductDAO {
             session.close();
         }
         return listImage;
+    }
+
+    @Override
+    public Products getBestSaleProduct() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Products product = new Products();
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productSale desc");
+            query.setMaxResults(1);
+            product = (Products) query.list().get(0);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return product;
     }
 
 }

@@ -27,22 +27,22 @@
             </div>
         </div>
         <div class="row">
-            <form action="/Customer/DoLogin" method="POST" role="form">
+            <form action="${pageContext.request.contextPath}/customer/do-login.htm" method="POST" role="form">
                 <input name="__RequestVerificationToken" type="hidden" value="BIQujFUnm56q4XlMnMGrzZQwdZ5Ko2ncMxBAflx8OP3NCAeYvNusoyOnS_0xCaj726oJ8uCAA_nG7D0DVRxWOQpgsiPj2QohADR2KVnFecc1" />
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
-                            <label for="CustomerEmail">Email:</label>
-                            <input type="email" class="input" id="CustomerEmail" name="CustomerEmail" />
+                            <label for="customerEmail">Email:</label>
+                            <input type="email" class="input" id="customerEmail" name="customerEmail" />
                         </div>
                         <div class="form-group">
-                            <label for="CustomerPassword">Mật khẩu:</label>
-                            <input type="password" class="input" id="CustomerPassword" name="CustomerPassword" />
+                            <label for="customerPassword">Mật khẩu:</label>
+                            <input type="password" class="input" id="customerPassword" name="customerPassword" />
                         </div>
                         <button type="submit" class="primary-btn">Đăng nhập</button>
                         <button type="reset" class="primary-btn">Làm lại</button>
                         <br />
-                        <a href="/Customer/Forgot"><u>Quên mật khẩu?</u></a>
+                        <a href="${pageContext.request.contextPath}/customer/forgot.htm"><u>Quên mật khẩu?</u></a>
                     </div>
                 </div>
             </form>
