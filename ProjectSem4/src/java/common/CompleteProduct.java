@@ -43,13 +43,18 @@ public class CompleteProduct {
         this.wishlists = wishlists;
 
         if (customer != null) {
-            for (Wishlists wishlist : this.wishlists) {
-                if (Objects.equals(wishlist.getProductId().getProductId(), product.getProductId())) {
-                    this.isWishlist = true;
-                }
-            }
+            this.wishlists.stream().filter((p) -> (Objects.equals(p.getProductId().getProductId(), product.getProductId()))).forEachOrdered((_item) -> {
+                this.isWishlist = true;
+            });
         }
 
+//        if (customer != null) {
+//            for (Wishlists wishlist : this.wishlists) {
+//                if (Objects.equals(wishlist.getProductId().getProductId(), product.getProductId())) {
+//                    this.isWishlist = true;
+//                }
+//            }
+//        }
         generateString();
     }
 

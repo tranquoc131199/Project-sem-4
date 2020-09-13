@@ -122,9 +122,9 @@
                                 </a>                                </a>
                             </h2>
                             <div class="product-btns">
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSaleProduct.isWishlist}">active</c:if>"></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                             </div>
                         </div>
                     </div>
@@ -156,13 +156,13 @@
                                         ${p.productStarString}
                                     </div>
                                     <h2 class="product-name">
-                                        <a href="/Product/Detail?ProductId=10" title="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX">
-                                            (8G DDR4 1x8G 2666 ) Corsair Vengeance LPX                                            </a>
+                                        <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a>    
+
                                     </h2>
                                     <div class="product-btns">
-                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-heart  "></i></a>
-                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-exchange"></i></a>
-                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="10"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                        <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSaleProduct.isWishlist}">active</c:if>"></i></a>
+                                        <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                                     </div>
                                 </div>
                             </div>  
@@ -220,9 +220,9 @@
                                 </a>
                             </h2>
                             <div class="product-btns">
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSellProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSellProduct.isWishlist}">active</c:if>"></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSellProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSellProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                             </div>
                         </div>
                     </div>

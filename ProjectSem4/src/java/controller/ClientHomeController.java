@@ -33,8 +33,6 @@ public class ClientHomeController {
     private CategoryDAO categoryDAO;
     private CustomerDAO customerDAO;
 
-    private WishlistDAO wishlistDAO;
-
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
@@ -46,9 +44,13 @@ public class ClientHomeController {
     }
 
     @Autowired
-    public CustomerDAO getCustomerDAO() {
-        return customerDAO;
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
     }
+
+   
+
+  
 
     @RequestMapping(value = "index")
     public String homeIndex(HttpSession session, Model model) {
@@ -190,7 +192,7 @@ public class ClientHomeController {
                     htm += "<div class='col-md-4'>";
                     htm += "<ul class='list-links'>";
                     htm += "<li>";
-                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
+                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
                     htm += "</li>";
                     htm += "</ul>";
                     htm += "<hr>";
@@ -201,7 +203,7 @@ public class ClientHomeController {
                 htm += "</div>";
                 htm += "</li>";
             } else {
-                htm += "<li><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
+                htm += "<li><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
             }
         }
         return htm;

@@ -19,11 +19,13 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/slick.css" />
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/slick-theme.css" />
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/nouislider.min.css" />
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/font-awesome.min.css" />
+         <!--<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/font-awesome.min.css" />-->
+        <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Customer/assets/css/style.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Admin/assets/libs/css/sweetalert2.min.css">
         <script src="${pageContext.request.contextPath}/jsp/Admin/assets/libs/js/sweetalert2.min.js"></script>
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/jsp/Admin/uploads/images/iconLogo.png" />
+         <script src="${pageContext.request.contextPath}/jsp/Customer/assets/js/jquery.min.js"></script>
     </head>
     <body>
         <header>
