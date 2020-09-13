@@ -21,7 +21,7 @@
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="home-index.jsp">Trang chủ</a></li>
+                    <li><a href="${pageContext.request.contextPath}/index.htm">Trang chủ</a></li>
                     <li class="dropdown mega-dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Tin tức <i class="fa fa-caret-down"></i></a>
                         <div class="custom-menu">

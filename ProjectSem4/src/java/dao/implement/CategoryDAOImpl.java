@@ -376,6 +376,23 @@ public class CategoryDAOImpl implements CategoryDAO {
         return htm;
     }
 
- 
+    @Override
+    public List<Categories> getAllParentCategoriesForClient() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Categories> categories = new ArrayList<>();
+
+        try {
+            categories = session.createQuery("from Categories where categoryStatus = 1 and parentId = 0 order by categoryPiority desc").list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return categories;
+    }
 
 }

@@ -5,7 +5,9 @@
  */
 package dao;
 
+import common.FilterProduct;
 import entities.Brands;
+import entities.Categories;
 import entities.ProductImages;
 import entities.Products;
 import java.util.List;
@@ -138,5 +140,66 @@ public interface ProductDAO {
      * @return
      */
     public Boolean checkNewProduct(Integer productId);
+
+    /**
+     * Lấy ra 4 sản phẩm có ngày tạo mới nhất để hiển thị lên màn hình
+     *
+     * @return
+     */
+    public List<Products> getFourNewProduct();
+
+    /**
+     * Đếm số lượng bản ghi để phân trang
+     *
+     * @param brandId
+     * @param categoryId
+     * @param productName
+     * @return
+     */
+    public Integer countProductFilterForPaging(Brands brandId, Categories categoryId, String productName);
+
+    /**
+     * Lọc sản phẩm theo các thông số Thông số nào không có thì null hoặc empty
+     * tương ứng (phương thức này cần xem xét lại xem có thực sự cần thiết hay
+     * không? Vì sản phẩm khi ngừng kinh doanh vẫn có thể được tìm kiếm) (cần
+     * trao đổi lại đoạn này)
+     *
+     * @param start
+     * @param limit
+     * @param brand
+     * @param category
+     * @param productName
+     * @param sort
+     * @return
+     */
+    public FilterProduct filterProductsForClient(Integer start, Integer limit, Brands brandId, Categories categoryId, String productName, Integer sort);
+
+    /**
+     * Lấy danh sách tất cả các hãng sản xuất - Brands
+     *
+     * @return
+     */
+    public List<Brands> getAllBrandsForClient();
+
+    /**
+     * Lấy tất cả các danh mục cha có CategoryStatus = 1 Sắp xếp theo
+     * CategoryPiority tăng dần để hiển thị ngoài front-end
+     *
+     * @return
+     */
+    public List<Categories> getAllParentCategoriesForClient();
+
+    /**
+     * Lấy danh sách tất cả các Categories con có CategoryStatus = 1 Sắp xếp
+     * theo CategoryPiority tăng dần để hiển thị ngoài front-end
+     *
+     * @param parentId
+     * @return
+     */
+    public List<Categories> getChildrenCategoriesByParentIdForClient(Integer parentId);
+    
+    
+    
+    
 
 }

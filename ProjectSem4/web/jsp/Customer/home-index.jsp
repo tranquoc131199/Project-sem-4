@@ -122,9 +122,9 @@
                                 </a>                                </a>
                             </h2>
                             <div class="product-btns">
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSaleProduct.isWishlist}">active</c:if>"></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                             </div>
                         </div>
                     </div>
@@ -156,13 +156,13 @@
                                         ${p.productStarString}
                                     </div>
                                     <h2 class="product-name">
-                                        <a href="/Product/Detail?ProductId=10" title="(8G DDR4 1x8G 2666 ) Corsair Vengeance LPX">
-                                            (8G DDR4 1x8G 2666 ) Corsair Vengeance LPX                                            </a>
+                                        <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a>    
+
                                     </h2>
                                     <div class="product-btns">
-                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-heart  "></i></a>
-                                        <a href="" class="main-btn icon-btn" data-id="10"><i class="fa fa-exchange"></i></a>
-                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="10"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                        <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSaleProduct.isWishlist}">active</c:if>"></i></a>
+                                        <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                                     </div>
                                 </div>
                             </div>  
@@ -220,9 +220,9 @@
                                 </a>
                             </h2>
                             <div class="product-btns">
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-heart  "></i></a>
-                                <a href="" class="main-btn icon-btn" data-id="11"><i class="fa fa-exchange"></i></a>
-                                <a href="" class="primary-btn add-to-cart pull-right" data-id="11"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSellProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSellProduct.isWishlist}">active</c:if>"></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="${bestSellProduct.product.productId}"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSellProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                             </div>
                         </div>
                     </div>
@@ -277,114 +277,35 @@
                     <h2 class="title">Sản phẩm mới nhất</h2>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
+            <c:forEach items="${fourNewestProducts}" var="p">
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                <c:if test="${p.isNewProduct}">
+                                    <span class='text-center'>Mới</span>
+                                </c:if>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
+                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}" />
                         </div>
-                        <a href="/Product/Detail?ProductId=56" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/QTB/No1/No11.jpg" alt="PC HNC SPECIAL EDITION No1" class="img-responsive" />
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">
-                            178,049,000                                 </h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=56" title="PC HNC SPECIAL EDITION No1">
-                                PC HNC SPECIAL EDITION No1                                    </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="56"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="56"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="56"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
-                        </div>
-                        <a href="/Product/Detail?ProductId=55" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/QTB/P12/P121.jpg" alt="PC HNC PROFESSIONAL GAMING P12" class="img-responsive" />
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">
-                            16,690,000                                 </h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=55" title="PC HNC PROFESSIONAL GAMING P12">
-                                PC HNC PROFESSIONAL GAMING P12                                    </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="55"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="55"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="55"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                        <div class="product-body">
+                            <h3 class="product-price">
+                                ${p.priceString}                            
+                            </h3>
+                            <div class="product-rating">
+                                ${p.productStarString}
+                            </div>
+                            <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a></h2>
+                            <div class="product-btns">
+                                <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-heart <c:if test="${p.isWishlist}">active</c:if>"></i></a>
+                                <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-exchange"></i></a>
+                                <a href="" class="primary-btn add-to-cart pull-right" data-id="${p.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
-                        </div>
-                        <a href="/Product/Detail?ProductId=54" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Dell/T5820/T5820.jpg" alt="Workstation Dell Precision T5820" class="img-responsive" />
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">
-                            53,999,000                                 </h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=54" title="Workstation Dell Precision T5820">
-                                Workstation Dell Precision T5820                                    </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="54"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="54"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="54"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class='text-center'>Mới</span>
-                        </div>
-                        <a href="/Product/Detail?ProductId=53" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
-                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/Dell/T3630/T36301.jpg" alt="Workstation Dell Precision T3630" class="img-responsive" />
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">
-                            24,990,000                                 </h3>
-                        <div class="product-rating">
-                            <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                        </div>
-                        <h2 class="product-name">
-                            <a href="/Product/Detail?ProductId=53" title="Workstation Dell Precision T3630">
-                                Workstation Dell Precision T3630                                    </a>
-                        </h2>
-                        <div class="product-btns">
-                            <a href="" class="main-btn icon-btn" data-id="53"><i class="fa fa-heart  "></i></a>
-                            <a href="" class="main-btn icon-btn" data-id="53"><i class="fa fa-exchange"></i></a>
-                            <a href="" class="primary-btn add-to-cart pull-right" data-id="53"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </div>  
+            </c:forEach>
         </div>
     </div>
 </section>

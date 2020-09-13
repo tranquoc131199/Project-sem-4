@@ -143,4 +143,12 @@ public interface CategoryDAO {
      */
     public String generateNavbar();
 
+    /**
+     * Lấy tất cả các danh mục cha có CategoryStatus = 1 Sắp xếp theo
+     * CategoryPiority tăng dần để hiển thị ngoài front-end
+     *
+     * @return
+     */
+    public List<Categories> getAllParentCategoriesForClient();
+
 }

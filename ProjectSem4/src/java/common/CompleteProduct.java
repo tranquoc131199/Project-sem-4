@@ -48,6 +48,13 @@ public class CompleteProduct {
             });
         }
 
+//        if (customer != null) {
+//            for (Wishlists wishlist : this.wishlists) {
+//                if (Objects.equals(wishlist.getProductId().getProductId(), product.getProductId())) {
+//                    this.isWishlist = true;
+//                }
+//            }
+//        }
         generateString();
     }
 

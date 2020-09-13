@@ -9,6 +9,7 @@ import common.CompleteProduct;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
 import dao.ProductDAO;
+import dao.WishlistDAO;
 import entities.Categories;
 import entities.Customers;
 import entities.Products;
@@ -42,6 +43,15 @@ public class ClientHomeController {
         this.categoryDAO = categoryDAO;
     }
 
+    @Autowired
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
+
+   
+
+  
+
     @RequestMapping(value = "index")
     public String homeIndex(HttpSession session, Model model) {
         //set session
@@ -56,14 +66,17 @@ public class ClientHomeController {
         List<Products> bestSaleTweProduct = productDAO.getTopTwelveBestSaleForProducts();
         //lây 12 sản phẩm bán chạy nhất
         List<Products> bestSellTweProduct = productDAO.getTopTwelveBestSellForProducts();
+        //lây 4 sản phẩm mới nhất
+        List<Products> fourNewProduct = productDAO.getFourNewProduct();
 
         //gọi hàm sử lý common của product để gọi ra list các sản phẩm.() n 
         CompleteProduct productSale = null;
         CompleteProduct productSell = null;
         List<CompleteProduct> pro12Sale = new ArrayList<>();
         List<CompleteProduct> pro12Sell = new ArrayList<>();
+        List<CompleteProduct> fourNewProList = new ArrayList<>();
 
-        //nếu chưa đăng nhập chỉ hiên thị sản phẩm và không hiển thị ra whislist
+        //nếu chưa đăng nhập chỉ hiên thị sản ph  ẩm và không hiển thị ra whislist
         if (customer == null) {
             if (bestSaleOneProduct != null) {
                 productSale = new CompleteProduct(bestSaleOneProduct, null, null);
@@ -80,12 +93,20 @@ public class ClientHomeController {
                     pro12Sale.add(completeProduct);
                 }
             }
-            //get 12 product have the highest sellQty
+            //hiển trị ra 12 sản phẩm bán chạy nhất từ database
             if (bestSellTweProduct.size() > 0) {
                 for (Products product : bestSellTweProduct) {
                     CompleteProduct completeProduct = new CompleteProduct(product, null, null);
                     completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
                     pro12Sell.add(completeProduct);
+                }
+            }
+            //hiển thị ra màn hình 4 sản phẩm có ngày tạo mới nhát để sale
+            if (fourNewProduct.size() > 0) {
+                for (Products product : fourNewProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, null, null);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    fourNewProList.add(completeProduct);
                 }
             }
         } // khi người dugnf đăng nhập thì hiển thị thêm thông tin của wishlists ở ngoài trang chủ
@@ -115,6 +136,13 @@ public class ClientHomeController {
                     pro12Sell.add(completeProduct);
                 }
             }
+            //hiển thị ra màn hình 4 sản phẩm có ngày tạo mới nhát để sale
+            if (fourNewProduct.size() > 0) {
+                for (Products product : fourNewProduct) {
+                 CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
+                   completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                   fourNewProList.add(completeProduct);
+               }            }
         }
 
         if (customer != null) {
@@ -139,6 +167,9 @@ public class ClientHomeController {
         if (pro12Sell.size() > 0) {
             model.addAttribute("best12SellProducts", pro12Sell);
         }
+        if (fourNewProList.size() > 0) {
+            model.addAttribute("fourNewestProducts", fourNewProList);
+        }
 
         model.addAttribute("title", "QTB-Store");
         return "Customer/home-index";
@@ -161,7 +192,7 @@ public class ClientHomeController {
                     htm += "<div class='col-md-4'>";
                     htm += "<ul class='list-links'>";
                     htm += "<li>";
-                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
+                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
                     htm += "</li>";
                     htm += "</ul>";
                     htm += "<hr>";
@@ -172,7 +203,7 @@ public class ClientHomeController {
                 htm += "</div>";
                 htm += "</li>";
             } else {
-                htm += "<li><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
+                htm += "<li><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
             }
         }
         return htm;
