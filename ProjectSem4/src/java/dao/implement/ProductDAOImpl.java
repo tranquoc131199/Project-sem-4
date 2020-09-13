@@ -311,7 +311,7 @@ public class ProductDAOImpl implements ProductDAO {
                 }
             }
             session.getTransaction().commit();
-        } catch (Exception e) {           
+        } catch (Exception e) {
             e.getMessage();
             session.getTransaction().rollback();
         } finally {
@@ -341,7 +341,7 @@ public class ProductDAOImpl implements ProductDAO {
                 }
             }
             session.getTransaction().commit();
-        } catch (Exception e) {           
+        } catch (Exception e) {
             e.getMessage();
             session.getTransaction().rollback();
         } finally {
@@ -353,21 +353,21 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Boolean checkNewProduct(Integer productId) {
-       Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Boolean result = false;  
+        Boolean result = false;
         try {
             Query query = session.createQuery("from Products where productStatus = 1 order by productId desc");
-            query.setMaxResults(4);
+            query.setMaxResults(20);
             List<Products> products = query.list();
             Products product = getProductById(productId);
-            
+
             for (Products p : products) {
                 if (Objects.equals(p.getProductId(), product.getProductId())) {
                     result = true;
                     break;
                 }
-            }            
+            }
             session.getTransaction().commit();
         } catch (Exception e) {
             e.getMessage();
@@ -375,8 +375,28 @@ public class ProductDAOImpl implements ProductDAO {
         } finally {
             session.close();
         }
-        
+
         return result;
+    }
+
+    @Override
+    public List<Products> getFourNewProduct() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Products> products = new ArrayList<>();
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productId desc");
+            query.setMaxResults(4);
+            products = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return products;
     }
 
 }

@@ -138,5 +138,14 @@ public interface ProductDAO {
      * @return
      */
     public Boolean checkNewProduct(Integer productId);
+    
+     /**Lấy ra 4 sản phẩm có ngày tạo mới nhất để hiển thị lên màn hình
+     *
+     * @return
+     */
+    public List<Products> getFourNewProduct();
+    
+    
+    
 
 }

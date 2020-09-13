@@ -80,7 +80,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         session.beginTransaction();
         List<Wishlists> wishlists = new ArrayList<>();
         try {
-            Query query = session.createQuery("from Wishlists where customerId = :customerId order by wishlistId desc ");
+            Query query = session.createQuery("from Wishlists where customerId = :customerId order by wishlistId desc");
             Customers customer = getCustomerById(customerId);
             query.setParameter("customerId", customer);
             wishlists = query.list();

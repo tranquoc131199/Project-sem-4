@@ -78,10 +78,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-     <bean id="ưishlistDAO" class="dao.implement.WishlistDAOImpl">
+     <bean id="wishlistDAO" class="dao.implement.WishlistDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    
     
    
 </beans>

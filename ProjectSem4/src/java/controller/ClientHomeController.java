@@ -9,6 +9,7 @@ import common.CompleteProduct;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
 import dao.ProductDAO;
+import dao.WishlistDAO;
 import entities.Categories;
 import entities.Customers;
 import entities.Products;
@@ -32,6 +33,8 @@ public class ClientHomeController {
     private CategoryDAO categoryDAO;
     private CustomerDAO customerDAO;
 
+    private WishlistDAO wishlistDAO;
+
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
@@ -40,6 +43,11 @@ public class ClientHomeController {
     @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;
+    }
+
+    @Autowired
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
     }
 
     @RequestMapping(value = "index")
@@ -56,14 +64,17 @@ public class ClientHomeController {
         List<Products> bestSaleTweProduct = productDAO.getTopTwelveBestSaleForProducts();
         //lây 12 sản phẩm bán chạy nhất
         List<Products> bestSellTweProduct = productDAO.getTopTwelveBestSellForProducts();
+        //lây 4 sản phẩm mới nhất
+        List<Products> fourNewProduct = productDAO.getFourNewProduct();
 
         //gọi hàm sử lý common của product để gọi ra list các sản phẩm.() n 
         CompleteProduct productSale = null;
         CompleteProduct productSell = null;
         List<CompleteProduct> pro12Sale = new ArrayList<>();
         List<CompleteProduct> pro12Sell = new ArrayList<>();
+        List<CompleteProduct> fourNewProList = new ArrayList<>();
 
-        //nếu chưa đăng nhập chỉ hiên thị sản phẩm và không hiển thị ra whislist
+        //nếu chưa đăng nhập chỉ hiên thị sản ph  ẩm và không hiển thị ra whislist
         if (customer == null) {
             if (bestSaleOneProduct != null) {
                 productSale = new CompleteProduct(bestSaleOneProduct, null, null);
@@ -80,12 +91,20 @@ public class ClientHomeController {
                     pro12Sale.add(completeProduct);
                 }
             }
-            //get 12 product have the highest sellQty
+            //hiển trị ra 12 sản phẩm bán chạy nhất từ database
             if (bestSellTweProduct.size() > 0) {
                 for (Products product : bestSellTweProduct) {
                     CompleteProduct completeProduct = new CompleteProduct(product, null, null);
                     completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
                     pro12Sell.add(completeProduct);
+                }
+            }
+            //hiển thị ra màn hình 4 sản phẩm có ngày tạo mới nhát để sale
+            if (fourNewProduct.size() > 0) {
+                for (Products product : fourNewProduct) {
+                    CompleteProduct completeProduct = new CompleteProduct(product, null, null);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    fourNewProList.add(completeProduct);
                 }
             }
         } // khi người dugnf đăng nhập thì hiển thị thêm thông tin của wishlists ở ngoài trang chủ
@@ -115,6 +134,13 @@ public class ClientHomeController {
                     pro12Sell.add(completeProduct);
                 }
             }
+            //hiển thị ra màn hình 4 sản phẩm có ngày tạo mới nhát để sale
+            if (fourNewProduct.size() > 0) {
+                for (Products product : fourNewProduct) {
+                 CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
+                   completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                   fourNewProList.add(completeProduct);
+               }            }
         }
 
         if (customer != null) {
@@ -138,6 +164,9 @@ public class ClientHomeController {
 
         if (pro12Sell.size() > 0) {
             model.addAttribute("best12SellProducts", pro12Sell);
+        }
+        if (fourNewProList.size() > 0) {
+            model.addAttribute("fourNewestProducts", fourNewProList);
         }
 
         model.addAttribute("title", "QTB-Store");
