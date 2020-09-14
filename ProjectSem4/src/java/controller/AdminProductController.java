@@ -51,5 +51,4 @@ public class AdminProductController {
     public String insertCategory(Model model) {
         return null;
     }
-
 }

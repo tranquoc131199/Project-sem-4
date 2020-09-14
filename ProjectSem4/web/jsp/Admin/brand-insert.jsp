@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true" />
 <jsp:include page="widget/navbar.jsp" flush="true" />
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/libraries/ckfinder/ckfinder.js" />--%>
 <!DOCTYPE html>
 <section class="dashboard-wrapper">
     <div class="dashboard-ecommerce">
@@ -36,34 +38,32 @@
                             <div class="card-body">
                                 <a href="/Admin/BackendBrand" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
-                                <form method="POST" action="/Admin/BackendBrand/CreateBrand" role="form" enctype="multipart/form-data">
+                                    <form:form commandName="brand" action="insertbrand.htm" method="POST">
                                     <input name="__RequestVerificationToken" type="hidden" value="c0bNorB0_B5SihavLsj_l_yNgAw5TzLlZ-f9aa9GoGKn9kLQOECZ36_je31um1FequPK2thbUmbVoagpMFmmj_WK-xKGFpQvoF8I38bA7dE1" />
                                     <div class="form-group">
                                         <label for="BrandName" class="col-form-label">Tên hãng:</label>
-                                        <input id="BrandName" name="BrandName" maxlength="250" type="text" class="form-control">
+                                        <form:input path="brandName" type="text" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label for="BrandLogo" class="col-form-label">Logo:</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-sm btn-primary" type="button" id="btn-upload">Chọn ảnh</button>
+                                                <form:input path="brandLogo" type="file" class="form-control" />
                                             </div>
-                                            <input type="text" readonly class="form-control" maxlength="250" name="BrandLogo" id="image-url" aria-label="" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="BrandStatus" class="col-form-label">Trạng thái:</label>
-                                        <select name="BrandStatus" id="BrandStatus" class="form-control" required="required">
-                                            <option value="">Vui lòng chọn</option>
-                                            <option value="1">Kích hoạt</option>
-                                            <option value="0">Không kích hoạt</option>
-                                        </select>
+                                        <form:select path="brandStatus" class="form-control" required="required">
+                                            <form:option value="1" label="Kích hoạt"/>
+                                            <form:option value="0" label="Không kích hoạt"/>
+                                        </form:select>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Xác nhận</button>
                                         <button type="reset" class="btn btn-sm btn-danger"><i class="fas fa-retweet"></i> Làm lại</button>
                                     </div>
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>
@@ -72,5 +72,8 @@
         </div>
     </div>
 </section>
-
+<%--<script>--%>
+<%--var ckeditor = CKEDITOR.replace('description');--%>
+<%--CKFinder.setupCKEditor(ckeditor,'${pageContext.request.contextPath}/libraries/ckfinder/');--%>
+<%--</script>--%>
 <jsp:include page="widget/footer.jsp" flush="true" />
