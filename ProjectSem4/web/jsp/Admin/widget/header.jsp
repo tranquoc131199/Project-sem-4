@@ -50,7 +50,7 @@
                                     <span class="status"></span><span class="badge-dot badge-success mr-1"></span> Sẵn sàng
                                 </div>
                                 <a class="dropdown-item" href="/Admin/BackendAdmin/Info?AdminId=1"><i class="fas fa-user mr-2"></i>Trang cá nhân</a>
-                                <a class="dropdown-item" href="/Admin/BackendAdmin/Logout"><i class="fas fa-power-off mr-2"></i>Đăng xuất</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout.htm"><i class="fas fa-power-off mr-2"></i>Đăng xuất</a>
                             </div>
                         </li>
                     </ul>
