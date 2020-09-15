@@ -6,6 +6,7 @@
 package controller;
 
 import com.sun.javafx.css.Combinator;
+import common.CommentProduct;
 import common.CompleteProduct;
 import common.FilterProduct;
 import common.paging;
@@ -16,15 +17,19 @@ import dao.ProductDAO;
 import entities.Brands;
 import entities.Categories;
 import entities.Customers;
+import entities.ProductComments;
+import entities.ProductImages;
 import entities.Products;
 import entities.Wishlists;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -167,7 +172,7 @@ public class ClientProductController {
         }
 
         if (navHtm.length() > 0) {
-            model.addAttribute("navbarHtml", navHtm);
+            model.addAttribute("navbarHtm", navHtm);
         }
 
         if (pagingHtm.length() > 0) {
@@ -206,6 +211,113 @@ public class ClientProductController {
         model.addAttribute("keyword", keyword);
 
         return "Customer/product-list";
+    }
+
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public String detail(RedirectAttributes attributes, HttpSession session, Model model, String productId) {
+        Customers customer = (Customers) session.getAttribute("customerLogin");
+        Products product = productDAO.getProductById(validate.convertStringToInt(productId, 0));
+        CompleteProduct pcl;
+
+        //kiểm tra status đã mở chưa
+        if (product == null || product.getProductStatus() == 0) {
+            attributes.addFlashAttribute("error", "Mã sản phẩm không hợp lệ!");
+            return "redirect:index.htm";
+        }
+
+        List<Products> relateProducts = productDAO.getFourProductRelated(product.getProductId());
+        List<CompleteProduct> productCompletes = new ArrayList<>();
+        CompleteProduct productDetail = null;
+        String navbarHtm = categoryDAO.generateNavbar();
+
+        if (customer == null) {
+            pcl = new CompleteProduct(product, null, null);
+            pcl.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+
+            relateProducts.stream().map((p) -> {
+                CompleteProduct pc = new CompleteProduct(p, null, null);
+                pc.setIsNewProduct(productDAO.checkNewProduct(p.getProductId()));
+                return pc;
+            }).forEachOrdered((pc) -> {
+                productCompletes.add(pc);
+            });
+
+        } else {
+            List<Wishlists> wishlists = customerDAO.getWishlistsByCustomerId(customer.getCustomerId());
+            pcl = new CompleteProduct(product, customer, wishlists);
+            pcl.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+
+            relateProducts.stream().map((p) -> {
+                CompleteProduct pc = new CompleteProduct(p, customer, wishlists);
+                pc.setIsNewProduct(productDAO.checkNewProduct(p.getProductId()));
+                return pc;
+            }).forEachOrdered((pc) -> {
+                productCompletes.add(pc);
+            });
+            pcl = new CompleteProduct(product, customer, wishlists);
+
+        }
+
+        List<ProductImages> productImages = productDAO.getAllImagesByProductId(product.getProductId());
+        List<ProductComments> productComments = productDAO.getAllCommentsOfProductById(product.getProductId());
+        List<CommentProduct> commentProducts = new ArrayList();
+
+        if (productComments.size() > 0) {
+            productComments.stream().map((cmt) -> new CommentProduct(cmt)).forEachOrdered((commentProduct) -> {
+                commentProducts.add(commentProduct);
+            });
+        }
+        if (navbarHtm.length() > 0) {
+            model.addAttribute("navbarHtm", navbarHtm);
+        }
+        if (productCompletes.size() > 0) {
+            model.addAttribute("relateProducts", productCompletes);
+        }
+        if (productImages.size() > 0) {
+            model.addAttribute("productImages", productImages);
+        }
+        if (commentProducts.size() > 0) {
+            model.addAttribute("productComments", commentProducts);
+            model.addAttribute("countComments", productComments.size());
+        }
+
+        model.addAttribute("product", pcl);
+        model.addAttribute("customer", customer);
+        return "Customer/product-detail";
+    }
+
+    @RequestMapping(value = "CommentProduct", method = RequestMethod.POST)
+    public String CommentProduct(RedirectAttributes attributes, HttpSession session, int productId, int productCommentRate, String productCommentContent) {
+        if (session.getAttribute("customerLogin") == null) {
+            attributes.addFlashAttribute("error", "Vui lòng đăng nhập để tiếp tục!");
+            return "redirect:/customer/login.htm";
+        }
+
+        Customers customer = (Customers) session.getAttribute("customerLogin");
+        Products product = productDAO.getProductById(productId);
+        if ("".equals(productCommentContent)) {
+            attributes.addFlashAttribute("error", "Bình luận sản phẩm không được để trống!");
+            return "redirect:detail.htm?productId=" + productId;
+        }
+
+        ProductComments productComment = new ProductComments();
+        productComment.setCustomerId(customer);
+        productComment.setProductCommentContent(productCommentContent);
+        productComment.setProductCommentRate(productCommentRate);
+        productComment.setProductId(product);
+        productComment.setProductCommentStatus(1);
+        productComment.setProductCommentTime(new Date());
+
+        boolean check = productDAO.commentProduct(productComment);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Không thể bình luận / đánh giá sản phẩm vào lúc này!");
+            return "redirect:detail.htm?productId=" + productId;
+        } else {
+            attributes.addFlashAttribute("success", "Bình luận / đánh giá sản phẩm thành công!");
+            return "redirect:detail.htm?productId=" + productId;
+        }
+        //return "redirect:detail.htm?productId=" + productId;
     }
 
 }

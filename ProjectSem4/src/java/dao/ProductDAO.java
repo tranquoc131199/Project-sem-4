@@ -8,6 +8,7 @@ package dao;
 import common.FilterProduct;
 import entities.Brands;
 import entities.Categories;
+import entities.ProductComments;
 import entities.ProductImages;
 import entities.Products;
 import java.util.List;
@@ -197,9 +198,31 @@ public interface ProductDAO {
      * @return
      */
     public List<Categories> getChildrenCategoriesByParentIdForClient(Integer parentId);
-    
-    
-    
-    
+
+    /**
+     * Lấy ra danh sách 4 sản phẩm có liên quan để hiển thị phía dưới trang chi
+     * tiết sản phẩm ở bên ngoài
+     *
+     * @param productId
+     * @return
+     */
+    public List<Products> getFourProductRelated(Integer productId);
+
+    /**
+     * Lấy tất cả bình luận của 1 sản phẩm
+     *
+     * @param productId
+     * @return
+     */
+    public List<ProductComments> getAllCommentsOfProductById(Integer productId);
+
+    /**
+     * them binh luan cho san pham
+     * 
+     *
+     * @param productComment
+     * @return
+     */
+    public Boolean commentProduct(ProductComments productComment);
 
 }

@@ -359,7 +359,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                     htm += "<div class='col-md-4'>";
                     htm += "<ul class='list-links'>";
                     htm += "<li>";
-                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
+                    htm += "<h3 class='list-links-title'><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + ct.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + ct.getCategoryName() + "</a></h3>";
                     htm += "</li>";
                     htm += "</ul>";
                     htm += "<hr>";
@@ -370,7 +370,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                 htm += "</div>";
                 htm += "</li>";
             } else {
-                htm += "<li><a href='/ProjectSem4/product/index.html?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
+                htm += "<li><a href='/ProjectSem4/product/index.htm?brandId=&categoryId=" + c.getCategoryId() + "&view=&sort=&pageSize=&keyword='>" + c.getCategoryName() + "</a></li>";
             }
         }
         return htm;

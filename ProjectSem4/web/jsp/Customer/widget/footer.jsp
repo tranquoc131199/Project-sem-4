@@ -3,7 +3,7 @@
     Created on : Aug 17, 2020, 12:13:11 AM
     Author     : Acer Nitro 5
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer id="footer" class="section section-grey">
