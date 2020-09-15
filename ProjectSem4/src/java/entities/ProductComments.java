@@ -35,7 +35,6 @@ public class ProductComments implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "ProductCommentId")
     private Integer productCommentId;
     @Basic(optional = false)
@@ -155,5 +154,5 @@ public class ProductComments implements Serializable {
     public String toString() {
         return "controller.ProductComments[ productCommentId=" + productCommentId + " ]";
     }
-    
+
 }

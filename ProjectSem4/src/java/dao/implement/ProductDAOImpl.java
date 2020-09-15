@@ -9,6 +9,7 @@ import common.FilterProduct;
 import dao.ProductDAO;
 import entities.Brands;
 import entities.Categories;
+import entities.ProductComments;
 import entities.ProductImages;
 import entities.Products;
 import java.util.ArrayList;
@@ -706,6 +707,73 @@ public class ProductDAOImpl implements ProductDAO {
             session.close();
         }
         return products;
+    }
+
+    @Override
+    public List<Products> getFourProductRelated(Integer productId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Products> products = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1");
+            query.setMaxResults(4);
+            products = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return products;
+    }
+
+    @Override
+    public List<ProductComments> getAllCommentsOfProductById(Integer productId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<ProductComments> productComments = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from ProductComments where productId = :productId");
+            Products p = getProductById(productId);
+            query.setParameter("productId", p);
+            productComments = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("dao.impl.ProductDAOImpl.getAllCommentsOfProductById()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return productComments;
+    }
+
+    @Override
+    public Boolean commentProduct(ProductComments productComment) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        try {
+            session.save(productComment);
+            //lay ra san pham 
+            Products product = productComment.getProductId();
+            product.setProductStarAvg((productComment.getProductCommentRate() + product.getProductStarAvg()) / 2);
+            //inset comment thi update lai sao cua san pham
+            session.update(product);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return false;
     }
 
 }
