@@ -55,7 +55,9 @@
                 <value>entities.ProductComments</value>
                 <value>entities.Products</value>
                 <value>entities.ProductImages</value>
-                <value>entities.Wishlists</value>      
+                <value>entities.Wishlists</value>     
+                <value>entities.PaymentMethods</value> 
+                <value>entities.Transports</value>  
             </list>
         </property>
         <property name="hibernateProperties">
@@ -78,9 +80,24 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-     <bean id="wishlistDAO" class="dao.implement.WishlistDAOImpl">
+    <bean id="wishlistDAO" class="dao.implement.WishlistDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
+    <bean id="brandDAO" class="dao.implement.BrandDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="orderDAO" class="dao.implement.OrderDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="transportDAO" class="dao.implement.TransportDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="paymentMethodDAO" class="dao.implement.PaymentMethodDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
    
 </beans>

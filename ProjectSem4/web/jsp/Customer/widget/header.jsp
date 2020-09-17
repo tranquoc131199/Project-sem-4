@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Admin/assets/libs/css/sweetalert2.min.css">
         <script src="${pageContext.request.contextPath}/jsp/Admin/assets/libs/js/sweetalert2.min.js"></script>
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/jsp/Admin/uploads/images/iconLogo.png" />
-         <script src="${pageContext.request.contextPath}/jsp/Customer/assets/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/jsp/Customer/assets/js/jquery.min.js"></script>
     </head>
     <body>
         <header>
@@ -73,7 +73,7 @@
                                 <c:if test="${not empty customer}">
                                     <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
                                         <div class="header-btns-icon">
-                                            <img src="${pageContext.request.contextPath}/views/backend/uploads/images/Customers/${customer.customerAvatar}" class="img-responsive" style="width: 40px; height: 40px;" />
+                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Customers/${customer.customerAvatar}" class="img-responsive" style="width: 40px; height: 40px;" />
                                         </div>
                                         <span class="text-uppercase text-center small-font">${customer.customerFullName}</span> <i class="fa fa-caret-down"></i>
                                     </div>
@@ -85,43 +85,77 @@
                                     </ul>
                                 </c:if>
                             </li>                            
-                            <li class="header-cart dropdown default-dropdown" id="shopping-cart-ajax">
+                            <li class="header-cart dropdown default-dropdown" id="shopping-cart-ajax">      
 
 
+                                <c:if test="${not empty shoppingCart}">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <div class="header-btns-icon">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <c:if test="${shoppingCart.carts.size() > 0}">
+                                                <span class="qty">${shoppingCart.carts.size()}</span>
+                                            </c:if>
+                                            <c:if test="${shoppingCarts.carts.size() == 0}">
+                                                <span class="qty">${shoppingCart.carts.size()}</span>
+                                            </c:if>
 
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="qty">0</span>
-                                    </div>
-                                    <strong class="text-uppercase">Giỏ hàng:</strong>
-                                    <br>
-                                    <span class="small-font">00</span>
-                                </a>
-                                <div class="custom-menu">
-                                    <div id="shopping-cart">
-                                        <div class="shopping-cart-list">
                                         </div>
-                                        <div class="shopping-cart-btns">
-                                            <button class="main-btn medium-font" id="show-cart">Xem giỏ hàng</button>
-                                            <button class="primary-btn medium-font" id="pay-cart">Thanh toán <i class="fa fa-arrow-circle-right"></i></button>
+                                        <strong class="text-uppercase">Giỏ hàng:</strong>
+                                        <br>
+                                        <span class="small-font"><fmt:formatNumber value="${shoppingCart.totalAmount}" /></span>
+                                    </a>
+                                    <div class="custom-menu">
+                                        <div id="shopping-cart">
+                                            <div class="shopping-cart-list">
+                                                <c:if test="${shoppingCart.carts.size() > 0}">
+                                                    <c:forEach items="${shoppingCart.carts}" var="c">
+                                                        <div class="product product-widget">
+                                                            <div class="product-thumb">
+                                                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${c.product.productFeatureImage}" alt="${c.product.productName}" />
+                                                            </div>
+                                                            <div class="product-body">
+                                                                <c:if test="${c.product.productSale > 0}">
+                                                                    <h3 class="product-price"><fmt:formatNumber value="${c.product.productPrice * (100 - c.product.productSale) / 100}" /> <span class="qty">x ${c.productQuantity}</span></h3>
+                                                                </c:if>
+                                                                <c:if test="${c.product.productSale == 0}">
+                                                                    <h3 class="product-price"><fmt:formatNumber value="${c.product.productPrice}" /> <span class="qty">x ${c.productQuantity}</span></h3>
+                                                                </c:if>
+                                                                <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.htm?productId=${c.product.productId}">${c.product.productName}</a></h2>
+                                                            </div>
+                                                            <button class="cancel-btn" data-id="${c.product.productId}"><i class="fa fa-trash"></i></button>
+                                                        </div>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </div>
+                                            <div class="shopping-cart-btns">
+                                                <button class="main-btn medium-font" id="show-cart">Xem giỏ hàng</button>
+                                                <button class="primary-btn medium-font" id="pay-cart">Thanh toán <i class="fa fa-arrow-circle-right"></i></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> 
+                                </c:if>
 
-                                <script>
-                                    $(document).ready(function () {
-                                        $("#show-cart").click(function (event) {
-                                            event.preventDefault();
-                                            window.location.href = '/Order/Index/';
-                                        });
-
-                                        $("#pay-cart").click(function (event) {
-                                            event.preventDefault();
-                                            window.location.href = '/Order/CheckOut/';
-                                        });
-                                    });
-                                </script>
+                                <c:if test="${empty shoppingCart}">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <div class="header-btns-icon">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <span class="qty">0</span>
+                                        </div>
+                                        <strong class="text-uppercase">Giỏ hàng:</strong>
+                                        <br>
+                                        <span class="small-font">00</span>
+                                    </a>
+                                    <div class="custom-menu">
+                                        <div id="shopping-cart">
+                                            <div class="shopping-cart-list">
+                                            </div>
+                                            <div class="shopping-cart-btns">
+                                                <button class="main-btn medium-font" id="show-cart">Xem giỏ hàng</button>
+                                                <button class="primary-btn medium-font" id="pay-cart">Thanh toán <i class="fa fa-arrow-circle-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </c:if>
                             </li>
                             <li class="nav-toggle">
                                 <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>

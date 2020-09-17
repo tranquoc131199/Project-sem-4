@@ -6,10 +6,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,23 +35,12 @@ public class Orders implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "OrderId")
     private Integer orderId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "OrderTotalAmount")
     private double orderTotalAmount;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
-    @Column(name = "TransportName")
-    private String transportName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
-    @Column(name = "PaymentMethodName")
-    private String paymentMethodName;
     @Size(max = 1073741823)
     @Column(name = "OrderNote")
     private String orderNote;
@@ -79,8 +64,12 @@ public class Orders implements Serializable {
     @JoinColumn(name = "CustomerId", referencedColumnName = "CustomerId")
     @ManyToOne(optional = false)
     private Customers customerId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
-    private Collection<OrderDetails> orderDetailsCollection;
+    @JoinColumn(name = "PaymentMethodId", referencedColumnName = "PaymentMethodId")
+    @ManyToOne(optional = false)
+    private PaymentMethods paymentMethodId;
+    @JoinColumn(name = "TransportId", referencedColumnName = "TransportId")
+    @ManyToOne(optional = false)
+    private Transports transportId;
 
     public Orders() {
     }
@@ -89,11 +78,9 @@ public class Orders implements Serializable {
         this.orderId = orderId;
     }
 
-    public Orders(Integer orderId, double orderTotalAmount, String transportName, String paymentMethodName, Date createdDate, Date updatedDate, int orderStatus) {
+    public Orders(Integer orderId, double orderTotalAmount, Date createdDate, Date updatedDate, int orderStatus) {
         this.orderId = orderId;
         this.orderTotalAmount = orderTotalAmount;
-        this.transportName = transportName;
-        this.paymentMethodName = paymentMethodName;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.orderStatus = orderStatus;
@@ -113,22 +100,6 @@ public class Orders implements Serializable {
 
     public void setOrderTotalAmount(double orderTotalAmount) {
         this.orderTotalAmount = orderTotalAmount;
-    }
-
-    public String getTransportName() {
-        return transportName;
-    }
-
-    public void setTransportName(String transportName) {
-        this.transportName = transportName;
-    }
-
-    public String getPaymentMethodName() {
-        return paymentMethodName;
-    }
-
-    public void setPaymentMethodName(String paymentMethodName) {
-        this.paymentMethodName = paymentMethodName;
     }
 
     public String getOrderNote() {
@@ -179,13 +150,20 @@ public class Orders implements Serializable {
         this.customerId = customerId;
     }
 
-    @XmlTransient
-    public Collection<OrderDetails> getOrderDetailsCollection() {
-        return orderDetailsCollection;
+    public PaymentMethods getPaymentMethodId() {
+        return paymentMethodId;
     }
 
-    public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
-        this.orderDetailsCollection = orderDetailsCollection;
+    public void setPaymentMethodId(PaymentMethods paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    public Transports getTransportId() {
+        return transportId;
+    }
+
+    public void setTransportId(Transports transportId) {
+        this.transportId = transportId;
     }
 
     @Override
@@ -210,7 +188,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "controller.Orders[ orderId=" + orderId + " ]";
+        return "entities.Orders[ orderId=" + orderId + " ]";
     }
-    
+
 }
