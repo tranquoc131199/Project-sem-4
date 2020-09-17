@@ -163,13 +163,36 @@ create table Banners (
 )
 go
 
+-- bảng vận chuyển
+create table Transports (
+	TransportId int not null primary key identity, -- khoá chính
+	TransportName nvarchar(250) not null unique, -- loại hình vận chuyển
+	TransportDescription ntext null, -- mô tả loại hình vận chuyển
+	TransportPrice float not null default 0, -- giá cước vận chuyển
+	CreatedDate datetime not null default getdate(), -- ngày tạo bản ghi
+	UpdatedDate datetime not null default getdate(), -- ngày cập nhật bản ghi
+	TransportStatus int not null default 1 -- trạng thái
+)
+go
+
+-- bảng phương thức thanh toán
+create table PaymentMethods (
+	PaymentMethodId int not null primary key identity, -- khoá chính
+	PaymentMethodName nvarchar(250) not null unique, -- tên phương thức thanh toán
+	PaymentMethodDescription ntext null, -- mô tả phương thức thanh toán
+	CreatedDate datetime not null default getdate(), -- ngày tạo bản ghi
+	UpdatedDate datetime not null default getdate(), -- ngày cập nhật bản ghi
+	PaymentMethodStatus int not null default 1
+)
+go
+
 -- bảng đơn hàng
 create table Orders (
 	OrderId int not null primary key identity, -- khoá chính
 	CustomerId int not null foreign key references Customers(CustomerId), -- khoá ngoại mã người đặt hàng
 	OrderTotalAmount float not null default 0, -- tổng tiền thanh toán
-	TransportName nvarchar(250) not null , -- phương thức vận chuyển
-	PaymentMethodName nvarchar(250) not null , --  phương thức thanh toán
+	TransportId int not null foreign key references Transports(TransportId), -- khoá ngoại hình thức vận chuyển
+	PaymentMethodId int not null foreign key references PaymentMethods(PaymentMethodId), -- khoá ngoại phương thức thanh toán
 	OrderNote ntext null, -- ghi chú đơn hàng
 	OrderAddress ntext null, -- địa chỉ nhận hàng
 	CreatedDate datetime not null default getdate(), -- ngày tạo bản ghi
