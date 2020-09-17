@@ -5,7 +5,10 @@
  */
 package common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +27,20 @@ public class validate {
         }
 
         return check;
+    }
+
+    public static Date convertStringToDate(String dateConvert, String format) {
+        SimpleDateFormat fm = new SimpleDateFormat(format);
+        Date date = new Date();
+
+        try {
+            date = fm.parse(dateConvert);
+        } catch (ParseException ex) {
+            System.out.println("common.Common.convertStringToDate()");
+            ex.getMessage();
+        }
+
+        return date;
     }
 
     // Kiểm tra độ dài ký tự tối đa khi nhập chuỗi có thoả mãn
@@ -113,5 +130,4 @@ public class validate {
         }
     }
 
-   
 }

@@ -1,13 +1,13 @@
 <%-- 
     Document   : admin-insert
-    Created on : Aug 23, 2020, 12:24:01 PM
-    Author     : Acer Nitro 5
+    Created on : Jun 6, 2019, 5:08:50 PM
+    Author     : QuanKoiNA
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="widget/header.jsp" flush="true" />
-<jsp:include page="widget/navbar.jsp" flush="true" />
-<!DOCTYPE html>
+<jsp:include page="widget/header.jsp" flush="true"/>
+<jsp:include page="widget/navbar.jsp" flush="true"/>
+
 <section class="dashboard-wrapper">
     <div class="dashboard-ecommerce">
         <div class="container-fluid dashboard-content ">
@@ -18,8 +18,8 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/Admin" class="breadcrumb-link">Trang quản trị</a></li>
-                                    <li class="breadcrumb-item"><a href="/Admin/BackendAdmin/Create" class="breadcrumb-link">Quản trị viên</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.htm" class="breadcrumb-link">Trang quản trị</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/index.htm" class="breadcrumb-link">Quản trị viên</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Thêm mới quản trị viên</li>
                                 </ol>
                             </nav>
@@ -34,65 +34,59 @@
                         <div class="card">
                             <h3 class="card-header"><b>Tạo mới quản trị viên</b></h3>
                             <div class="card-body">
-                                <a href="/Admin/BackendAdmin" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
+                                <a href="${pageContext.request.contextPath}/admin/index.htm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
-                                <form method="POST" action="/Admin/BackendAdmin/CreateAdmin" enctype="multipart/form-data">
-                                    <input name="__RequestVerificationToken" type="hidden" value="5R7kjNvil9PPcitZehe7b0lix8m2jfiU9wBemCXPEMt7EABWEBPNBHN47W2sIoxzzLy2c8UdfIliH1qC-MKhbOpGlCZw9EjZx9xWVAlMwCM1" />
+                                <form method="POST" action="${pageContext.request.contextPath}/admin/admin-do-insert.htm" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="AdminFullname" class="col-form-label">Họ và tên:</label>
-                                        <input id="AdminFullname" name="AdminFullname" maxlength="250" type="text" class="form-control">
+                                        <label for="adminFullname" class="col-form-label">Họ và tên:</label>
+                                        <input id="adminFullname" name="adminFullname" maxlength="250" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminBirthday" class="col-form-label">Ngày sinh:</label>
-                                        <input id="AdminBirthday" name="AdminBirthday" type="date" class="form-control">
+                                        <label for="adminBirthday" class="col-form-label">Ngày sinh:</label>
+                                        <input id="adminBirthday" name="adminBirthday" type="date" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <h5>Giới tính</h5>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input is-valid" id="AdminGenderMale" name="AdminGender" value="1" checked="">
+                                            <input type="radio" class="custom-control-input is-valid" id="AdminGenderMale" name="adminGender" value="1" checked="">
                                             <label class="custom-control-label" for="AdminGenderMale">Nam</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input is-invalid" id="AdminGenderFemale" name="AdminGender" value="0">
+                                            <input type="radio" class="custom-control-input is-invalid" id="AdminGenderFemale" name="adminGender" value="0">
                                             <label class="custom-control-label" for="AdminGenderFemale">Nữ</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminEmail">Email:</label>
-                                        <input id="AdminEmail" name="AdminEmail" maxlength="250" type="email" class="form-control">
+                                        <label for="adminEmail">Email:</label>
+                                        <input id="adminEmail" name="adminEmail" maxlength="250" type="email" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminPhone">Số điện thoại:</label>
-                                        <input id="AdminPhone" name="AdminPhone" maxlength="20" type="text" class="form-control">
+                                        <label for="adminPhone">Số điện thoại:</label>
+                                        <input id="adminPhone" name="adminPhone" maxlength="20" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminPassword">Mật khẩu:</label>
-                                        <input id="AdminPassword" name="AdminPassword" type="password" class="form-control">
+                                        <label for="adminPassword">Mật khẩu:</label>
+                                        <input id="adminPassword" name="adminPassword" type="password" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminIdCard" class="col-form-label">Số CMND:</label>
-                                        <input id="AdminIdCard" name="AdminIdCard" maxlength="20" type="text" class="form-control">
+                                        <label for="adminIdCard" class="col-form-label">Số CMND:</label>
+                                        <input id="adminIdCard" name="adminIdCard" maxlength="20" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminAvatar" class="col-form-label">Ảnh đại diện:</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-sm btn-primary" type="button" id="btn-upload">Chọn ảnh</button>
-                                            </div>
-                                            <input type="text" readonly class="form-control" name="AdminAvatar" maxlength="250" id="image-url" aria-label="" aria-describedby="basic-addon1">
-                                        </div>
+                                        <label for="adminAvatar" class="col-form-label">Ảnh đại diện:</label>
+                                        <input type="file" class="form-control" name="adminAvatar" maxlength="250" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminAddress">Địa chỉ:</label>
-                                        <textarea class="form-control" id="AdminAddress" name="AdminAddress" rows="3"></textarea>
+                                        <label for="adminAddress">Địa chỉ:</label>
+                                        <textarea class="form-control" id="adminAddress" name="adminAddress" rows="3"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminHomeLand">Quê quán:</label>
-                                        <textarea class="form-control" id="AdminHomeLand" name="AdminHomeLand" rows="3"></textarea>
+                                        <label for="adminHomeLand">Quê quán:</label>
+                                        <textarea class="form-control" id="adminHomeLand" name="adminHomeLand" rows="3"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="AdminStatus" class="col-form-label">Chức vụ</label>
-                                        <select name="AdminStatus" id="AdminStatus" class="form-control" required="required">
+                                        <label for="adminStatus" class="col-form-label">Chức vụ</label>
+                                        <select name="adminStatus" id="adminStatus" class="form-control" required="required">
                                             <option value="">Vui lòng chọn</option>
                                             <option value="1">Quản trị viên</option>
                                             <option value="2">Quản lý cấp cao</option>
@@ -114,6 +108,22 @@
             </div>
         </div>
     </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    Copyright © 2018 QTCStore. All rights reserved customize by <a href="https://facebook.com/quancoina/" target="_blank">QuanKoiNA</a>.
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="text-md-right footer-links d-none d-sm-block">
+                        <a href="javascript: void(0);">About</a>
+                        <a href="javascript: void(0);">Support</a>
+                        <a href="javascript: void(0);">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </section>
 
-<jsp:include page="widget/footer.jsp" flush="true" />
+<jsp:include page="widget/footer.jsp" flush="true"/>

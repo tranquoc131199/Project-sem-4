@@ -107,7 +107,7 @@
                                 <div id="submenu-6" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendAdmin"><i class="fab fa-fw fa-snapchat-ghost"></i> Quản trị viên</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/index.htm"><i class="fab fa-fw fa-snapchat-ghost"></i> Quản trị viên</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendContact"><i class="fas fa-fw fa-address-book"></i> Liên hệ</a>
