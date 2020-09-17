@@ -3,7 +3,8 @@
     Created on : Aug 22, 2020, 11:40:29 AM
     Author     : Acer Nitro 5
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true" />
 <jsp:include page="widget/navbar.jsp" flush="true" />
@@ -11,7 +12,7 @@
 <section class="dashboard-wrapper">
     <div class="dashboard-ecommerce">
         <div class="container-fluid dashboard-content ">
-            <div class="row">1
+            <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
                         <h2 class="pageheader-title">Trang quản trị QTCStore</h2>
@@ -34,39 +35,38 @@
                         <div class="card">
                             <h3 class="card-header"><b>Thông tin hãng</b></h3>
                             <div class="card-body">
-                                <a href="/Admin/BackendBrand" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
+                                <a href="${pageContext.request.contextPath}/admin/brand.htm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
-                                <form method="POST" action="/Admin/BackendBrand/EditBrand" role="form" enctype="multipart/form-data">
+                                    <form:form commandName="brand" action="brandUpdate.htm" method="POST">
                                     <input name="__RequestVerificationToken" type="hidden" value="XKbPpcJ1L3V-zwDz3v3Z8PLkYfgjeJLfdVLtMdaVe1qrX-7B_eaDA9pJoPCMFvEFoxcJxuyOf2MVX45pteGnVmHmMSMFJYUXeyr3FL3ZqYE1" />
                                     <div class="form-group">
                                         <label for="BrandName" class="col-form-label">Tên hãng:</label>
-                                        <input id="BrandName" name="BrandName" maxlength="250" type="text" class="form-control" value="Dell">
-                                        <input name="BrandId" type="hidden" value="22">
+                                        <form:input path="brandName" type="text" class="form-control" />
+                                        <form:input path="brandId" type="hidden" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label for="BrandLogo" class="col-form-label">Logo:</label>
                                         <br/>
-                                        <img class="img-fluid" style="max-width: 150px;" src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Brand-Logo/logodell.png" />
+                                        <img class="img-fluid" style="max-width: 150px;" src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Brand-Logo/${brand.brandLogo}" />
                                         <div class="clearfix"><br/></div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-sm btn-primary" type="button" id="btn-upload">Chọn ảnh</button>
+                                                <form:input path="brandLogo" type="file" class="form-control" />
                                             </div>
-                                            <input type="text" readonly class="form-control" maxlength="250" name="BrandLogo" value="Uploads/images/Brand-Logo/logodell.png" id="image-url" aria-label="" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="BrandStatus" class="col-form-label">Trạng thái:</label>
-                                        <select name="BrandStatus" id="BrandStatus" class="form-control" required="required">
-                                            <option value="1" selected>Kích hoạt</option>
-                                            <option value="0" >Không kích hoạt</option>
-                                        </select>
+                                        <form:select path="brandStatus" class="form-control" required="required">
+                                            <form:option value="1" label="Kích hoạt"/>
+                                            <form:option value="0" label="Không kích hoạt"/>
+                                        </form:select>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Xác nhận</button>
                                         <button type="reset" class="btn btn-sm btn-danger"><i class="fas fa-retweet"></i> Làm lại</button>
                                     </div>
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>

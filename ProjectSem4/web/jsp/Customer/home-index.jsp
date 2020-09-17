@@ -162,7 +162,7 @@
                                     <div class="product-btns">
                                         <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-heart <c:if test="${bestSaleProduct.isWishlist}">active</c:if>"></i></a>
                                         <a href="" class="main-btn icon-btn" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-exchange"></i></a>
-                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="${bestSaleProduct.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
+                                        <a href="" class="primary-btn add-to-cart pull-right" data-id="${p.product.productId}"><i class="fa fa-shopping-cart"></i> Mua ngay</a>
                                     </div>
                                 </div>
                             </div>  

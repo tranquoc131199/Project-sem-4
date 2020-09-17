@@ -26,7 +26,7 @@
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendBrand"><i class="fas fa-fw fa-building"></i> Hãng sản xuất</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/brand.htm"><i class="fas fa-fw fa-building"></i> Hãng sản xuất</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/category.htm"><i class="fas fa-fw fa-list"></i> Danh mục sản phẩm</a>

@@ -251,7 +251,7 @@ $(document).ready(function () {
         
         if (check) {
             $.ajax({
-                url: '/QTCStore/customer/add-wishlist.html',
+                url: '/ProjectSem4/customer/add-wishlist.htm',
                 data: {productId: pId}
             }).done(function (res) {
                 var obj = JSON.parse(res);
@@ -291,7 +291,7 @@ $(document).ready(function () {
             });
         } else {
             $.ajax({
-                url: '/QTCStore/customer/add-wishlist.html',
+                url: '/ProjectSem4/customer/add-wishlist.htm',
                 data: {productId: pId}
             }).done(function (res) {
                 console.log(res);
@@ -336,9 +336,8 @@ $(document).ready(function () {
     $(".add-to-cart").click(function (event) {
         event.preventDefault();
         var productId = $(this).data("id");
-        
         $.ajax({
-            url: '/QTCStore/order/add-to-cart.html',
+            url: '/ProjectSem4/order/add-to-cart.htm',
             data: {productId: productId, productQuantity: 1}
         }).done(function (res) {
             var obj = JSON.parse(res);
@@ -402,12 +401,12 @@ $(document).ready(function () {
 
     $("#show-cart").click(function (event) {
         event.preventDefault();
-        window.location.href = '/QTCStore/order/index.html';
+        window.location.href = '/ProjectSem4/order/index.htm';
     });
 
     $("#pay-cart").click(function (event) {
         event.preventDefault();
-        window.location.href = '/QTCStore/order/checkout.html';
+        window.location.href = '/ProjectSem4/order/checkout.htm';
     });
 
     $(".cancel-btn").click(function (event) {
@@ -415,7 +414,7 @@ $(document).ready(function () {
         var productId = $(this).data("id");
 
         $.ajax({
-            url: '/QTCStore/order/delete-one-of-cart.html',
+            url: '/ProjectSem4/order/delete-one-of-cart.htm',
             data: {productId: productId}
         }).done(function (res) {
             console.log(res);
@@ -652,7 +651,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         $.ajax({
-            url: '/QTCStore/order/delete-all-cart.html',
+            url: '/ProjectSem4/order/delete-all-cart.htm',
         }).done(function (res) {
             var obj = JSON.parse(res);
             var code = obj.messageCode;
@@ -696,7 +695,7 @@ $(document).ready(function () {
         var quantity = $("#product-in-cart" + productId).val();
 
         $.ajax({
-            url: '/QTCStore/order/update-cart.html',
+            url: '/ProjectSem4/order/update-cart.htm',
             data: { productId: productId, productQuantity: quantity },
         }).done(function (res) {
             var obj = JSON.parse(res);
@@ -777,7 +776,7 @@ $(document).ready(function () {
         var productId = $(this).data("id");
 
         $.ajax({
-            url: '/QTCStore/order/add-to-cart.html',
+            url: '/ProjectSem4/order/add-to-cart.htm',
             data: {productId: productId, productQuantity: quantity}
         }).done(function (res) {
             console.log(res);
@@ -845,7 +844,7 @@ $(document).ready(function () {
         var productId = $(this).data("id");
 
         $.ajax({
-            url: '/QTCStore/order/delete-one-of-cart.html',
+            url: '/ProjectSem4/order/delete-one-of-cart.htm',
             data: {productId: productId}
         }).done(function (res) {
             console.log(res);
@@ -937,7 +936,7 @@ $(document).ready(function () {
         var productId = $(this).parent().data("id");
 
         $.ajax({
-            url: '/QTCStore/product/add-compare.html',
+            url: '/ProjectSem4/product/add-compare.htm',
             data: { productId: productId }
         }).done(function (res) {
             var obj = JSON.parse(res);
