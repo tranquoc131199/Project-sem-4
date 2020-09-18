@@ -4,6 +4,7 @@
     Author     : Acer Nitro 5
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true" />
 <jsp:include page="widget/navbar.jsp" flush="true" />
@@ -33,7 +34,7 @@
                         <div class="card">
                             <h3 class="card-header"><b>Danh sách</b></h3>
                             <div class="card-body">
-                                <a href="/Admin/BackendBanner/Create" class="btn btn-success"><i class="fas fa-plus"></i> Thêm mới banner</a>
+                                <a href="${pageContext.request.contextPath}/jsp/Admin/banner-insert.jsp" class="btn btn-success"><i class="fas fa-plus"></i> Thêm mới banner</a>
                                 <div class="clearfix"><br></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">
@@ -41,57 +42,34 @@
                                             <tr>
                                                 <th>Hình ảnh</th>
                                                 <th>Mô tả</th>
-                                                <th>Đường dẫn</th>
+                                                <!--<th>Đường dẫn</th>-->
                                                 <th>Trạng thái</th>
                                                 <th>Hành động</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <img class="img-fluid" style="max-height: 150px;" src="Uploads/images/Banner/Banner_003.jpg" alt="Demo tin tức thứ ba" />
-                                                </td>
-                                                <td>Demo tin tức thứ ba</td>
-                                                <td><a href="/Admin/BackendNew/Detail?NewId=3">Demo tin tức thứ ba</a></td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendNew/Detail?NewId=3" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> Xem bài viết</a>
-                                                    <a href="/Admin/BackendBanner/Edit?BannerId=6" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
-                                                    <a href="/Admin/BackendBanner/Delete?BannerId=6" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xoá</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img class="img-fluid" style="max-height: 150px;" src="Uploads/images/Banner/Banner_002.jpg" alt="Demo tin tức thứ hai" />
-                                                </td>
-                                                <td>Demo tin tức thứ hai</td>
-                                                <td><a href="/Admin/BackendNew/Detail?NewId=2">Demo tin tức thứ hai</a></td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendNew/Detail?NewId=2" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> Xem bài viết</a>
-                                                    <a href="/Admin/BackendBanner/Edit?BannerId=5" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
-                                                    <a href="/Admin/BackendBanner/Delete?BannerId=5" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xoá</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img class="img-fluid" style="max-height: 150px;" src="Uploads/images/Banner/Banner_001.jpg" alt="Demo tin tức thứ nhất" />
-                                                </td>
-                                                <td>Demo tin tức thứ nhất</td>
-                                                <td><a href="/Admin/BackendNew/Detail?NewId=1">Demo tin tức thứ nhất</a></td>
-                                                <td>
-                                                    <span class="badge badge-success">Kích hoạt</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/Admin/BackendNew/Detail?NewId=1" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> Xem bài viết</a>
-                                                    <a href="/Admin/BackendBanner/Edit?BannerId=4" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
-                                                    <a href="/Admin/BackendBanner/Delete?BannerId=4" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xoá</a>
-                                                </td>
-                                            </tr>
+                                            <c:forEach items="${banners}" var="banner">
+                                                <tr>
+                                                    <td>
+                                                        <img class="img-fluid" style="max-height: 150px;" src="Uploads/images/Banner/${banner.bannerImage}" alt="Demo tin tức thứ ba" />
+                                                    </td>
+                                                    <td>${banner.bannerDescription}</td>
+                                                    <!--<td><a href="/Admin/BackendNew/Detail?NewId=${banner.bannerId}">/Admin/BackendNew/Detail?NewId=${banner.bannerId}</a></td>-->
+                                                    <td>
+                                                        <c:if test="${banner.bannerStatus==1}">
+                                                        <span class="badge badge-success">Kích hoạt</span>
+                                                        </c:if>
+                                                        <c:if test="${banner.bannerStatus==0}">
+                                                        <span class="badge badge-danger">Không kích hoạt</span>
+                                                        </c:if>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Admin/BackendNew/Detail?NewId=${banner.bannerId}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> Xem bài viết</a>
+                                                        <a href="/Admin/BackendBanner/Edit?BannerId=${banner.bannerId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
+                                                        <a href="/Admin/BackendBanner/Delete?BannerId=${banner.bannerId}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xoá</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
