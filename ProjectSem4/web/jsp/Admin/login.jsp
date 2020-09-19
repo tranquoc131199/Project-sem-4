@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-body">
                     <span class="splash-description">Điền thông tin đăng nhập</span>
-                    <form method="POST" role="form" action="/Admin/BackendAdmin/Login">
+                    <form method="POST" role="form" action="${pageContext.request.contextPath}/admin/do-login.htm">
                         <input name="__RequestVerificationToken" type="hidden" value="7BkypVQ17wADg5uPk3gep16l3afdGjuPb2gbo_J56eBUOFk-qZTyt09rayCBhgrVvcMsSl7TOMhONv1Aa941vRZOjSgmqkzvxjB0fhJguhA1" />
                         <div class="form-group">
                             <input class="form-control form-control-lg" id="username" name="AdminEmail" type="email" placeholder="Email" autocomplete="off">

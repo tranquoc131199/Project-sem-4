@@ -31,9 +31,10 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=QTBStore"/>
-        <property name="username" value="sa"/>
-        <property name="password" value="131199"/>
+        <property name="username" value="thangpham"/>
+        <property name="password" value="123"/>
     </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> 
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -100,4 +101,19 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
    
+    <bean id="BannerDAO" class="dao.implement.BannerDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="AdminDAO" class="dao.implement.AdminDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="LogoDAO" class="dao.implement.LogoDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="FeedbackDAO" class="dao.implement.FeedbackDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 </beans>

@@ -5,7 +5,13 @@
  */
 package common;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,7 +102,7 @@ public class validate {
      * @return
      */
     public static Boolean isValidImage(String extension) {
-        String[] valid = {"jpg", "jpeg", "png"};
+        String[] valid = {"jpg", "jpeg", "png","JPG","JPEG","PNG"};
 
         return Arrays.asList(valid).contains(extension);
     }
@@ -113,5 +119,34 @@ public class validate {
         }
     }
 
-   
+    public static String encryptPassword(String password) {
+        String result = "";
+        MessageDigest digest;
+
+        try {
+            digest = MessageDigest.getInstance("MD5");
+            digest.update(password.getBytes());
+            BigInteger bigInteger = new BigInteger(1, digest.digest());
+            result = bigInteger.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("common.Common.md5Password()");
+            e.getMessage();
+        }
+
+        return result;
+    }
+
+    public static Date convertStringToDate(String dateConvert, String format) {
+        SimpleDateFormat fm = new SimpleDateFormat(format);
+        Date date = new Date();
+
+        try {
+            date = fm.parse(dateConvert);
+        } catch (ParseException ex) {
+            System.out.println("common.Common.convertStringToDate()");
+            ex.getMessage();
+        }
+
+        return date;
+    }
 }

@@ -37,7 +37,6 @@ public class Admins implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "AdminId")
     private Integer adminId;
     @Basic(optional = false)
