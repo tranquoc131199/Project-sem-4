@@ -36,7 +36,7 @@
                             <h3 class="card-header"><b>Danh sách</b></h3>
                             <div class="card-body">
                                 <a href="${pageContext.request.contextPath}/admin/new.htm" class="btn btn-primary"><i class="fas fa-reply"></i> Quay lại</a>
-                                <a href="${pageContext.request.contextPath}/admin/catalog/insert.htm" class="btn btn-success"><i class="fas fa-plus"></i> Thêm mới danh mục tin</a>
+                                <a href="${pageContext.request.contextPath}/admin/catalog/initInsertCatalog.htm" class="btn btn-success"><i class="fas fa-plus"></i> Thêm mới danh mục tin</a>
                                 <div class="clearfix"><br></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">

@@ -53,6 +53,11 @@ public interface CatalogDAO {
      * @return
      */
     public Boolean disableCatalog(Integer catalogId);
-    
-    
+
+    /**
+     * lấy ra độ ưu tiên lớn nhất để + 1 cho thêm mới
+     *
+     * @return
+     */
+    public Integer getMaxCatalogPiority();
 }
