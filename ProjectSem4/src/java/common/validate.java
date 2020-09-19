@@ -96,7 +96,7 @@ public class validate {
      * @return
      */
     public static Boolean isValidImage(String extension) {
-        String[] valid = {"jpg", "jpeg", "png"};
+        String[] valid = {"jpg", "jpeg", "png","JPG","JPEG","PNG"};
 
         return Arrays.asList(valid).contains(extension);
     }

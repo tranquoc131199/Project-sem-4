@@ -93,7 +93,7 @@
                                 <div id="submenu-5" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendBanner"><i class="fas fa-fw fa-desktop"></i> Banner</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/banner.htm"><i class="fas fa-fw fa-desktop"></i> Banner</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendLogo"><i class="fas fa-fw fa-image"></i> Logo</a>
