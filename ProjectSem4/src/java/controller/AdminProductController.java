@@ -5,6 +5,8 @@
  */
 package controller;
 
+import common.FilterProduct;
+import common.paging;
 import common.validate;
 import dao.CategoryDAO;
 import dao.ProductDAO;
@@ -160,13 +162,102 @@ public class AdminProductController {
 //
 //    }
     @RequestMapping(value = "product", method = RequestMethod.GET)
-    public String loadproduct(RedirectAttributes attributes, Model model, String brandId, String categoryId) {
-        List<Products> allProduct = productDAO.getAllProducts();
-        List<Categories> category = categoryDAO.getAllCategory();
-        List<Brands> brand = productDAO.getAllBrands();
-        model.addAttribute("brand", brand);
-        model.addAttribute("category", category);
-        model.addAttribute("allProduct", allProduct);
+    public String loadproduct(RedirectAttributes attributes, Model model, String brandId, String categoryId, Integer page) {
+
+        Brands brand = null;
+        Categories category = null;
+        String keyword = "";
+
+        //check xem hãng sản xuất có tồn tại không hoặc status có được sử dụng k 
+        if (brandId != null && !brandId.equals("")) {
+            // chờ thắng commit để ghép vafp(tạm thời lấy từ productDao)
+            brand = productDAO.getBrandById(validate.convertStringToInt(brandId, 0));
+
+            if (brand == null || brand.getBrandStatus() != 1) {
+                attributes.addFlashAttribute("error", "Mã hãng sản xuất không tồn tại!");
+                return "redirect:/product/index.htm";
+            }
+        } else {
+            brandId = "";
+        }
+
+        //check xem dah mục sản phẩm có tồn tại haowjc có status =1 không
+        if (categoryId != null && !categoryId.equals("")) {
+            category = categoryDAO.getCategoryById(validate.convertStringToInt(categoryId, 0));
+
+            if (category == null || category.getCategoryStatus() != 1) {
+                attributes.addFlashAttribute("error", "Mã danh mục sản phẩm không tồn tại!");
+                return "redirect:/product/index.html";
+            }
+        } else {
+            categoryId = "";
+        }
+
+        if (page == null || page <= 0) {
+            page = 1;
+        }
+
+        if (keyword == null || keyword.equals("")) {
+            keyword = "";
+            model.addAttribute("keyword", keyword);
+        }
+        //khai báo list Brand
+        List<Brands> brands;
+        //khai bao list categories
+        List<Categories> categories;
+        //khai bao list product
+        List<Products> products;
+        //khai bao đối tượng phân trang
+        paging paging;
+        //khai báo đối tượng lọc
+        FilterProduct filters;
+        // số trang
+        String pagingHtm = "";
+
+        //đường link đầu
+        String firstLink = "/ProjectSem4/admin/product.htm?brandId=" + brandId + "&categoryId=" + categoryId + "&keyword=" + keyword;
+        //đường link tiếp theo
+        String currentLink = "/ProjectSem4/admin/product.htm{p}&brandId=" + brandId + "&categoryId=" + categoryId + "&keyword=" + keyword;
+        // lấy ra tổng số sản phẩm. 
+        int totalRecords = productDAO.countProductFilterForPaging(brand, category, keyword);
+
+        if (totalRecords > 12) {
+            paging = new paging(page, totalRecords, 12, currentLink, firstLink);
+            filters = productDAO.filterProductsForAdmin(paging.startRecord, 12, keyword, brand, category);
+            products = filters.products;
+            brands = filters.brands;
+            categories = filters.categories;
+            pagingHtm = paging.generateHtml();
+        } else {
+            filters = productDAO.filterProductsForAdmin(0, totalRecords, keyword, brand, category);
+            products = filters.products;
+            brands = filters.brands;
+            categories = filters.categories;
+        }
+
+        if (brands != null) {
+            model.addAttribute("brands", brands);
+            model.addAttribute("brandId", brandId);
+        }
+
+        if (categories != null) {
+            model.addAttribute("categories", categories);
+            model.addAttribute("categoryId", categoryId);
+        }
+
+        if (keyword.length() > 0) {
+            model.addAttribute("keyword", keyword);
+        }
+
+        if (products.size() > 0) {
+            model.addAttribute("allProduct", products);
+        }
+
+        if (pagingHtm.length() > 0) {
+            model.addAttribute("pagingHtml", pagingHtm);
+        }
+
+        model.addAttribute("title", "Quản lý sản phẩm");
         return "Admin/product-list";
     }
 

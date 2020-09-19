@@ -103,7 +103,7 @@
                                     <span class="sale">-${bestSaleProduct.product.productSale}%</span>
                                 </c:if>
                             </div>
-                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSaleProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                            <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${bestSaleProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
                             <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${bestSaleProduct.product.productFeatureImage}" alt="${bestSaleProduct.product.productName}">
                         </div>
                         <div class="product-body">
@@ -112,7 +112,7 @@
                                 ${bestSaleProduct.productStarString}
                             </div>
                             <h2 class="product-name">
-                                <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSaleProduct.product.productId}" title="${bestSaleProduct.product.productName}">
+                                <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${bestSaleProduct.product.productId}" title="${bestSaleProduct.product.productName}">
                                     <c:if test="${fn:length(bestSaleProduct.product.productName) > 50}">
                                         ${fn:substring(bestSaleProduct.product.productName, 0, 50)}...
                                     </c:if>
@@ -145,7 +145,7 @@
                                             <span class="sale">-${p.product.productSale}%</span>
                                         </c:if>
                                     </div>
-                                    <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                                    <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
                                     <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}">
                                 </div>
                                 <div class="product-body">
@@ -199,7 +199,7 @@
                                     <span class="sale">-${bestSellProduct.product.productSale}%</span>
                                 </c:if>
                             </div>
-                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${bestSellProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
+                            <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${bestSellProduct.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Xem chi tiết</a>
                             <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${bestSellProduct.product.productFeatureImage}" alt="${bestSellProduct.product.productName}">
                         </div>
                         <div class="product-body">
@@ -242,7 +242,7 @@
                                                 <span class="sale">-${p.product.productSale}%</span>
                                             </c:if>
                                         </div>
-                                        <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
+                                        <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
                                         <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}" />
                                     </div>
                                     <div class="product-body">
@@ -252,7 +252,7 @@
                                         <div class="product-rating">
                                             ${p.productStarString}
                                         </div>
-                                        <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a></h2>
+                                        <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.product.productId}">${p.product.productName}</a></h2>
                                         <div class="product-btns">
                                             <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-heart <c:if test="${p.isWishlist}">active</c:if>"></i></a>
                                             <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-exchange"></i></a>
@@ -286,7 +286,7 @@
                                     <span class='text-center'>Mới</span>
                                 </c:if>
                             </div>
-                            <a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
+                            <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.product.productId}" class="main-btn quick-view"><i class="fa fa-eye"></i> Chi tiết</a>
                             <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.product.productFeatureImage}" alt="${p.product.productName}" />
                         </div>
                         <div class="product-body">
@@ -296,7 +296,7 @@
                             <div class="product-rating">
                                 ${p.productStarString}
                             </div>
-                            <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.html?productId=${p.product.productId}">${p.product.productName}</a></h2>
+                            <h2 class="product-name"><a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.product.productId}">${p.product.productName}</a></h2>
                             <div class="product-btns">
                                 <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-heart <c:if test="${p.isWishlist}">active</c:if>"></i></a>
                                 <a href="" class="main-btn icon-btn" data-id="${p.product.productId}"><i class="fa fa-exchange"></i></a>

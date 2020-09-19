@@ -99,5 +99,25 @@
     <bean id="paymentMethodDAO" class="dao.implement.PaymentMethodDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
+    <bean id="catalogDAO" class="dao.implement.CatalogDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="BannerDAO" class="dao.implement.BannerDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="AdminDAO" class="dao.implement.AdminDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="LogoDAO" class="dao.implement.LogoDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="FeedbackDAO" class="dao.implement.FeedbackDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
    
 </beans>

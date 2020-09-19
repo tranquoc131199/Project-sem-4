@@ -46,7 +46,7 @@
                                                 </div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">
-                                                     ${allPro.productSale}%
+                                                    ${allPro.productSale}%
                                                 </div>
                                                 <div class="product-price"><fmt:formatNumber value="${allPro.productPrice}" /> VNĐ</div>
                                             </div>
@@ -59,37 +59,37 @@
                                                     <div class="product-rating d-inline-block">
                                                         <c:if test="${allPro.productStarAvg == 5}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg > 4 && p.productStarAvg < 5}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg > 4 && p.productStarAvg < 5}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-half'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg == 4}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg == 4}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg > 3 && p.productStarAvg < 4}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg > 3 && p.productStarAvg < 4}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-half'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg == 3}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg == 3}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg > 2 && p.productStarAvg < 3}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg > 2 && p.productStarAvg < 3}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-half'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg == 2}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg == 2}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg > 1 && p.productStarAvg < 2}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg > 1 && p.productStarAvg < 2}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star-half'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg == 1}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg == 1}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg > 0 && p.productStarAvg < 1}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg > 0 && p.productStarAvg < 1}">
                                                             <i class='fa fa-star-half'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
-                                                        <c:if test="${allPro.productStarAvg == 0}">
+                                                            </c:if>
+                                                            <c:if test="${allPro.productStarAvg == 0}">
                                                             <i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i><i class='fa fa-star-o'></i>
-                                                        </c:if>
+                                                            </c:if>
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -103,19 +103,9 @@
                             </c:if>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <nav aria-label='Page navigation example'>
-                                    <ul class='pagination'>
-                                        <li class='disabled page-item'><a class='page-link'>&laquo;&laquo;</a></li>
-                                        <li class='disabled page-item'><a class='page-link'>&laquo;</a></li>
-                                        <li class='active page-item'><span class='page-link'>1</span></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=2&brandId=0&categoryId=0&keyword='>2</a></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=3&brandId=0&categoryId=0&keyword='>3</a></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=4&brandId=0&categoryId=0&keyword='>4</a></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=5&brandId=0&categoryId=0&keyword='>5</a></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=2&brandId=0&categoryId=0&keyword='>&raquo;</a></li>
-                                        <li class='page-item'><a class='page-link' href='/Admin/BackendProduct/Index/?page=5&brandId=0&categoryId=0&keyword='>&raquo;&raquo;</a></li>
-                                    </ul>
-                                </nav>
+                                <c:if test="${not empty pagingHtml}">
+                                    ${pagingHtml}
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -126,9 +116,9 @@
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Danh mục</h4>
-                                <c:if test="${not empty category}">
-                                    <c:forEach items="${category}" var="c">
-                                        <a href="${pageContext.request.contextPath}/admin/product.htm?brandId=${brandId}&categoryId=${c.categoryId}">
+                                <c:if test="${not empty categories}">
+                                    <c:forEach items="${categories}" var="c">
+                                        <a href="${pageContext.request.contextPath}/admin/product.htm?brandId=${brandId}&categoryId=${c.categoryId}&keyword=${keyword}">
                                             <div class="custom-control span-around <c:if test="${c.categoryId == categoryId}">active</c:if>">
                                                 <span>${c.categoryName}</span>
                                             </div>
@@ -138,19 +128,18 @@
                             </div>
                             <div class="product-sidebar-widget">
                                 <h4 class="product-sidebar-widget-title">Hãng</h4>
-                                <c:if test="${not empty brand}">
-                                    <c:forEach items="${brand}" var="b">
-                                        <a href="${pageContext.request.contextPath}/admin/product.html?brandId=${b.brandId}&categoryId=${categoryId}">
+                                <c:if test="${not empty brands}">
+                                    <c:forEach items="${brands}" var="b">
+                                        <a href="${pageContext.request.contextPath}/admin/product.htm?brandId=${b.brandId}&categoryId=${categoryId}&keyword=${keyword}">
                                             <div class="custom-control span-around <c:if test="${brandId == b.brandId}">active</c:if>">
                                                 <span>${b.brandName}</span>
                                             </div>
                                         </a>
                                     </c:forEach>
                                 </c:if>
-
                             </div>
                             <div class="product-sidebar-widget">
-                                <a href="/Admin/BackendProduct/ResetFilter" class="btn btn-outline-light" id="reset-filter">Tạo lại bộ lọc</a>
+                                <a href="${pageContext.request.contextPath}/admin/product.htm" class="btn btn-outline-light" id="reset-filter">Tạo lại bộ lọc</a>
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
@@ -31,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProductDAOImpl implements ProductDAO {
 
     @Autowired
-
+    @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
     public SessionFactory getSessionFactory() {
@@ -774,6 +775,132 @@ public class ProductDAOImpl implements ProductDAO {
         }
 
         return false;
+    }
+
+    @Override
+    public FilterProduct filterProductsForAdmin(Integer start, Integer limit, String productName, Brands brandId, Categories categoryId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        FilterProduct filter = new FilterProduct();
+        List<Products> collections;
+        Query query;
+
+        try {
+            if (brandId == null && categoryId == null && "".equals(productName)) {
+                query = session.createQuery("from Products order by productId desc");
+                collections = query.list();
+            } else if (brandId != null && categoryId == null && "".equals(productName)) {
+                query = session.createQuery("from Products where brandId = :brandId order by productId desc");
+                query.setParameter("brandId", brandId);
+                collections = query.list();
+            } else if (brandId == null && categoryId != null && "".equals(productName)) {
+                List<Categories> cas = session.createQuery("from Categories where parentId = :categoryId").setParameter("categoryId", categoryId.getCategoryId()).list();
+                query = session.createQuery("from Products where categoryId = :categoryId order by productId desc");
+                query.setParameter("categoryId", categoryId);
+                collections = query.list();
+
+                for (Categories c : cas) {
+                    query = session.createQuery("from Products where categoryId = :categoryId");
+                    query.setParameter("categoryId", c);
+                    collections.addAll(query.list());
+                }
+            } else if (brandId == null && categoryId == null && !"".equals(productName)) {
+                query = session.createQuery("from Products where productName like :productName order by productId desc");
+                query.setParameter("productName", "%" + productName + "%");
+                collections = query.list();
+            } else if (brandId != null && categoryId != null && "".equals(productName)) {
+                List<Categories> cas = session.createQuery("from Categories where parentId = :categoryId").setParameter("categoryId", categoryId.getCategoryId()).list();
+                query = session.createQuery("from Products where brandId = :brandId and categoryId = :categoryId order by productId desc");
+                query.setParameter("brandId", brandId);
+                query.setParameter("categoryId", categoryId);
+                collections = query.list();
+
+                for (Categories c : cas) {
+                    query = session.createQuery("from Products where categoryId = :categoryId");
+                    query.setParameter("categoryId", c);
+                    collections.addAll(query.list());
+                }
+            } else if (brandId == null && categoryId != null && !"".equals(productName)) {
+                List<Categories> cas = session.createQuery("from Categories where parentId = :categoryId").setParameter("categoryId", categoryId.getCategoryId()).list();
+                query = session.createQuery("from Products where categoryId = :categoryId and productName like :productName order by productId desc");
+                query.setParameter("categoryId", categoryId);
+                query.setParameter("productName", "%" + productName + "%");
+                collections = query.list();
+
+                for (Categories c : cas) {
+                    query = session.createQuery("from Products where categoryId = :categoryId");
+                    query.setParameter("categoryId", c);
+                    collections.addAll(query.list());
+                }
+            } else if (brandId != null && categoryId == null && !"".equals(productName)) {
+                query = session.createQuery("from Products where brandId = :brandId and productName like :productName order by productId desc");
+                query.setParameter("brandId", brandId);
+                query.setParameter("productName", "%" + productName + "%");
+                collections = query.list();
+            } else {
+                List<Categories> cas = session.createQuery("from Categories where parentId = :categoryId").setParameter("categoryId", categoryId.getCategoryId()).list();
+                query = session.createQuery("from Products where brandId = :brandId and categoryId = :categoryId and productName like :productName order by productId desc");
+                query.setParameter("brandId", brandId);
+                query.setParameter("categoryId", categoryId);
+                query.setParameter("productName", "%" + productName + "%");
+                collections = query.list();
+
+                for (Categories c : cas) {
+                    query = session.createQuery("from Products where categoryId = :categoryId");
+                    query.setParameter("categoryId", c);
+                    collections.addAll(query.list());
+                }
+            }
+
+            List<Brands> brands = new ArrayList<>();
+            List<Categories> categories = new ArrayList<>();
+
+            if (brandId == null && categoryId == null) {
+                brands = getAllBrandsForClient();
+                categories = getAllParentCategoriesForClient();
+            } else if (brandId != null && categoryId == null) {
+                brands.add(brandId);
+
+                for (Products p : collections) {
+                    if (p.getCategoryId().getParentId() == 0) {
+                        categories.add(p.getCategoryId());
+                    }
+
+                    if (p.getCategoryId().getParentId() != 0) {
+                        query = session.createQuery("from Categories where categoryId = :categoryId");
+                        query.setParameter("categoryId", p.getCategoryId().getParentId());
+                        Categories cat = (Categories) query.uniqueResult();
+
+                        if (cat.getParentId() == 0 && !Objects.equals(p.getCategoryId().getCategoryId(), cat.getCategoryId())) {
+                            categories.add(cat);
+                        }
+                    }
+                }
+            } else if (brandId == null && categoryId != null) {
+                categories.add(categoryId);
+                categories.addAll(getChildrenCategoriesByParentIdForClient(categoryId.getCategoryId()));
+
+                for (Products p : collections) {
+                    brands.add(p.getBrandId());
+                }
+            } else {
+                brands.add(brandId);
+                categories.add(categoryId);
+                categories.addAll(getChildrenCategoriesByParentIdForClient(categoryId.getCategoryId()));
+            }
+
+            categories = categories.stream().distinct().collect(Collectors.toList());
+            brands = brands.stream().distinct().collect(Collectors.toList());
+            collections = collections.stream().skip(start).limit(limit).collect(Collectors.toList());
+            filter = new FilterProduct(collections, brands, categories);
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return filter;
     }
 
 }

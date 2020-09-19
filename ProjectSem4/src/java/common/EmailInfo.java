@@ -11,9 +11,9 @@ package common;
  */
 public class EmailInfo {
 
-    public static final String MY_EMAIL = "c1709h@gmail.com";
+    public static final String MY_EMAIL = "c1707gvs2@gmail.com";
 
-    public static final String MY_PASSWORD = "bkapc1709h";
+    public static final String MY_PASSWORD = "It12345!";
 
     public static final String HOST_NAME = "smtp.gmail.com";
 

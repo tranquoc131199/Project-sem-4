@@ -262,7 +262,7 @@ public class ClientOrderController {
             return message.toString();
         }
 
-        if (productQuantity <= 0 || productQuantity == (int) productQuantity) {
+        if (productQuantity <= 0 ) {
             message.setResult(false);
             message.setMessage("Số lượng sản phẩm không khả dụng!");
             message.setMessageCode("quantity-invalid");
@@ -489,7 +489,7 @@ public class ClientOrderController {
 //        }
 
 
-        return "redirect:/customer/order.htm";
+        return "redirect:/order/index.htm";
     }
 
     private String generateOrderEmailBody(List<OrderDetails> orderDetails) {
