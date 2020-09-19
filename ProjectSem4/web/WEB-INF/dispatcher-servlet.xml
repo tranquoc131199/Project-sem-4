@@ -99,5 +99,9 @@
     <bean id="paymentMethodDAO" class="dao.implement.PaymentMethodDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
+    <bean id="catalogDAO" class="dao.implement.CatalogDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
    
 </beans>

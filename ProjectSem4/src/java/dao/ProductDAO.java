@@ -176,6 +176,19 @@ public interface ProductDAO {
     public FilterProduct filterProductsForClient(Integer start, Integer limit, Brands brandId, Categories categoryId, String productName, Integer sort);
 
     /**
+     * Lọc sản phẩm theo các thông số Thông số nào không có thì null hoặc empty
+     * tương ứng
+     *
+     * @param start
+     * @param limit
+     * @param productName
+     * @param brand
+     * @param category
+     * @return
+     */
+    public FilterProduct filterProductsForAdmin(Integer start, Integer limit, String productName, Brands brand, Categories category);
+
+    /**
      * Lấy danh sách tất cả các hãng sản xuất - Brands
      *
      * @return
@@ -218,7 +231,7 @@ public interface ProductDAO {
 
     /**
      * them binh luan cho san pham
-     * 
+     *
      *
      * @param productComment
      * @return

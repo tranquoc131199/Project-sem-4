@@ -58,10 +58,10 @@
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendNew"><i class="fas fa-fw fa-newspaper"></i> Tin tức</a>
+                                            <a class="nav-link" href=""><i class="fas fa-fw fa-newspaper"></i> Tin tức</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendNew/Catalog"><i class="fas fa-clipboard-list"></i> Danh mục tin tức</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/catalog.htm"><i class="fas fa-clipboard-list"></i> Danh mục tin tức</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -94,10 +94,15 @@ public class ShoppingCart implements Serializable {
         boolean result = false;
 
         if (carts == null || carts.isEmpty()) {
-            carts = new ArrayList<>();
-            CartSingle cartSingle = new CartSingle(product, quantity);
-            carts.add(cartSingle);
-            result = true;
+            if (quantity <= 0) {
+                result = false;
+            } else {
+                carts = new ArrayList<>();
+                CartSingle cartSingle = new CartSingle(product, quantity);
+                carts.add(cartSingle);
+                result = true;
+            }
+
         } else {
             boolean isExists = false;
 
@@ -112,10 +117,12 @@ public class ShoppingCart implements Serializable {
                 }
             }
 
-            if (isExists) {
+            if (isExists && quantity > 0) {
                 CartSingle cartSingle = new CartSingle(product, quantity);
                 carts.add(cartSingle);
                 result = true;
+            } else {
+                result = false;
             }
         }
 

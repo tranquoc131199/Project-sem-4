@@ -72,7 +72,7 @@
                         <div class="product-btns">
                             <div class="qty-input">
                                 <span class="text-uppercase"><b>Số lượng: </b></span>
-                                <input class="input" type="number" id="ProductQuantity" value="1" min="1" />
+                                <input class="input" type="number" id="productQuantity" value="1" min="1" />
                             </div>
                             <button class="primary-btn add-to-cart-from-detail" data-id="${product.product.productId}"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                             <div class="pull-right">
