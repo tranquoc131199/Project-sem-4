@@ -9,12 +9,10 @@ import common.validate;
 import common.paging;
 import dao.AdminDAO;
 import dao.FeedbackDAO;
-//import dao.IconDAO;
 import dao.LogoDAO;
 import dao.OrderDAO;
 import dao.ProductDAO;
 import entities.Admins;
-//import entities.Icons;
 import entities.Logoes;
 import entities.Orders;
 import entities.Products;
@@ -36,11 +34,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
- * @author QuanKoiNA
+ * @author Thang Pham
  */
 @Controller
 @RequestMapping(value = "/admin")
-public class BackendAdminController {
+public class AdminController {
 
     private ProductDAO productDAO;
 
@@ -49,15 +47,9 @@ public class BackendAdminController {
     private FeedbackDAO feedbackDAO;
 
     private AdminDAO adminDAO;
-    
-//    private IconDAO iconDAO;
+   
     
     private LogoDAO logoDAO;
-
-//    @Autowired
-//    public void setIconDAO(IconDAO iconDAO) {
-//        this.iconDAO = iconDAO;
-//    }
 
     @Autowired
     public void setLogoDAO(LogoDAO logoDAO) {
@@ -91,25 +83,15 @@ public class BackendAdminController {
         }
         
         Logoes logo = logoDAO.getLogoToDisplay();
-//        Icons icon = iconDAO.getIconToDisplay();
         String logoImage = "";
-//        String iconImage = "";
 
         if (logo != null) {
             logoImage = logo.getLogoImage();
         }
 
-//        if (icon != null) {
-//            iconImage = icon.getIconImage();
-//        }
-
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
-
-//        if (iconImage.length() > 0) {
-//            model.addAttribute("icon", iconImage);
-//        }
         
         return "Admin/login";
     }
@@ -158,25 +140,15 @@ public class BackendAdminController {
             model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
         }
         
-//        int countProduct = productDAO.countProductForDisplayOnDashboard();
-//        int countOrder = orderDAO.countOrderForDisplayOnDashboard();
         int countFeedback = feedbackDAO.countFeedbackForDisplayOnDashboard();
-//        double sumRevenue = orderDAO.sumRevenueForDisplayOnDashboard();
-//        List<Orders> newestOrders = orderDAO.getTopTenOrderToDisplayOnDashboard();
-//        List<Products> bestSaleProducts = productDAO.getTopTenBestSaleProductForDisplayDashboard();
         Logoes logo = logoDAO.getLogoToDisplay();
-//        Icons icon = iconDAO.getIconToDisplay();
         String logoImage = "";
         String iconImage = "";
 
         if (logo != null) {
             logoImage = logo.getLogoImage();
         }
-
-//        if (icon != null) {
-//            iconImage = icon.getIconImage();
-//        }
-
+        
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
@@ -184,30 +156,10 @@ public class BackendAdminController {
         if (iconImage.length() > 0) {
             model.addAttribute("icon", iconImage);
         }
-
-//        if (countProduct >= 0) {
-//            model.addAttribute("countProduct", countProduct);
-//        }
-
-//        if (countOrder >= 0) {
-//            model.addAttribute("countOrder", countOrder);
-//        }
         
         if (countFeedback >= 0) {
             model.addAttribute("countFeedback", countFeedback);
         }
-        
-//        if (sumRevenue >= 0) {
-//            model.addAttribute("sumRevenue", sumRevenue);
-//        }
-        
-//        if (newestOrders.size() > 0) {
-//            model.addAttribute("newestOrder", newestOrders);
-//        }
-        
-//        if (bestSaleProducts.size() > 0) {
-//            model.addAttribute("bestSaleProduct", bestSaleProducts);
-//        }
         
         model.addAttribute("title", "Bảng điều khiển");
         return "Admin/index";
@@ -238,17 +190,12 @@ public class BackendAdminController {
         paging paging;
         String pagingHtml = "";
         Logoes logo = logoDAO.getLogoToDisplay();
-//        Icons icon = iconDAO.getIconToDisplay();
         String logoImage = "";
         String iconImage = "";
 
         if (logo != null) {
             logoImage = logo.getLogoImage();
         }
-
-//        if (icon != null) {
-//            iconImage = icon.getIconImage();
-//        }
 
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
@@ -320,17 +267,12 @@ public class BackendAdminController {
         }
         
         Logoes logo = logoDAO.getLogoToDisplay();
-//        Icons icon = iconDAO.getIconToDisplay();
         String logoImage = "";
         String iconImage = "";
 
         if (logo != null) {
             logoImage = logo.getLogoImage();
         }
-
-//        if (icon != null) {
-//            iconImage = icon.getIconImage();
-//        }
 
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
@@ -354,17 +296,12 @@ public class BackendAdminController {
         }
         
         Logoes logo = logoDAO.getLogoToDisplay();
-//        Icons icon = iconDAO.getIconToDisplay();
         String logoImage = "";
         String iconImage = "";
 
         if (logo != null) {
             logoImage = logo.getLogoImage();
         }
-
-//        if (icon != null) {
-//            iconImage = icon.getIconImage();
-//        }
 
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);

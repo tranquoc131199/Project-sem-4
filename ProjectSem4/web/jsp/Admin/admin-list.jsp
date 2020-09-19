@@ -1,7 +1,7 @@
 <%-- 
     Document   : admin-list
     Created on : Jun 6, 2019, 4:54:13 PM
-    Author     : QuanKoiNA
+    Author     : Thang Pham
 --%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

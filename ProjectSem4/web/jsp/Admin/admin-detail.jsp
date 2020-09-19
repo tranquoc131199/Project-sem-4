@@ -1,7 +1,7 @@
 <%-- 
     Document   : admin-detail
     Created on : Jun 6, 2019, 5:08:26 PM
-    Author     : QuanKoiNA
+    Author     : Thang Pham
 --%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -129,7 +129,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    Copyright © 2018 QTCStore. All rights reserved customize by <a href="https://facebook.com/quancoina/" target="_blank">QuanKoiNA</a>.
+                    Copyright © 2018 QTCStore. All rights reserved customize by <a href="https://facebook.com/phamducthang452/" target="_blank">ThangPD</a>.
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="text-md-right footer-links d-none d-sm-block">

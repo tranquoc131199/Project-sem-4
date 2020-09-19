@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
- * @author QuanKoiNA
+ * @author Thang Pham
  */
 public class AdminDAOImpl implements AdminDAO {
 
