@@ -60,4 +60,18 @@ public interface CatalogDAO {
      * @return
      */
     public Integer getMaxCatalogPiority();
+    
+    /**
+     * Khoá tất cả các danh mục tin tức con của 1 danh mục tin tức cha
+     * @param parentId
+     * @return 
+     */
+    public Boolean disableChildCatalogByParentId(Integer parentId);
+    
+    /**
+     * Khoá tất cả các bài viết thuộc 1 danh mục
+     * @param catalogId
+     * @return 
+     */
+    public Boolean disableAllNewByCatalogId(Integer catalogId);
 }
