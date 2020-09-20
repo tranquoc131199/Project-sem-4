@@ -6,10 +6,13 @@
 package controller;
 
 import common.CompleteProduct;
+import dao.CatalogDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
+import dao.NewDAO;
 import dao.ProductDAO;
 import dao.WishlistDAO;
+import entities.Catalogs;
 import entities.Categories;
 import entities.Customers;
 import entities.Products;
@@ -32,6 +35,18 @@ public class ClientHomeController {
     private ProductDAO productDAO;
     private CategoryDAO categoryDAO;
     private CustomerDAO customerDAO;
+    private NewDAO newDAO;
+    private CatalogDAO catalogDAO;
+
+    @Autowired
+    public void setCatalogDAO(CatalogDAO catalogDAO) {
+        this.catalogDAO = catalogDAO;
+    }
+
+    @Autowired
+    public void setNewDAO(NewDAO newDAO) {
+        this.newDAO = newDAO;
+    }
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
@@ -47,10 +62,6 @@ public class ClientHomeController {
     public void setCustomerDAO(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
-
-   
-
-  
 
     @RequestMapping(value = "index")
     public String homeIndex(HttpSession session, Model model) {
@@ -139,10 +150,16 @@ public class ClientHomeController {
             //hiển thị ra màn hình 4 sản phẩm có ngày tạo mới nhát để sale
             if (fourNewProduct.size() > 0) {
                 for (Products product : fourNewProduct) {
-                 CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
-                   completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
-                   fourNewProList.add(completeProduct);
-               }            }
+                    CompleteProduct completeProduct = new CompleteProduct(product, customer, wishlists);
+                    completeProduct.setIsNewProduct(productDAO.checkNewProduct(product.getProductId()));
+                    fourNewProList.add(completeProduct);
+                }
+            }
+        }
+
+        String newHtml = newDAO.generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
         }
 
         if (customer != null) {
@@ -207,5 +224,28 @@ public class ClientHomeController {
             }
         }
         return htm;
+    }
+
+    private String generateNewsHtml() {
+        String html = "";
+        List<Catalogs> catalogs = catalogDAO.getAllParentCatalogsFrontEnd();
+
+        for (Catalogs c : catalogs) {
+            html += "<div class='col-md-4'>";
+            html += "<ul class='list-links'>";
+            html += "<li>";
+            html += "<h3 class='list-links-title'><a href='/ProjectSem4/new/index.htm?catalogId=" + c.getCatalogId() + "'>" + c.getCatalogName() + "</a></h3>";
+            html += "</li>";
+
+            List<Catalogs> children = catalogDAO.getAllChildrenCatalogsByParentIdFrontEnd(c.getCatalogId());
+
+            html = children.stream().map((ct) -> "<li><a href='/ProjectSem4/new/index.htm?catalogId=" + ct.getCatalogId() + "'>" + ct.getCatalogName() + "</a></li>").reduce(html, String::concat);
+
+            html += "</ul>";
+            html += "<hr class='hidden-md hidden-lg'>";
+            html += "</div>";
+        }
+
+        return html;
     }
 }

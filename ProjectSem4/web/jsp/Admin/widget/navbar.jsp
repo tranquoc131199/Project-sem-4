@@ -47,9 +47,6 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendCustomer/Feedback"><i class="fas fa-fw fa-road"></i> Phản hồi</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendCustomer/RegistedEmail"><i class="fas fa-envelope"></i> Email đã đăng ký</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </li>                           
@@ -58,7 +55,7 @@
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendNew"><i class="fas fa-fw fa-newspaper"></i> Tin tức</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/new.htm"><i class="fas fa-fw fa-newspaper"></i> Tin tức</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/catalog.htm"><i class="fas fa-clipboard-list"></i> Danh mục tin tức</a>
@@ -72,9 +69,6 @@
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendOrder"><i class="fas fa-fw fa-file-code"></i> Đơn hàng</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendVoucher"><i class="fas fa-fw fa-money-bill-alt"></i> Mã giảm giá</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendTransport"><i class="fas fa-fw fa-truck"></i> Vận chuyển</a>
@@ -98,9 +92,6 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendLogo"><i class="fas fa-fw fa-image"></i> Logo</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendIcon"><i class="fas fa-fw fa-tag"></i> Icon</a>
-                                        </li>
                                     </ul>
                                 </div>
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-cogs"></i> Nâng cao </a>
@@ -111,12 +102,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendContact"><i class="fas fa-fw fa-address-book"></i> Liên hệ</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendSocial"><i class="fas fa-fw fa-cubes"></i> Mạng xã hội</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendFaq"><i class="fas fa-fw fa-question"></i> FAQ</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendIntroduction"><i class="fas fa-fw fa-trophy"></i> Giới thiệu</a>

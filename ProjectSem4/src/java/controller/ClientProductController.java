@@ -11,10 +11,13 @@ import common.CompleteProduct;
 import common.FilterProduct;
 import common.paging;
 import common.validate;
+import dao.CatalogDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
+import dao.NewDAO;
 import dao.ProductDAO;
 import entities.Brands;
+import entities.Catalogs;
 import entities.Categories;
 import entities.Customers;
 import entities.ProductComments;
@@ -43,6 +46,18 @@ public class ClientProductController {
     private ProductDAO productDAO;
     private CategoryDAO categoryDAO;
     private CustomerDAO customerDAO;
+    private NewDAO newDAO;
+    private CatalogDAO catalogDAO;
+
+    @Autowired
+    public void setCatalogDAO(CatalogDAO catalogDAO) {
+        this.catalogDAO = catalogDAO;
+    }
+
+    @Autowired
+    public NewDAO getNewDAO() {
+        return newDAO;
+    }
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
@@ -171,6 +186,11 @@ public class ClientProductController {
             model.addAttribute("customer", customer);
         }
 
+        String newHtml = generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
+        }
+
         if (navHtm.length() > 0) {
             model.addAttribute("navbarHtm", navHtm);
         }
@@ -267,6 +287,10 @@ public class ClientProductController {
                 commentProducts.add(commentProduct);
             });
         }
+        String newHtml = generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
+        }
         if (navbarHtm.length() > 0) {
             model.addAttribute("navbarHtm", navbarHtm);
         }
@@ -320,4 +344,26 @@ public class ClientProductController {
         //return "redirect:detail.htm?productId=" + productId;
     }
 
+        private String generateNewsHtml() {
+        String html = "";
+        List<Catalogs> catalogs = catalogDAO.getAllParentCatalogsFrontEnd();
+
+        for (Catalogs c : catalogs) {
+            html += "<div class='col-md-4'>";
+            html += "<ul class='list-links'>";
+            html += "<li>";
+            html += "<h3 class='list-links-title'><a href='/ProjectSem4/new/index.htm?catalogId=" + c.getCatalogId() + "'>" + c.getCatalogName() + "</a></h3>";
+            html += "</li>";
+
+            List<Catalogs> children = catalogDAO.getAllChildrenCatalogsByParentIdFrontEnd(c.getCatalogId());
+
+            html = children.stream().map((ct) -> "<li><a href='/ProjectSem4/new/index.htm?catalogId=" + ct.getCatalogId() + "'>" + ct.getCatalogName() + "</a></li>").reduce(html, String::concat);
+
+            html += "</ul>";
+            html += "<hr class='hidden-md hidden-lg'>";
+            html += "</div>";
+        }
+
+        return html;
+    }
 }

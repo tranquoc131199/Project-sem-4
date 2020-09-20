@@ -22,70 +22,19 @@
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
                     <li><a href="${pageContext.request.contextPath}/index.htm">Trang chủ</a></li>
-                    <li class="dropdown mega-dropdown">
+                     <li class="dropdown mega-dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Tin tức <i class="fa fa-caret-down"></i></a>
                         <div class="custom-menu">
                             <div class="row">
-                                <div class='col-md-4'><ul class='list-links'>
-                                        <li>
-                                            <h3 class='list-links-title'>
-                                                <a href='/New/?CatalogId=1'>Tin doanh nghiệp</a>
-                                            </h3>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=4'>Báo cáo doanh thu</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=5'>Tuyển dụng</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=12'>Thông tin cửa hàng</a>
-                                        </li>
-                                    </ul>
-                                    <hr class='hidden-md hidden-lg'>
-                                </div>
-                                <div class='col-md-4'><ul class='list-links'>
-                                        <li>
-                                            <h3 class='list-links-title'>
-                                                <a href='/New/?CatalogId=2'>Tin công nghệ</a>
-                                            </h3>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=6'>Hướng dẫn</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=7'>Giải đáp</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=8'>Tin tức từ các hãng</a>
-                                        </li>
-                                    </ul>
-                                    <hr class='hidden-md hidden-lg'>
-                                </div><div class='col-md-4'>
-                                    <ul class='list-links'>
-                                        <li>
-                                            <h3 class='list-links-title'>
-                                                <a href='/New/?CatalogId=3'>Tin khuyến mãi</a>
-                                            </h3>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=9'>Khuyến mãi tháng</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=10'>Khuyến mãi đợt</a>
-                                        </li>
-                                        <li>
-                                            <a href='/New/?CatalogId=11'>Các chương trình khuyến mãi</a>
-                                        </li>
-                                    </ul>
-                                    <hr class='hidden-md hidden-lg'>
-                                </div>
+                                <c:if test="${not empty newHtml}">
+                                    ${newHtml}
+                                </c:if>
                             </div>
                             <div class="row hidden-sm hidden-xs">
                                 <div class="col-md-12">
                                     <hr>
                                     <a class="banner banner-1" href="#">
-                                        <img src="${pageContext.request.contextPath}/jsp/Customer/img/banner05.jpg" alt="">
+                                        <img src="ProjectSem4/jsp/Admin/assets/img/banner05.jpg" alt="">
                                         <div class="banner-caption text-center">
                                             <h2 class="white-color">SẢN PHẨM MỚI</h2>
                                             <h3 class="white-color font-weak">GIÁ HẤP DẪN</h3>

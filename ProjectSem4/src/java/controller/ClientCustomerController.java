@@ -5,10 +5,14 @@
  */
 package controller;
 
+import dao.CatalogDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
+import dao.NewDAO;
 import dao.ProductDAO;
+import entities.Catalogs;
 import entities.Customers;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.RespectBinding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,18 @@ public class ClientCustomerController {
     private CustomerDAO customerDAO;
     private CategoryDAO categoryDAO;
     private ProductDAO productDAO;
+    private NewDAO newDAO;
+    private CatalogDAO catalogDAO;
+
+    @Autowired
+    public void setCatalogDAO(CatalogDAO catalogDAO) {
+        this.catalogDAO = catalogDAO;
+    }
+
+    @Autowired
+    public NewDAO getNewDAO() {
+        return newDAO;
+    }
 
     @Autowired
     public void setCustomerDAO(CustomerDAO customerDAO) {
@@ -47,6 +63,7 @@ public class ClientCustomerController {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(RedirectAttributes attributes, HttpSession session, Model model) {
+
         if (session.getAttribute("customerLogin") == null) {
             attributes.addFlashAttribute("error", "Vui lòng đăng nhập để tiếp tục!");
             return "redirect:login.htm";
@@ -71,6 +88,10 @@ public class ClientCustomerController {
         String navbarHtm = categoryDAO.generateNavbar();
         if (navbarHtm.length() > 0) {
             model.addAttribute("navbarHtm", navbarHtm);
+        }
+        String newHtml = generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
         }
 
         return "Customer/login";
@@ -99,12 +120,35 @@ public class ClientCustomerController {
             return "redirect:/customer/login.htm";
         }
     }
-    
-     @RequestMapping(value = "/logout")
+
+    @RequestMapping(value = "/logout")
     public String logout(HttpSession session, RedirectAttributes attributes) {
-        
+
         session.removeAttribute("customerLogin");
         return "redirect:login.htm";
+    }
+
+    private String generateNewsHtml() {
+        String html = "";
+        List<Catalogs> catalogs = catalogDAO.getAllParentCatalogsFrontEnd();
+
+        for (Catalogs c : catalogs) {
+            html += "<div class='col-md-4'>";
+            html += "<ul class='list-links'>";
+            html += "<li>";
+            html += "<h3 class='list-links-title'><a href='/ProjectSem4/new/index.htm?catalogId=" + c.getCatalogId() + "'>" + c.getCatalogName() + "</a></h3>";
+            html += "</li>";
+
+            List<Catalogs> children = catalogDAO.getAllChildrenCatalogsByParentIdFrontEnd(c.getCatalogId());
+
+            html = children.stream().map((ct) -> "<li><a href='/ProjectSem4/new/index.htm?catalogId=" + ct.getCatalogId() + "'>" + ct.getCatalogName() + "</a></li>").reduce(html, String::concat);
+
+            html += "</ul>";
+            html += "<hr class='hidden-md hidden-lg'>";
+            html += "</div>";
+        }
+
+        return html;
     }
 
 }
