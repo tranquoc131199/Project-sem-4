@@ -224,4 +224,160 @@ public class CatalogDAOImpl implements CatalogDAO {
 
         return result;
     }
+
+    @Override
+    public Boolean enableCatalog(Integer catalogId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+
+        try {
+            Catalogs catalog = getCatalogById(catalogId);
+            catalog.setCatalogStatus(1);
+            catalog.setUpdatedDate(new Date());
+            result = updateCatalog(catalog);
+            enableAllCatalogsByParentId(catalogId);
+            enableAllNewsByCatalogId(catalogId);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("dao.impl.CatalogDAOImpl.enableCatalog()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Boolean enableAllCatalogsByParentId(Integer parentId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+
+        try {
+            Query query = session.createQuery("from Catalogs where parentId = :parentId");
+            query.setParameter("parentId", parentId);
+            List<Catalogs> childCatalogs = query.list();
+
+            childCatalogs.forEach((c) -> {
+                c.setCatalogStatus(1);
+                c.setUpdatedDate(new Date());
+                session.update(c);
+            });
+
+            session.getTransaction().commit();
+            result = true;
+        } catch (Exception e) {
+            System.out.println("dao.impl.CatalogDAOImpl.enableAllCatalogsByParentId()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Boolean enableAllNewsByCatalogId(Integer catalogId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<News> news = new ArrayList<>();
+        Boolean result = false;
+
+        try {
+            Query query = session.createQuery("from Catalogs where catalogId = :catalogId");
+            query.setParameter("catalogId", catalogId);
+            List<Catalogs> childCatalogs = query.list();
+
+            for (Catalogs c : childCatalogs) {
+                query = session.createQuery("from News where catalogId = :catalogId");
+                query.setParameter("catalogId", c.getCatalogId());
+                List<News> newsFirst = query.list();
+                news.addAll(newsFirst);
+            }
+
+            news.forEach((n) -> {
+                n.setNewStatus(1);
+                n.setUpdatedDate(new Date());
+                session.update(n);
+            });
+
+            session.getTransaction().commit();
+            result = true;
+        } catch (Exception e) {
+            System.out.println("dao.impl.CatalogDAOImpl.enableAllNewsByCatalogId()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Catalogs> getAllChildrenCatalogsByParentId(Integer parentId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Catalogs> catalogs = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Catalogs where parentId = :parentId order by catalogId desc");
+            query.setParameter("parentId", parentId);
+            catalogs = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return catalogs;
+    }
+
+    @Override
+    public List<Catalogs> getAllParentCatalogsFrontEnd() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Catalogs> catalogs = new ArrayList<>();
+
+        try {
+            catalogs = session.createQuery("from Catalogs where catalogStatus = 1 and parentId = 0 order by catalogPiority").list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("dao.impl.CatalogDAOImpl.getAllParentCatalogsFrontEnd()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return catalogs;
+    }
+
+    @Override
+    public List<Catalogs> getAllChildrenCatalogsByParentIdFrontEnd(Integer parentId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Catalogs> catalogs = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Catalogs where parentId = :parentId order by catalogId desc");
+            query.setParameter("parentId", parentId);
+            catalogs = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return catalogs;
+    }
+
 }

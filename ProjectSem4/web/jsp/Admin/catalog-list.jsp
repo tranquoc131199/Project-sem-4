@@ -1,7 +1,7 @@
 <%-- 
-    Document   : catalog-list
-    Created on : Jun 6, 2019, 5:12:37 PM
-    Author     : QuanKoiNA
+    Document   :catalog-list
+    Created on : Aug 23, 2020, 12:24:51 PM
+    Author     : Acer Nitro 5
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -66,7 +66,7 @@
                                                         </td>
                                                         <td>
                                                             <a href="${pageContext.request.contextPath}/admin/new.htm?catalogId=${c.catalogId}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> Xem tin thuộc danh mục</a>
-                                                            <a href="${pageContext.request.contextPath}/admin/catalog/update.htm?catalogId=${c.catalogId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
+                                                            <a href="${pageContext.request.contextPath}/admin/catalog/initUpdateCatalog.htm?catalogId=${c.catalogId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Sửa</a>
                                                             <c:if test="${c.catalogStatus == 1}">
                                                                 <a href="${pageContext.request.contextPath}/admin/catalog/disable.htm?catalogId=${c.catalogId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
                                                             </c:if>

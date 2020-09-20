@@ -10,11 +10,14 @@ import common.Message;
 import common.SendEmail;
 import common.validate;
 import common.ShoppingCart;
+import dao.CatalogDAO;
 import dao.CategoryDAO;
+import dao.NewDAO;
 import dao.OrderDAO;
 import dao.PaymentMethodDAO;
 import dao.ProductDAO;
 import dao.TransportDAO;
+import entities.Catalogs;
 import entities.Customers;
 import entities.OrderDetails;
 import entities.Orders;
@@ -46,6 +49,19 @@ public class ClientOrderController {
     private CategoryDAO categoryDAO;
     private OrderDAO orderDAO;
     private TransportDAO transportDAO;
+    private NewDAO newDAO;
+
+    private CatalogDAO catalogDAO;
+
+    @Autowired
+    public void setCatalogDAO(CatalogDAO catalogDAO) {
+        this.catalogDAO = catalogDAO;
+    }
+
+    @Autowired
+    public void setNewDAO(NewDAO newDAO) {
+        this.newDAO = newDAO;
+    }
 
     @Autowired
     public void setTransportDAO(TransportDAO transportDAO) {
@@ -84,6 +100,10 @@ public class ClientOrderController {
         }
         if (navbarHtm.length() > 0) {
             model.addAttribute("navbarHtml", navbarHtm);
+        }
+        String newHtml = generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
         }
 
         return "Customer/shopping-cart";
@@ -262,7 +282,7 @@ public class ClientOrderController {
             return message.toString();
         }
 
-        if (productQuantity <= 0 ) {
+        if (productQuantity <= 0) {
             message.setResult(false);
             message.setMessage("Số lượng sản phẩm không khả dụng!");
             message.setMessageCode("quantity-invalid");
@@ -338,6 +358,10 @@ public class ClientOrderController {
             model.addAttribute("carts", shoppingCart.carts);
         }
 
+        String newHtml = generateNewsHtml();
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
+        }
         if (navbarHtm.length() > 0) {
             model.addAttribute("navbarHtm", navbarHtm);
         }
@@ -481,14 +505,12 @@ public class ClientOrderController {
             SendEmail.sendMail(customerEmail, emailTitle, emailBody);
 
         }
-        
+
 //         if (countOrderDetailInserted > 0) {
 //            orderDAO.revertOrderDetail(countOrderDetailInserted);
 //            attributes.addFlashAttribute("error", "Đặt hàng không thành công!");
 //            return "redirect:/order/checkout.htm";
 //        }
-
-
         return "redirect:/order/index.htm";
     }
 
@@ -531,6 +553,29 @@ public class ClientOrderController {
         emailBody += "</div>";
 
         return emailBody;
+    }
+
+    private String generateNewsHtml() {
+        String html = "";
+        List<Catalogs> catalogs = catalogDAO.getAllParentCatalogsFrontEnd();
+
+        for (Catalogs c : catalogs) {
+            html += "<div class='col-md-4'>";
+            html += "<ul class='list-links'>";
+            html += "<li>";
+            html += "<h3 class='list-links-title'><a href='/ProjectSem4/new/index.htm?catalogId=" + c.getCatalogId() + "'>" + c.getCatalogName() + "</a></h3>";
+            html += "</li>";
+
+            List<Catalogs> children = catalogDAO.getAllChildrenCatalogsByParentIdFrontEnd(c.getCatalogId());
+
+            html = children.stream().map((ct) -> "<li><a href='/ProjectSem4/new/index.htm?catalogId=" + ct.getCatalogId() + "'>" + ct.getCatalogName() + "</a></li>").reduce(html, String::concat);
+
+            html += "</ul>";
+            html += "<hr class='hidden-md hidden-lg'>";
+            html += "</div>";
+        }
+
+        return html;
     }
 
 }

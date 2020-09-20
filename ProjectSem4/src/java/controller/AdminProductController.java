@@ -49,14 +49,20 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String loadCategory(Model model) {
+    public String loadCategory(Model model, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         List<Categories> allCategory = categoryDAO.getAllCategory();
         model.addAttribute("allCategory", allCategory);
         return "Admin/category-list";
     }
 
     @RequestMapping(value = "category/initInsertCategory")
-    public String initInsertCategory(Model model) {
+    public String initInsertCategory(Model model, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         int maxPiority = categoryDAO.getMaxCategoryPiority();
         if (maxPiority >= 0) {
             model.addAttribute("maxPiority", maxPiority + 1);
@@ -67,7 +73,10 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "category/insertCategory")
-    public String insertCategory(RedirectAttributes attributes, String categoryName, String parentId, String categoryPiority, String categoryStatus) {
+    public String insertCategory(RedirectAttributes attributes, String categoryName, String parentId, String categoryPiority, String categoryStatus, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         if (validate.isEmpty(categoryName)) {
             attributes.addFlashAttribute("error", "Tên danh mục không được để trống");
             return "redirect:/admin/category/initInsertCategory.htm";
@@ -120,7 +129,10 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "category/disable")
-    public String disableCategory(RedirectAttributes attributes, Integer categoryId) {
+    public String disableCategory(RedirectAttributes attributes, Integer categoryId, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
 
         boolean check = categoryDAO.disableCategory(categoryId);
         if (check) {
@@ -135,7 +147,10 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "category/enable")
-    public String enableCategory(RedirectAttributes attributes, Integer categoryId) {
+    public String enableCategory(RedirectAttributes attributes, Integer categoryId, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
 
         boolean check = categoryDAO.enableCategory(categoryId);
         if (check) {
@@ -162,8 +177,10 @@ public class AdminProductController {
 //
 //    }
     @RequestMapping(value = "product", method = RequestMethod.GET)
-    public String loadproduct(RedirectAttributes attributes, Model model, String brandId, String categoryId, Integer page) {
-
+    public String loadproduct(RedirectAttributes attributes, Model model, String brandId, String categoryId, Integer page, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         Brands brand = null;
         Categories category = null;
         String keyword = "";
@@ -262,7 +279,10 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/initInsertProduct")
-    public String initInsertProduct(RedirectAttributes attributes, Model model) {
+    public String initInsertProduct(RedirectAttributes attributes, Model model, HttpSession session) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         List<Categories> listCategory = categoryDAO.getAllCategory();
         List<Brands> listBrand = productDAO.getAllBrands();
         if (listCategory.size() <= 0) {
@@ -281,10 +301,13 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/insertProduct", method = RequestMethod.POST)
-    public String insertProduct(String productFeatureImage, HttpServletRequest request,
+    public String insertProduct(HttpSession session, String productFeatureImage, HttpServletRequest request,
             RedirectAttributes attributes, String productName,
             String productCode, String productSale, String productWarranty, String categoryId, String brandId, String productPrice, String productDescription, String productStatus, String specificationName, String specificationValue
     ) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
 
         if (validate.isEmpty(productName)) {
             attributes.addFlashAttribute("error", "Tên sản phẩm không được để trống !");
@@ -360,7 +383,10 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/initUpdateProduct")
-    public String initUpdateProduct(RedirectAttributes attributes, Model model, Integer productId) {
+    public String initUpdateProduct(HttpSession session, RedirectAttributes attributes, Model model, Integer productId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         List<Categories> listCategory = categoryDAO.getAllCategory();
         List<Brands> listBrand = productDAO.getAllBrands();
 
@@ -386,8 +412,12 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/updateProduct", method = RequestMethod.POST)
-    public String updateProduct(RedirectAttributes attributes, String productFeatureImage, Integer productId, String productName,
+    public String updateProduct(HttpSession session, RedirectAttributes attributes, String productFeatureImage, Integer productId, String productName,
             String productCode, String productSale, String productWarranty, String categoryId, String brandId, String productPrice, String productDescription, String productStatus, String specificationName, String specificationValue) {
+
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         if (validate.isEmpty(productName)) {
             attributes.addFlashAttribute("error", "Tên sản phẩm không được để trống !");
             return "redirect:/admin/product/initUpdateProduct.htm?productId=" + productId;
@@ -476,7 +506,11 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/detailProduct")
-    public String detailProduct(RedirectAttributes attributes, Model model, Integer productId) {
+    public String detailProduct(HttpSession session, RedirectAttributes attributes, Model model, Integer productId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
         List<ProductImages> listImage = productDAO.getAllImagesByProductId(productId);
 
         Products product = productDAO.getProductById(productId);
@@ -489,7 +523,11 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/insertProductImage", method = RequestMethod.POST)
-    public String insertProductImage(RedirectAttributes attributes, Integer productId, String productImage) {
+    public String insertProductImage(HttpSession session, RedirectAttributes attributes, Integer productId, String productImage) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
         Products product = productDAO.getProductById(productId);
 
         if ("".equals(productImage)) {
@@ -530,7 +568,11 @@ public class AdminProductController {
     }
 
     @RequestMapping(value = "product/enable")
-    public String enableProduct(RedirectAttributes attributes, Integer productId) {
+    public String enableProduct(HttpSession session, RedirectAttributes attributes, Integer productId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
         boolean check = productDAO.enableProduct(productId);
         if (check) {
             attributes.addFlashAttribute("success", "Mở khóa sản phẩm thành công");

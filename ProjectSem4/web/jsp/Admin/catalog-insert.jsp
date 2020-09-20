@@ -19,8 +19,8 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.html" class="breadcrumb-link">Trang quản trị</a></li>
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/catalog.html" class="breadcrumb-link">Danh mục tin tức</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.htm" class="breadcrumb-link">Trang quản trị</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/catalog.htm" class="breadcrumb-link">Danh mục tin tức</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Thêm mới danh mục tin tức</li>
                                 </ol>
                             </nav>
@@ -35,9 +35,9 @@
                         <div class="card">
                             <h3 class="card-header"><b>Thêm mới danh mục tin tức</b></h3>
                             <div class="card-body">
-                                <a href="${pageContext.request.contextPath}/admin/catalog.html" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
+                                <a href="${pageContext.request.contextPath}/admin/catalog.htm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
-                                <form method="POST" action="${pageContext.request.contextPath}/admin/catalog/do-insert.html">
+                                <form method="POST" action="${pageContext.request.contextPath}/admin/catalog/insertCatalog.htm">
                                     <div class="form-group">
                                         <label for="catalogName" class="col-form-label">Tên danh mục tin:</label>
                                         <input id="catalogName" name="catalogName" maxlength="250" type="text" class="form-control">
@@ -77,22 +77,6 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    Copyright © 2018 QTCStore. All rights reserved customize by <a href="https://facebook.com/quancoina/" target="_blank">QuanKoiNA</a>.
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="text-md-right footer-links d-none d-sm-block">
-                        <a href="javascript: void(0);">About</a>
-                        <a href="javascript: void(0);">Support</a>
-                        <a href="javascript: void(0);">Contact Us</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </section>
 
 <jsp:include page="widget/footer.jsp" flush="true"/>

@@ -10,6 +10,7 @@ import entities.Brands;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +31,20 @@ public class AdminBrandController {
     private BrandDAO brandDAO;
 
     @RequestMapping(value = "/brand", method = RequestMethod.GET)
-    public String loadBrand(Model model) {
+    public String loadBrand(HttpSession session, Model model) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         List<Brands> listBrand = brandDAO.getAllBrand();
         model.addAttribute("listBrand", listBrand);
         return "Admin/brand-list";
     }
 
     @RequestMapping(value = "/insertbrand", method = RequestMethod.POST)
-    public String insertBrand(Brands brand, Model model) {
+    public String insertBrand(HttpSession session, Brands brand, Model model) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         boolean insert = brandDAO.insertBrand(brand);
         if (insert) {
             return "redirect:/admin/brand.htm";
@@ -47,27 +54,39 @@ public class AdminBrandController {
     }
 
     @RequestMapping(value = "/initinsertbrand", method = RequestMethod.GET)
-    public String initInsertBrand(Model model) {
+    public String initInsertBrand(HttpSession session, Model model) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         model.addAttribute("brand", new Brands());
         return "Admin/brand-insert";
     }
 
     @RequestMapping(value = "/deletebrand", method = RequestMethod.GET)
-    public String deleteBrand(HttpServletRequest request) {
+    public String deleteBrand(HttpSession session, HttpServletRequest request) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         int id = Integer.parseInt(request.getParameter("id"));
         brandDAO.deleteBrand(id);
         return "redirect:/admin/brand.htm";
     }
 
     @RequestMapping(value = "/initUpdateBrand", method = RequestMethod.GET)
-    public String initUpdateBrand(Model model, int id) {
+    public String initUpdateBrand(HttpSession session, Model model, int id) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         Brands brand = brandDAO.getBrandById(id);
         model.addAttribute("brand", brand);
         return "Admin/brand-update";
     }
 
     @RequestMapping(value = "/brandUpdate", method = RequestMethod.POST)
-    public String updateBrand(RedirectAttributes attributes, int brandId, Brands brand, Model model) {
+    public String updateBrand(HttpSession session, RedirectAttributes attributes, int brandId, Brands brand, Model model) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
         boolean check = brandDAO.updateBrand(brand);
         if (!check) {
             attributes.addFlashAttribute("error", "Cập nhật sản phẩm thất bại!");
