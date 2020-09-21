@@ -68,7 +68,7 @@
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendOrder"><i class="fas fa-fw fa-file-code"></i> Đơn hàng</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/order/index.htm"><i class="fas fa-fw fa-file-code"></i> Đơn hàng</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Admin/BackendTransport"><i class="fas fa-fw fa-truck"></i> Vận chuyển</a>
