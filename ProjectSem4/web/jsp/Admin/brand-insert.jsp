@@ -37,32 +37,32 @@
                             <div class="card-body">
                                 <a href="/Admin/BackendBrand" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
-                                    <form:form commandName="brand" action="insertbrand.htm" method="POST">
-                                    <input name="__RequestVerificationToken" type="hidden" value="c0bNorB0_B5SihavLsj_l_yNgAw5TzLlZ-f9aa9GoGKn9kLQOECZ36_je31um1FequPK2thbUmbVoagpMFmmj_WK-xKGFpQvoF8I38bA7dE1" />
+                                <form method="POST" action="${pageContext.request.contextPath}/admin/brand/insertbrand.htm" role="form" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="BrandName" class="col-form-label">Tên hãng:</label>
-                                        <form:input path="brandName" type="text" class="form-control" />
+                                        <label for="brandName" class="col-form-label">Tên hãng:</label>
+                                        <input name="brandName" id="brandName" maxlength="250" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="BrandLogo" class="col-form-label">Logo:</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <form:input path="brandLogo" type="file" class="form-control" />
-                                            </div>
-                                        </div>
+                                        <label for="brandPiority" class="col-form-label">Độ ưu tiên:</label>
+                                        <input name="brandPiority" id="brandPiority" readonly value="${piority}" type="number" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="BrandStatus" class="col-form-label">Trạng thái:</label>
-                                        <form:select path="brandStatus" class="form-control" required="required">
-                                            <form:option value="1" label="Kích hoạt"/>
-                                            <form:option value="0" label="Không kích hoạt"/>
-                                        </form:select>
+                                        <label for="brandLogo" class="col-form-label">Logo:</label>
+                                        <input type="file" readonly class="form-control" maxlength="250" name="brandLogo" id="brandLogo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brandStatus" class="col-form-label">Trạng thái:</label>
+                                        <select name="brandStatus" id="brandStatus" class="form-control" required="required">
+                                            <option value="">Vui lòng chọn</option>
+                                            <option value="1">Kích hoạt</option>
+                                            <option value="0">Không kích hoạt</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Xác nhận</button>
                                         <button type="reset" class="btn btn-sm btn-danger"><i class="fas fa-retweet"></i> Làm lại</button>
                                     </div>
-                                </form:form>
+                                </form>
                             </div>
                         </div>
                     </div>

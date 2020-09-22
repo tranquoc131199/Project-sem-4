@@ -849,12 +849,11 @@ public class ClientCustomerController {
         boolean check = customerDAO.changeCustomerPassword(customer.getCustomerId(), customerPassword);
 
         if (!check) {
-            attributes.addFlashAttribute("error", "Đặt lại mật khẩu thành công! Vui lòng đăng nhập lại!");
-            return "redirect:login.htm";
-
-        } else {
             attributes.addFlashAttribute("error", "Đặt lại mật khẩu thất bại! Không thể đặt lại mật khẩu vào lúc này! Vui lòng thử lại sau!");
-            return "redirect:confirm-change.htm";
+            return "redirect:confirm-change.htm";           
+        } else {
+            attributes.addFlashAttribute("success", "Đặt lại mật khẩu thành công! Vui lòng đăng nhập lại!");
+            return "redirect:login.htm";          
         }
     }
 

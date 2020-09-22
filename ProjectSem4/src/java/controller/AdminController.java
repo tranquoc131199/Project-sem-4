@@ -140,25 +140,36 @@ public class AdminController {
             model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
         }
         
+        long countProduct = productDAO.countProductForDisplayOnDashboard();
+        long countOrder = orderDAO.countOrderForDisplayOnDashboard();
         int countFeedback = feedbackDAO.countFeedbackForDisplayOnDashboard();
-        Logoes logo = logoDAO.getLogoToDisplay();
-        String logoImage = "";
-        String iconImage = "";
+        double sumRevenue = orderDAO.sumRevenueForDisplayOnDashboard();
+        List<Orders> newestOrders = orderDAO.getTopTenOrderToDisplayOnDashboard();
+        List<Products> bestSaleProducts = productDAO.getTopTenBestSaleProductForDisplayDashboard();
+    
 
-        if (logo != null) {
-            logoImage = logo.getLogoImage();
-        }
-        
-        if (logoImage.length() > 0) {
-            model.addAttribute("logo", logoImage);
+        if (countProduct >= 0) {
+            model.addAttribute("countProduct", countProduct);
         }
 
-        if (iconImage.length() > 0) {
-            model.addAttribute("icon", iconImage);
+        if (countOrder >= 0) {
+            model.addAttribute("countOrder", countOrder);
         }
         
         if (countFeedback >= 0) {
             model.addAttribute("countFeedback", countFeedback);
+        }
+        
+        if (sumRevenue >= 0) {
+            model.addAttribute("sumRevenue", sumRevenue);
+        }
+        
+        if (newestOrders.size() > 0) {
+            model.addAttribute("newestOrder", newestOrders);
+        }
+        
+        if (bestSaleProducts.size() > 0) {
+            model.addAttribute("bestSaleProduct", bestSaleProducts);
         }
         
         model.addAttribute("title", "Bảng điều khiển");

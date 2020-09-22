@@ -34,7 +34,7 @@
                         <div class="card">
                             <h3 class="card-header"><b>Danh sách</b></h3>
                             <div class="card-body">
-                                <a href="initinsertbrand.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới hãng</a>
+                                <a href="${pageContext.request.contextPath}/admin/brand/initUpdateBrand.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới hãng</a>
                                 <div class="clearfix"><br></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">
@@ -52,7 +52,7 @@
                                                     <td>${brand.brandName}</td>
                                                     <!--<td hidden="true"><input name="id" value="<${brand.brandId}"/></td>-->
                                                     <td>
-                                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Brand-Logo/${brand.brandLogo}" class="img-fluid" style="max-height: 50px;" alt="QTC">
+                                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Brands/${brand.brandLogo}" class="img-fluid" style="max-height: 50px;" alt="QTC">
                                                     </td>
                                                     <td>
 
@@ -64,8 +64,13 @@
                                                         </c:if>
                                                     </td>
                                                     <td>
-                                                        <a href="${pageContext.request.contextPath}/admin/initUpdateBrand.htm?id=${brand.brandId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
-                                                        <a href="${pageContext.request.contextPath}/admin/deletebrand.htm?id=${brand.brandId}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Huỷ kích hoạt</a>
+                                                        <a href="${pageContext.request.contextPath}/admin/brand/initUpdateBrand.htm?brandId=${brand.brandId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
+                                                        <c:if test="${brand.brandStatus == 1}">
+                                                            <a href="${pageContext.request.contextPath}/admin/brand/disable.htm?brandId=${brand.brandId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
+                                                        </c:if>
+                                                        <c:if test="${brand.brandStatus == 0}">
+                                                            <a href="${pageContext.request.contextPath}/admin/brand/enable.htm?brandId=${brand.brandId}" class="btn btn-sm btn-success"><i class="fas fa-lock-open"></i> Kích hoạt</a>
+                                                        </c:if>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

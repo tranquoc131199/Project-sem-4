@@ -903,4 +903,45 @@ public class ProductDAOImpl implements ProductDAO {
         return filter;
     }
 
+    @Override
+    public long countProductForDisplayOnDashboard() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        long count = 0;
+
+        try {
+            Query query = session.createQuery("select count(productId) from Products where productStatus = 1");
+            count =  (long) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return count;
+    }
+    
+     @Override
+    public List<Products> getTopTenBestSaleProductForDisplayDashboard() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Products> products = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Products where productStatus = 1 order by productSaleQuantity");
+            query.setMaxResults(10);
+            products = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return products;
+    }
+    
 }
