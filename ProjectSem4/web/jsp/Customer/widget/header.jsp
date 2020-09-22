@@ -68,7 +68,7 @@
                                         </div>
                                         <strong class="text-uppercase">Tài khoản <i class="fa fa-caret-down"></i></strong>
                                     </div>
-                                    <a href="${pageContext.request.contextPath}/customer/login.htm" class="text-uppercase small-font">Đăng nhập</a> / <a href="${pageContext.request.contextPath}/customer/register.html" class="text-uppercase small-font">Đăng ký</a>
+                                    <a href="${pageContext.request.contextPath}/customer/login.htm" class="text-uppercase small-font">Đăng nhập</a> / <a href="${pageContext.request.contextPath}/customer/register.htm" class="text-uppercase small-font">Đăng ký</a>
                                 </c:if>
                                 <c:if test="${not empty customer}">
                                     <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">

@@ -3,7 +3,8 @@
     Created on : Aug 17, 2020, 10:36:59 PM
     Author     : Acer Nitro 5
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true"/>
 <jsp:include page="widget/other/navbar.jsp" flush="true"/>
@@ -11,9 +12,9 @@
 <section id="breadcrumb">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/New">Tin tức</a></li>
-            <li class="active">Duy nhất chỉ c&#243; tại QTB</li>
+            <li><a href="${pageContext.request.contextPath}/index.htm">Trang chủ</a></li>
+            <li><a href="${pageContext.request.contextPath}/new/index.htm">Tin tức</a></li>
+            <li class="active">${news.newTitle}</li>
         </ul>
     </div>
 </section>
@@ -23,72 +24,53 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title">
-                    <h2 class="title">Duy nhất chỉ c&#243; tại QTB</h2>
+                    <h2 class="title">${news.newTitle}</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-1 hidden-sm hidden-xs text-center">
-                <a href="#">
-                    <div class="tag-date">
-                        <div class="tag-day">19</div>
-                        <div class="tag-month small-font">4</div>
-                    </div>
-                </a>
+                <div class="tag-date">
+                    <div class="tag-day"><fmt:formatDate value="${news.createdDate}" pattern="dd" /></div>
+                    <div class="tag-month small-font"><fmt:formatDate value="${news.createdDate}" pattern="MM" /></div>
+                </div>
             </div>
             <div class="col-md-8 col-sm-9 col-xs-9">
                 <div class="new-detail-image">
-                    <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/khuyenmai.png" class="img-responsive" alt="Duy nhất chỉ c&#243; tại QTB" />
+                    <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/${news.newImage}" class="img-responsive" alt="${news.newTitle}" />
                 </div>
                 <div class="new-detail-content" style="overflow: hidden;">
-                    <p>Được biết, từ nay &ndash; 192/4, khi đặt mua trước si&ecirc;u phẩm tầm trung OPPO F11 tại FPT Shop, bạn sẽ được nhận ngay bộ qu&agrave; tặng si&ecirc;u khủng gồm:</p>
-
-<ul>
-	<li>Loa bluetooth Havit</li>
-	<li>Trả g&oacute;p 0% l&atilde;i suất</li>
-	<li>G&oacute;i bảo h&agrave;nh 2 năm</li>
-	<li>Giảm th&ecirc;m 5% khi thanh to&aacute;n qua VN Pay (tối đa 500.000 đồng)</li>
-</ul>
-
-<p>Như vậy, bạn chỉ cần trả trước từ 2,18 triệu đồng (tương đương 30% gi&aacute; trị sản phẩm) l&agrave; đ&atilde; trở th&agrave;nh chủ nh&acirc;n của chiếc smartphone &ldquo;đ&igrave;nh đ&aacute;m&rdquo; OPPO F11, khoản c&ograve;n lại sẽ được trả g&oacute;p với l&atilde;i suất ưu đ&atilde;i 0%..</p>
-
-<p><em><img alt="Nhận thêm phiếu mua hàng 500.000 đồng khi nhận OPPO F11 tại FPT Shop" id="OPPO F11" src="https://fptshop.com.vn/uploads/images/tin-tuc/82366/Originals/F11_8.PNG" title="OPPO F11" /></em></p>
-
-<p><em>V&agrave;o ng&agrave;y 20/4, 50 kh&aacute;ch h&agrave;ng đầu ti&ecirc;n đến nhận m&aacute;y OPPO F11 tại FPT Shop sẽ được tặng th&ecirc;m phiếu mua h&agrave;ng 500.000 đồng</em></p>
-
-<p>Từ ng&agrave;y 20/4, OPPO F11 sẽ ch&iacute;nh thức l&ecirc;n kệ tại tất cả c&aacute;c cửa h&agrave;ng thuộc FPT Shop tr&ecirc;n to&agrave;n quốc với gi&aacute; b&aacute;n si&ecirc;u y&ecirc;u đ&atilde;i 7.290.000 đồng, c&ugrave;ng 2 m&agrave;u sang trọng Xanh Ngọc Thạch v&agrave; T&iacute;m Thạch Anh. Đặc biệt, khi chọn mua OPPO F11 tại FPT Shop, bạn kh&ocirc;ng chỉ được hưởng ưu đ&atilde;i trả g&oacute;p 0% l&atilde;i suất với khoản trả trước chỉ từ 2,18 triệu đồng, m&agrave; c&ograve;n được giảm th&ecirc;m 5% (tối đa 500.000 đồng) khi thanh to&aacute;n qua VNPAY-QR.</p>
-
-<h3><a href="https://fptshop.com.vn/dien-thoai/oppo-f11" target="_blank">ĐẶT MUA OPPO F11</a></h3>
-
-<h3><strong>Một số h&igrave;nh ảnh của chiếc smartphone đ&igrave;nh đ&aacute;m OPPO F11:</strong></h3>
-
-<p><img alt="Nhận thêm phiếu mua hàng 500.000 đồng khi nhận OPPO F11 tại FPT Shop" id="OPPO F11" src="https://fptshop.com.vn/uploads/images/tin-tuc/82366/Originals/F11_6.PNG" title="OPPO F11" /></p>
-
-<p><img alt="Nhận thêm phiếu mua hàng 500.000 đồng khi nhận OPPO F11 tại FPT Shop" id="OPPO F11" src="https://fptshop.com.vn/uploads/images/tin-tuc/82366/Originals/F11_5.PNG" title="OPPO F11" /></p>
-
-<p><img alt="Nhận thêm phiếu mua hàng 500.000 đồng khi nhận OPPO F11 tại FPT Shop" id="OPPO F11" src="https://fptshop.com.vn/uploads/images/tin-tuc/82366/Originals/F11_9.PNG" title="OPPO F11" /></p>
-
-<p><strong>Sản phẩm mua tại FPT Shop l&agrave; h&agrave;ng ch&iacute;nh h&atilde;ng,&nbsp;<strong>bạn c&oacute; thể chọn chọn mua trực tiếp tại&nbsp;</strong><a href="https://fptshop.com.vn/cua-hang" target="_blank" title="Huawei P30|P30 Pro" type="Huawei P30|P30 Pro">cửa hàng</a><strong>,&nbsp;</strong>mua online hoặc gọi hotline 1800 6601 để được tư vấn, mua h&agrave;ng nhanh.</strong></p>
-
+                    ${news.newContent}
                 </div>
                 <div class="new-detail-info dp-flex">
                     <ul>
-                        <li><a href="" data-id="27"><i class="fa fa-heart-o "></i></a></li>
-                    </ul>
-                    <ul class="pull-right">
-                        <li>
-                            <i class="fa fa-clock-o"></i> 2018-11-24
+                        
+                        </ul>
+                        <ul class="pull-right">
+                            <li>
+                                <i class="fa fa-clock-o"></i> <fmt:formatDate value="${news.createdDate}" pattern="HH:mm:ss dd-MM-yyyy" />
                         </li>
                         <li>
-                            <a href="/New/Author/1">
-                                <i class="fa fa-user"></i> Trần Mạnh Quốc
-                            </a>
+                            <i class="fa fa-user"></i> ${news.adminId.adminFullName}
                         </li>
                     </ul>
                 </div>
                 <div class="clearfix"><br></div>
                 <hr>
                 <div class="comment-list" id="comment-list">
+                    <c:if test="${not empty newComments}">
+                        <c:forEach items="${newComments}" var="cmt">
+                            <div class="comment-items">
+                                <div class="comment-info">
+                                    <img src="${pageContext.request.contextPath}/views/backend/uploads/images/Customers/${cmt.customerId.customerAvatar}" class="img-responsive" alt="Customer Avatar" />
+                                    <div class="comment-user-name text-center">${cmt.customerId.customerFullname}</div>
+                                </div>
+                                <div class="comment-content">
+                                    ${cmt.newCommentContent}
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
 
                 <div class="comment-form">
@@ -99,13 +81,12 @@
                             </div>
                         </div>
                     </div>
-                    <form action="/New/Comment" method="POST" role="form">
-                        <input name="__RequestVerificationToken" type="hidden" value="Di51kTEAovNlnCfxmlwlVHjJNVCWmgk7tnUvyr278wGQ0bA2tUajtIcXEAARZ4r98WzKiNGTYjm98e5z47U59HVy7DK6up-xXQxVTH35HGU1" />
+                    <form action="" method="POST" role="form">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="hidden" name="NewId" value="27" />
-                                    <textarea name="NewCommentContent" class="form-control" rows="8" required="required" placeholder="Nhập nội dung..."></textarea>
+                                    <input type="hidden" name="newId" value="${news.newId}" />
+                                    <textarea name="newCommentContent" class="form-control" rows="8" required="required" placeholder="Nhập nội dung..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -116,116 +97,31 @@
             <div class="col-xs-3">
                 <div class="release-title large-font upper-case">Tin liên quan</div>
                 <div class="list-release-news">
+                    <c:if test="${not empty relatedNews}">
+                        <c:forEach items="${relatedNews}" var="n">
                             <div class="release-new-item">
                                 <div class="release-new-image">
-                                    <a href="/New/Detail?NewId=9">
-                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh1.png" class="img-responsive" alt="CHƯƠNG TR&#204;NH KHUYẾN M&#195;I: POWERED BY MSI" />
+                                    <a href="${pageContext.request.contextPath}/new/detail.htm?newId=${n.newId}">
+                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/${n.newImage}" class="img-responsive" alt="${n.newTitle}" />
                                     </a>
                                 </div>
                                 <div class="release-new-info">
                                     <div class="release-new-title medium-font" style="font-weight: bold; text-decoration: underline;">
-                                        <a href="/New/Detail?NewId=9" title="CHƯƠNG TR&#204;NH KHUYẾN M&#195;I: POWERED BY MSI">
-CHƯƠNG TR&#204;NH KHUYẾN M&#195;I: POWERED BY MSI                                        </a>                                        
+                                        <a href="${pageContext.request.contextPath}/new/detail.htm?newId=${n.newId}" title="${n.newTitle}">${n.newTitle}</a>                                        
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 upper-case">
-                                            <a href="/New/Author/1">Trần Mạnh Quốc</a>
+                                            <i class="fa fa-user"></i> ${n.adminId.adminFullName}
                                         </div>
                                         <div class="col-md-6">
-                                            <i class="fa fa-clock-o"></i> 4/19/2019 9:55:10 AM
+                                            <i class="fa fa-clock-o"></i> <fmt:formatDate value="${n.createdDate}" />
                                         </div>
                                     </div>
                                     <hr>
                                 </div>
                             </div>
-                            <div class="release-new-item">
-                                <div class="release-new-image">
-                                    <a href="/New/Detail?NewId=10">
-                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh2.jpg" class="img-responsive" alt="AEROCOOL - PROJECT 7  ĐỊNH VỊ THƯƠNG HIỆU CAO CẤP" />
-                                    </a>
-                                </div>
-                                <div class="release-new-info">
-                                    <div class="release-new-title medium-font" style="font-weight: bold; text-decoration: underline;">
-                                        <a href="/New/Detail?NewId=10" title="AEROCOOL - PROJECT 7  ĐỊNH VỊ THƯƠNG HIỆU CAO CẤP">
-AEROCOOL - PROJECT 7  ĐỊNH VỊ THƯƠNG HIỆU CAO CẤP                                        </a>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 upper-case">
-                                            <a href="/New/Author/1">Trần Mạnh QUốc</a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <i class="fa fa-clock-o"></i> 4/19/2019 9:58:18 AM
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="release-new-item">
-                                <div class="release-new-image">
-                                    <a href="/New/Detail?NewId=11">
-                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh4.jpg" class="img-responsive" alt="Kh&#244;ng chỉ l&#224; niềm mơ ước của nhiều game thủ, thời gian tới card đồ họa AMD Radeon VII khả năng sẽ l&#224; m&#243;n hời cho c&#225;c nh&#224; sản xuất nội dung khi c&#243; đến 16GB VRAM v&#224; nhanh hơn người tiền nhiệm Radeon RX Vega 64 đến 36%." />
-                                    </a>
-                                </div>
-                                <div class="release-new-info">
-                                    <div class="release-new-title medium-font" style="font-weight: bold; text-decoration: underline;">
-                                        <a href="/New/Detail?NewId=11" title="Kh&#244;ng chỉ l&#224; niềm mơ ước của nhiều game thủ, thời gian tới card đồ họa AMD Radeon VII khả năng sẽ l&#224; m&#243;n hời cho c&#225;c nh&#224; sản xuất nội dung khi c&#243; đến 16GB VRAM v&#224; nhanh hơn người tiền nhiệm Radeon RX Vega 64 đến 36%.">
-Không chỉ là niềm mơ ước của nhiều game thủ, thời gian ...                                        </a>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 upper-case">
-                                            <a href="/New/Author/1">Trần Mạnh Quốc</a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <i class="fa fa-clock-o"></i> 4/19/2019 10:00:54 AM
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="release-new-item">
-                                <div class="release-new-image">
-                                    <a href="/New/Detail?NewId=12">
-                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh3(1).jpg" class="img-responsive" alt="AMD RYZEN" />
-                                    </a>
-                                </div>
-                                <div class="release-new-info">
-                                    <div class="release-new-title medium-font" style="font-weight: bold; text-decoration: underline;">
-                                        <a href="/New/Detail?NewId=12" title="AMD RYZEN">
-AMD RYZEN                                        </a>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 upper-case">
-                                            <a href="/New/Author/1">Trần Mạnh Quốc</a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <i class="fa fa-clock-o"></i> 4/19/2019 10:06:50 AM
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="release-new-item">
-                                <div class="release-new-image">
-                                    <a href="/New/Detail?NewId=13">
-                                        <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh5.png" class="img-responsive" alt="QTB ĐỒNG H&#192;NH C&#217;NG ĐỘI TUYỂN VIỆT NAM" />
-                                    </a>
-                                </div>
-                                <div class="release-new-info">
-                                    <div class="release-new-title medium-font" style="font-weight: bold; text-decoration: underline;">
-                                        <a href="/New/Detail?NewId=13" title="QTB ĐỒNG H&#192;NH C&#217;NG ĐỘI TUYỂN VIỆT NAM">
-QTB ĐỒNG H&#192;NH C&#217;NG ĐỘI TUYỂN VIỆT NAM                                        </a>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 upper-case">
-                                            <a href="/New/Author/1">Trần Mạnh Quốc</a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <i class="fa fa-clock-o"></i> 4/19/2019 10:10:29 AM
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
