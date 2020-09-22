@@ -1,7 +1,7 @@
 <%-- 
     Document   : catalog-insert
     Created on : Jun 6, 2019, 5:12:43 PM
-    Author     : QuanKoiNA
+    Author     : Thang Pham
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

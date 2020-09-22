@@ -37,7 +37,6 @@ public class FeedbackCatalogs implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "FeedbackCatalogId")
     private Integer feedbackCatalogId;
     @Basic(optional = false)
