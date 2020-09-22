@@ -11,8 +11,8 @@
 <section id="breadcrumb">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="/">Trang chủ</a></li>
-            <li class="active">Đăng ký</li>
+            <li><a href="${pageContext.request.contextPath}/index.html">Trang chủ</a></li>
+            <li class="active">Đăng Ký</li>
         </ul>
     </div>
 </section>
@@ -22,47 +22,46 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title">
-                    <h2 class="title">Đăng ký tài khoản</h2>
+                    <h2 class="title">Đăng Ký</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="/Customer/DoRegister" method="POST" role="form">
-                    <input name="__RequestVerificationToken" type="hidden" value="PagKHthtRpxoA4kmyHqYz5FQevIODs8eqYVWdJWL5tzM8lVnL7vkWQ7TzQOVde1cji2L_Qi50O9RhLZ9rLcbG5G0KuQnfmHfSfi5AO8NT481" />
+                <form action="${pageContext.request.contextPath}/customer/do-register.htm" method="POST" role="form">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerFullname">Họ và tên:</label>
-                                <input type="text" class="input" id="CustomerFullname" name="CustomerFullname" />
+                                <label for="customerFullname">Họ và tên:</label>
+                                <input type="text" class="input" id="customerFullName" name="customerFullName" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerBirthday">Ngày sinh:</label>
-                                <input type="date" class="input" id="CustomerBirthday" name="CustomerBirthday" />
+                                <label for="customerBirthday">Ngày sinh:</label>
+                                <input type="date" class="input" id="customerBirthday" name="customerBirthday" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerPassword">Mật khẩu:</label>
-                                <input type="password" class="input" id="CustomerPassword" name="CustomerPassword" />
+                                <label for="customerPassword">Mật khẩu:</label>
+                                <input type="password" class="input" id="customerPassword" name="customerPassword" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="ReCustomerPassword">Nhập lại mật khẩu:</label>
-                                <input type="password" class="input" id="ReCustomerPassword" name="ReCustomerPassword" />
+                                <label for="reCustomerPassword">Nhập lại mật khẩu:</label>
+                                <input type="password" class="input" id="reCustomerPassword" name="reCustomerPassword" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerGender">Giới tính:</label>
-                                <select name="CustomerGender" id="CustomerGender" class="input" required="required">
+                                <label for="customerGender">Giới tính:</label>
+                                <select name="customerGender" id="customerGender" class="input" required="required">
                                     <option value="">Vui lòng chọn</option>
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
@@ -71,22 +70,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerEmail">Email:</label>
-                                <input type="email" class="input" id="CustomerEmail" name="CustomerEmail" />
+                                <label for="customerEmail">Email:</label>
+                                <input type="email" class="input" id="customerEmail" name="customerEmail" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerPhone">Điện thoại:</label>
-                                <input type="text" class="input" id="CustomerPhone" name="CustomerPhone" />
+                                <label for="customerPhone">Điện thoại:</label>
+                                <input type="text" class="input" id="customerPhone" name="customerPhone" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="CustomerAddress">Địa chỉ:</label>
-                                <input type="text" class="input" id="CustomerAddress" name="CustomerAddress" />
+                                <label for="customerAddress">Địa chỉ:</label>
+                                <input type="text" class="input" id="customerAddress" name="customerAddress" />
                             </div>
                         </div>
                     </div>

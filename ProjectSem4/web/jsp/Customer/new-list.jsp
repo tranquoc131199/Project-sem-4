@@ -3,7 +3,8 @@
     Created on : Aug 17, 2020, 10:37:12 PM
     Author     : Acer Nitro 5
 --%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true"/>
 <jsp:include page="widget/other/navbar.jsp" flush="true"/>
@@ -12,8 +13,14 @@
 <section id="breadcrumb">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="/">Trang chủ</a></li>
+            <li><a href="${pageContext.request.contextPath}/index.htm">Trang chủ</a></li>
+            <c:if test="${not empty catalog}">
+                <li class="active"><a href="${pageContext.request.contextPath}/new/index.htm">Tin tức</a></li>
+                <li class="active">${catalog.catalogName}</li>
+            </c:if>
+            <c:if test="${empty catalog}">
                 <li class="active">Tin tức</li>
+            </c:if>
         </ul>
     </div>
 </section>
@@ -32,196 +39,51 @@
         <div class="container">
             <div class="about-main">
                 <div class="col-md-8 about-left">
-                        <div class="about-one">
-                            <h3><a href="/New/Detail?NewId=27">Duy nhất chỉ c&#243; tại QTC</a></h3>
-                        </div>
-                        <div class="about-two">
-                            <a href="/New/Detail?NewId=27"><img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/khuyenmai.png" alt="Duy nhất chỉ c&#243; tại QTC" class="img-responsive" /></a>
-                            <p>Được đăng bởi <a href="/New/Author/1">Trần Mạnh Quốc</a> lúc <span>10 feb, 2015</span> <a>Lượt xem (0)</a> <a>Yêu thích (0)</a> <a href="/New/Detail?NewId=27#comment-list">Bình luận (0)</a></p>
-                            <p>Sản phẩm mua tại QTC l&#224; h&#224;ng ch&#237;nh h&#227;ng, bạn c&#243; thể chọn chọn mua trực tiếp tại cửa hàng, mua online hoặc gọi hotline 097543355 để được tư vấn, mua h&#224;ng nhanh.</p>
-                            <div class="clearfix"><br></div>
-                            <a href="/New/Detail?NewId=27" class="primary-btn">Xem chi tiết</a>
-                            <ul>
-                                <li><p>Share : </p></li>
-                                <li><a href="#" class="social-share"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" class="social-share"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" class="social-share"><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="#" class="social-share"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#" class="social-share"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"><hr></div>
                     <div class="about-three">
                         <div class="a-1">
+                            <c:if test="${not empty news}">
+                                <c:forEach items="${news}" var="n">
                                     <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=27">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/khuyenmai.png" alt="Duy nhất chỉ c&#243; tại QTB" class="img-responsive" />
+                                        <a href="${pageContext.request.contextPath}/new/detail.htm?newId=${n.newId}">
+                                            <img style="height: 150px;" src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/${n.newImage}" alt="${n.newTitle}" class="img-responsive" />
                                         </a>
-                                        <h3><a href="/New/Detail?NewId=27">Duy nhất chỉ c&#243; tại QTC</a></h3>
-                                        <p>Sản phẩm mua tại QTC l&#224; h&#224;ng ch&#237;nh h&#227;ng, bạn c&#243; thể chọn chọn mua trực tiếp tại cửa hàng, mua online hoặc gọi hotline 097543355 để được tư vấn, mua h&#224;ng nhanh.</p>
-                                        <a href="/New/Detail?NewId=27" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:48:31 PM</label>
+                                        <h3><a href="${pageContext.request.contextPath}/new/detail.htm?newId=${n.newId}">${n.newTitle}</a></h3>
+                                        <p style="height: 100px;">${n.newDescription}</p>
+                                        <a href="${pageContext.request.contextPath}/new/detail.htm?newId=${n.newId}" class="primary-btn">Xem chi tiết</a>
+                                        <label class="lb-right"><fmt:formatDate value="${n.createdDate}" /></label>
                                     </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=26">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/macbook.jpg" alt="LAPTOP Khuyến mại" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=26">LAPTOP Khuyến mại</a></h3>
-                                        <p>Khuyến mại duy nhất th&#225;ng 4</p>
-                                        <a href="/New/Detail?NewId=26" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:45:21 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=25">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/lapdell.jpg" alt="Laptop Dell" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=25">Laptop Dell</a></h3>
-                                        <p>M&#225;y t&#237;nh Dell c&#243; những điểm kh&#225;c biệt khi đứng giữa h&#224;ng ng&#224;n mẫu m&#225;y t&#237;nh từ nhiều thương hiệu</p>
-                                        <a href="/New/Detail?NewId=25" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:41:34 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=24">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh15(1).jpg" alt="Giới thiệu hệ thống cửa h&#224;ng QTC" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=24">Giới thiệu hệ thống cửa h&#224;ng QTC</a></h3>
-                                        <p>Hệ thống cửa h&#224;ng h&#224;ng đầu Việt Nam </p>
-                                        <a href="/New/Detail?NewId=24" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:38:41 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=23">
-                                            <img src="Areas/Admin/Uploads/images/News/11060881_888443704534720_2036613721015644854_n.jpg" alt="Tin tức về chủ đề &quot;giải đ&#225;p thắc mắc&quot;" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=23">Tin tức về chủ đề &quot;giải đ&#225;p thắc mắc&quot;</a></h3>
-                                        <p>tại sao m&#225;y t&#237;nh kết nối mạng d&#226;y c&#243; dấu chấm than ạ?</p>
-                                        <a href="/New/Detail?NewId=23" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:27:51 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=22">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh1.jpg" alt="B&#225;o c&#225;o doanh số h&#224;ng th&#225;ng" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=22">B&#225;o c&#225;o doanh số h&#224;ng th&#225;ng</a></h3>
-                                        <p>Người d&#249;ng doanh nghiệp nhỏ c&#243; thể theo d&#245;i doanh số cũng như dự b&#225;o h&#224;ng th&#225;ng, h&#224;ng qu&#253; v&#224; h&#224;ng năm bằng c&#225;ch d&#249;ng mẫu th&#244;ng minh n&#224;y</p>
-                                        <a href="/New/Detail?NewId=22" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 2:21:26 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=21">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/3010_45062831_2812350678835708_2901796745467920384_o.jpg" alt="QTBStore khai trương chi nh&#225;nh thứ 5 tại quận H&#224; Đ&#244;ng" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=21">QTCStore khai trương chi nh&#225;nh thứ 5 tại quận H&#224; Đ&#244;ng</a></h3>
-                                        <p>QTCStore khai trương chi nh&#225;nh thứ 5 tại quận H&#224; Đ&#244;ng</p>
-                                        <a href="/New/Detail?NewId=21" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 1:44:05 PM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=20">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh12.jpg" alt="Ch&#237;nh s&#225;ch giao h&#224;ng" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=20">Ch&#237;nh s&#225;ch giao h&#224;ng</a></h3>
-                                        <p>Giao h&#224;ng miễn ph&#237;</p>
-                                        <a href="/New/Detail?NewId=20" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 10:34:31 AM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=19">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh11.jpg" alt="Ch&#237;nh s&#225;ch d&#249;ng thử sản phẩm:" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=19">Ch&#237;nh s&#225;ch d&#249;ng thử sản phẩm:</a></h3>
-                                        <p>Trong v&#242;ng Ba (03) ng&#224;y đầu ti&#234;n được đổi trả miễn ph&#237;</p>
-                                        <a href="/New/Detail?NewId=19" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 10:31:57 AM</label>
-                                    </div>
-                                    <div class="col-md-6 abt-left">
-                                        <a href="/New/Detail?NewId=17">
-                                            <img src="A${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh9.jpg" alt="Hướng dẫn kh&#225;ch h&#224;ng" class="img-responsive" />
-                                        </a>
-                                        <h3><a href="/New/Detail?NewId=17">Hướng dẫn kh&#225;ch h&#224;ng</a></h3>
-                                        <p>C&#193;C BƯỚC MUA H&#192;NG V&#192; THANH TO&#193;N ONLINE</p>
-                                        <a href="/New/Detail?NewId=17" class="primary-btn">Xem chi tiết</a>
-                                        <label class="lb-right">4/19/2019 10:25:24 AM</label>
-                                    </div>
+                                </c:forEach>
+                            </c:if>
                         </div>
                     </div>
+                    <div class="clearfix"><br /></div>
                     <div class="clearfix"><hr /></div>
                     <div class="about-four">
                         <div class="pull-right">
                             <div class="page-filter">
                                 <span class="text-uppercase">Hiển thị trên mỗi trang:</span>
                                 <select class="input" id="new-page-size">
-                                    <option value="10" selected>10</option>
-                                    <option value="20" >20</option>
-                                    <option value="50" >50</option>
+                                    <option value="10" <c:if test="${pageSize == 10}">selected</c:if>>10</option>
+                                    <option value="20" <c:if test="${pageSize == 20}">selected</c:if>>20</option>
+                                    <option value="50" <c:if test="${pageSize == 50}">selected</c:if>>50</option>
                                 </select>
                             </div>
-<ul class='store-pages'><li><span class='text-uppercase'>Trang:</span></li><li><a class='disabled'><i class='fa fa-caret-left'></i></a></li><li class='active'>1</li><li><a href='/New/Index/&page=2'>2</a></li><li><a href='/New/Index/&page=2'><i class='fa fa-caret-right'></i></a></li></ul>                        </div>
+                            <c:if test="${not empty paging}">
+                                ${paging}
+                            </c:if>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 about-right heading">
                     <div class="abt-2">
-                        <h3>TIN KHUYẾN MÃI</h3>
-                                <div class="might-grid">
-                                    <div class="grid-might">
-                                        <a href="/New/Detail?NewId=3">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/H2cb-84q_400x400.jpeg" class="img-responsive" alt="Demo tin tức thứ ba">
-                                        </a>
-                                    </div>
-                                    <div class="might-top">
-                                        <h4><a href="/New/Detail?NewId=3">Demo tin tức thứ ba</a></h4>
-                                        <p>Demo tin tức thứ ba</p>
-                                        <p><label class="lb-right">1/11/2019 3:53:04 PM</label></p>
-                                    </div>
-                                    <div class="clearfix"><br /></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div class="grid-might">
-                                        <a href="/New/Detail?NewId=8">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/1803_45719_11.jpg" class="img-responsive" alt="CHƯƠNG TR&#204;NH KHUYẾN M&#195;I GIẢM GI&#193; 50% KHI ĐẶT TRƯỚC M&#192;N H&#204;NH SAMSUNG SPACE MONITOR">
-                                        </a>
-                                    </div>
-                                    <div class="might-top">
-                                        <h4><a href="/New/Detail?NewId=8">CHƯƠNG TR&#204;NH KHUYẾN M&#195;I GIẢM GI&#193; 50% KHI ĐẶT TRƯỚC M&#192;N H&#204;NH SAMSUNG SPACE MONITOR</a></h4>
-                                        <p>Từ ng&#224;y 17/03-25/03/2019, khi đặt trước Samsung Space Monitor tại HANOICOMPUTER, c&#225;c bạn sẽ được giảm ngay 50%.</p>
-                                        <p><label class="lb-right">4/19/2019 9:52:30 AM</label></p>
-                                    </div>
-                                    <div class="clearfix"><br /></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div class="grid-might">
-                                        <a href="/New/Detail?NewId=9">
-                                            <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/News/hinh1.png" class="img-responsive" alt="CHƯƠNG TR&#204;NH KHUYẾN M&#195;I: POWERED BY MSI">
-                                        </a>
-                                    </div>
-                                    <div class="might-top">
-                                        <h4><a href="/New/Detail?NewId=9">CHƯƠNG TR&#204;NH KHUYẾN M&#195;I: POWERED BY MSI</a></h4>
-                                        <p>Từ ng&#224;y 15/03/2019 đến ng&#224;y 31/03/2019, khi build m&#225;y gồm combo 3 sản phẩm bao gồm bo mạch chủ MSI Z390 hoặc B360, MSI VGA v&#224; MSI Monitor tại HANOICOMPUTER bạn sẽ được tặng ngay một phần qu&#224; c&#243; gi&#225; trị lớn từ MSI.</p>
-                                        <p><label class="lb-right">4/19/2019 9:55:10 AM</label></p>
-                                    </div>
-                                    <div class="clearfix"><br /></div>
-                                </div>
-                    </div>
-                    <div class="abt-2">
                         <h3>DANH MỤC TIN TỨC</h3>
+                        <c:if test="${not empty catalogs}">
+                            <c:forEach items="${catalogs}" var="c">
                                 <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=1">Tin doanh nghiệp</a></h4></div>
+                                    <div><h4><a href="${pageContext.request.contextPath}/new/index.htm?catalogId=${c.catalogId}">${c.catalogName}</a></h4></div>
                                 </div>
-                                <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=2">Tin c&#244;ng nghệ</a></h4></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=3">Tin khuyến m&#227;i</a></h4></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=4">B&#225;o c&#225;o doanh thu</a></h4></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=5">Tuyển dụng</a></h4></div>
-                                </div>
-                                <div class="might-grid">
-                                    <div><h4><a href="/New?CatalogId=6">Hướng dẫn</a></h4></div>
-                                </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -235,7 +97,13 @@
         $("#new-page-size").change(function (event) {
             event.preventDefault();
             var pageSize = $(this).val();
-            window.location.href = '/New?CatalogId=&pageSize=' + pageSize;
+    <c:if test="${empty catalogId}">
+            window.location.href = '${pageContext.request.contextPath}/new/index.htm?pageSize=' + pageSize;
+    </c:if>
+    <c:if test="${not empty catalogId}">
+            window.location.href = '${pageContext.request.contextPath}/new/index.htm?catalogId=' + ${catalogId} + '&pageSize=' + pageSize;
+    </c:if>
+
         });
     });
 </script>

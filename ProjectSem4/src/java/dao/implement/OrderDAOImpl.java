@@ -6,6 +6,7 @@
 package dao.implement;
 
 import dao.OrderDAO;
+import entities.Customers;
 import entities.OrderDetails;
 import entities.Orders;
 import java.util.ArrayList;
@@ -185,11 +186,8 @@ public class OrderDAOImpl implements OrderDAO {
     public List<OrderDetails> getOrderDetailByOrderId(int orderId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<OrderDetails> listOrderDeatil = new ArrayList<>();
         try {
-            Query query = session.createQuery("from OrderDetails where orderId = :orderId");
-            query.setParameter("orderId", orderId);
-            listOrderDeatil = query.list();
+            List<OrderDetails> listOrderDeatil = session.createQuery("from OrderDetails where orderId = :orderId").setParameter("orderId", orderId).list();
             if (listOrderDeatil == null) {
                 return null;
             }
@@ -225,5 +223,28 @@ public class OrderDAOImpl implements OrderDAO {
         }
 
         return result;
+    }
+
+    @Override
+    public List<Orders> getAllOrdersByCustomerId(Integer customerId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Orders> orders = new ArrayList<>();
+
+        try {
+            Customers c = (Customers) session.createQuery("from Customers where customerId = :customerId").setParameter("customerId", customerId).uniqueResult();
+            Query query = session.createQuery("from Orders where customerId = :customerId order by orderId desc");
+            query.setParameter("customerId", c);
+            orders = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("dao.impl.OrderDAOImpl.getAllOrdersByCustomerId()");
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orders;
     }
 }

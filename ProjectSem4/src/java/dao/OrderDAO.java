@@ -79,8 +79,8 @@ public interface OrderDAO {
      * @return
      */
     public List<OrderDetails> getOrderDetailByOrderId(int orderId);
-    
-        /**
+
+    /**
      * Cập nhật trạng thái đơn hàng
      *
      * @param orderId
@@ -88,5 +88,13 @@ public interface OrderDAO {
      * @return
      */
     public Boolean updateOrder(Integer orderId, Integer orderStatus);
+
+    /**
+     * Lấy danh sách tất cả các đơn hàng theo mã người dùng
+     *
+     * @param customerId
+     * @return
+     */
+    public List<Orders> getAllOrdersByCustomerId(Integer customerId);
 
 }
