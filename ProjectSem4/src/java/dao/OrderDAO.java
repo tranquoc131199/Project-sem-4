@@ -97,4 +97,27 @@ public interface OrderDAO {
      */
     public List<Orders> getAllOrdersByCustomerId(Integer customerId);
 
+    /**
+     * Đếm số lượng đơn hàng để hiển thị ngoài bảng điều khiển Điều kiện tính:
+     * các đơn hàng phải có trạng thái thành công (OrderStatus = 1)
+     *
+     * @return
+     */
+    public long countOrderForDisplayOnDashboard();
+    
+       /**
+     * Tính tổng doanh thu để hiển thị ngoài bảng điều khiển Điều kiện tính: các
+     * đơn hàng phải có trạng thái thành công (OrderStatus = 1)
+     *
+     * @return
+     */
+    public Double sumRevenueForDisplayOnDashboard();
+    
+        /**
+     * Lấy ra 10 bản ghi đơn hàng mới nhất để hiển thị lên bảng điều khiển
+     *
+     * @return
+     */
+    public List<Orders> getTopTenOrderToDisplayOnDashboard();
+
 }

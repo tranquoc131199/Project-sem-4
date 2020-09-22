@@ -238,4 +238,19 @@ public interface ProductDAO {
      */
     public Boolean commentProduct(ProductComments productComment);
 
+    /**
+     * Đếm tổng số sản phẩm có ProductStatus = 1 để hiển thị ngoài bảng điều
+     * khiển
+     *
+     * @return
+     */
+    public long countProductForDisplayOnDashboard();
+
+    /**
+     * Lấy 10 sản phẩm bán chạy nhất để hiển thị ở dashboard
+     *
+     * @return
+     */
+    public List<Products> getTopTenBestSaleProductForDisplayDashboard();
+
 }

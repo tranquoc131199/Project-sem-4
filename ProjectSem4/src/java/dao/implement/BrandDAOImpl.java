@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,9 +95,6 @@ public class BrandDAOImpl implements BrandDAO {
     public boolean insertBrand(Brands brand) {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
-        Date date = new Date();
-        brand.setCreatedDate(date);
-        brand.setUpdatedDate(date);
         boolean result = false;
         try {
             session.save(brand);
@@ -130,11 +128,117 @@ public class BrandDAOImpl implements BrandDAO {
     }
 
     @Override
-    public Brands getBrandById(int id) {
+    public Brands getBrandById(int brandId) {
         Session session = sessionFactory.openSession();
-        session.getTransaction().begin();
-        Brands brand = (Brands) session.load(Brands.class, new Integer(id));
+        session.beginTransaction();
+        Brands brand = new Brands();
+
+        try {
+            Query query = session.createQuery("from Brands where brandId = :brandId");
+            query.setParameter("brandId", brandId);
+            brand = (Brands) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
         return brand;
     }
 
+    @Override
+    public Boolean checkBrandNameExists(String brandName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+
+        try {
+            Query query = session.createQuery("from Banners where brandName = :brandName");
+            query.setParameter("brandName", brandName);
+            Brands brand = (Brands) query.uniqueResult();
+            session.getTransaction().commit();
+
+            if (brand != null) {
+                result = true;
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Integer getMaxPiority() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Integer max = 0;
+
+        try {
+            max = (Integer) session.createQuery("select max(brandPiority) from Brands").uniqueResult();
+
+            if (max == null || max <= 0) {
+                max = 0;
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return max;
+    }
+
+    @Override
+    public Boolean disableBrand(Integer brandId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+        
+        try {
+            Brands brand = getBrandById(brandId);
+            brand.setBrandStatus(0);
+            brand.setUpdatedDate(new Date());
+            result = updateBrand(brand);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        
+        return result;
+    }
+
+    @Override
+    public Boolean enableBrand(Integer brandId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+        
+        try {
+            Brands brand = getBrandById(brandId);
+            brand.setBrandStatus(1);
+            brand.setUpdatedDate(new Date());
+            result = updateBrand(brand);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        
+        return result;
+    }
+    
 }

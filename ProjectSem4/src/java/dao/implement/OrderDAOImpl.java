@@ -247,4 +247,79 @@ public class OrderDAOImpl implements OrderDAO {
 
         return orders;
     }
+
+    @Override
+    public long countOrderForDisplayOnDashboard() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        long count = 0;
+
+        try {
+            Query query = session.createQuery("select count(orderId) from Orders where orderStatus = 1");
+            count =  (long) query.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return count;
+    }
+
+    @Override
+    public Double sumRevenueForDisplayOnDashboard() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Double revenue = 0d;
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+            List<OrderDetails> orderDetails = new ArrayList<>();
+
+            long DAY_IN_MS = 1000 * 60 * 60 * 24;
+            Date date = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where orderId = :orderId and createdDate >= :createdDate");
+                query.setParameter("orderId", o.getOrderId());
+                query.setParameter("createdDate", date);
+                orderDetails.addAll(query.list());
+            }
+
+            revenue = orderDetails.stream().map((od) -> (od.getOrderDetailQuantity() * od.getOrderDetailPrice() * (100 - od.getOrderDetailSale()) / 100)).reduce(revenue, (accumulator, _item) -> accumulator + _item);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return revenue;
+    }
+    
+    @Override
+    public List<Orders> getTopTenOrderToDisplayOnDashboard() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Orders> orders = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 4 order by orderId desc");
+            query.setMaxResults(10);
+            orders = query.list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orders;
+    }
 }

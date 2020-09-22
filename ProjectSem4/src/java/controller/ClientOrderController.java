@@ -511,7 +511,8 @@ public class ClientOrderController {
 //            attributes.addFlashAttribute("error", "Đặt hàng không thành công!");
 //            return "redirect:/order/checkout.htm";
 //        }
-        return "redirect:/order/index.htm";
+        attributes.addFlashAttribute("success", "Đặt hàng không thành công!");
+        return "Customer/user-order";
     }
 
     private String generateOrderEmailBody(List<OrderDetails> orderDetails) {

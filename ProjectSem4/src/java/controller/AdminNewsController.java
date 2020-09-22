@@ -560,7 +560,7 @@ public class AdminNewsController {
 
             String path = request.getServletContext().getRealPath("jsp/Admin/uploads/images/News");
             path = path.substring(0, path.indexOf("\\build"));
-            path = path + "\\web\\views\\backend\\uploads\\images\\News";
+            path = path + "\\web\\jsp\\Admin\\uploads\\images\\News";
             oldFileName = path + "\\" + news.getNewImage();
             File fileDir = new File(path);
 
@@ -670,7 +670,8 @@ public class AdminNewsController {
             return "redirect:/admin/new.htm";
         }
     }
-
+    
+   
     @RequestMapping(value = "new/enable")
     public String enableNew(RedirectAttributes attributes, HttpSession session, String newId) {
         if (session.getAttribute("adminLogin") == null) {

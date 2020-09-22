@@ -26,7 +26,7 @@
     <main class="dashboard-main-wrapper">
         <header class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="/Admin">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/dashboard.htm">
                     <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/logo.png" class="img-fluid" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
