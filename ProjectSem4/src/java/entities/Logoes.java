@@ -33,7 +33,6 @@ public class Logoes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "LogoId")
     private Integer logoId;
     @Basic(optional = false)

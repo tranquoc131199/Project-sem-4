@@ -6,6 +6,7 @@
 package dao;
 
 import entities.Customers;
+import entities.ProductComments;
 import entities.Products;
 import entities.Wishlists;
 import java.util.Date;
@@ -43,90 +44,127 @@ public interface CustomerDAO {
     public Customers getCustomerById(Integer customerId);
 
     /**
-     *xóa danh sách yêu thích
+     * xóa danh sách yêu thích
+     *
      * @param customer
      * @param product
      * @return
      */
+    public List<Customers> getAllCustomers(Integer start, Integer limit);
+
     public Boolean removeWishlist(Customers customer, Products product);
-    
+
     /**
      * add to danh sách yeu thích
+     *
      * @param wishlist
-     * @return 
+     * @return
      */
+    public Integer countAllCustomers();
+
     public Boolean addToWishlist(Wishlists wishlist);
-    
-        /**
+
+    /**
      * Kiểm tra số điện thoại người dùng nhập vào đã tồn tại hay chưa
+     *
      * @param customerPhone
-     * @return 
+     * @return
      */
+    public List<Customers> searchCustomersByName(String customerFullname, Integer start, Integer limit);
+
     public Boolean checkCustomerPhoneExists(String customerPhone);
-    
-        /**
+
+    /**
      * Thay đổi thông tin người dùng
+     *
      * @param customerId
      * @param customerFullname
-     * @param customerPhone
+     * @param customerPhone public Integer countAllCustomersByName(String
+     * customerFullname);
      * @param customerBirthday
      * @param customerAddress
-     * @return 
+     * @return
      */
+    public Integer countAllCustomersByName(String customerFullname);
+
+    public Customers getCustomerByEmail(String customerEmail);
+
     public Boolean changeCustomerInformation(Integer customerId, String customerFullname, String customerPhone, Date customerBirthday, String customerAddress);
-    
-        /**
-     * Cập nhật người dùng
-     * Sử dụng cho các hàm cập nhật phía dưới
+
+    public Boolean disableCustomer(Integer customerId);
+
+    /**
+     * Cập nhật người dùng Sử dụng cho các hàm cập nhật phía dưới
+     *
      * @param customer
-     * @return 
+     * @return
      */
     public Boolean updateCustomer(Customers customer);
-    
-        /**
+
+    public Boolean enableCustomer(Integer customerId);
+
+    /**
      * Thay đổi mật khẩu người dùng, sau khi thay đổi phải yêu cầu đăng nhập lại
      * Thay đổi dữ liệu trường CustomerPassword của bản ghi tương ứng
+     *
      * @param customerId
      * @param customerPassword
-     * @return 
-     */
-    public Boolean changeCustomerPassword(Integer customerId, String customerPassword);
-    
-        /**
-     * Thay đổi ảnh đại diện của người dùng, sau khi thay đổi yêu cầu đăng nhập lại
-     * Thay đổi dữ liệu trường CustomerAvatar của bản ghi tương ứng
-     * @param customerId
-     * @param customerAvatar
-     * @return 
-     */
-    public Boolean changeCustomerAvatar(Integer customerId, String customerAvatar);
-    
-    /**
-     * Kiểm tra email người dùng nhập vào đã tồn tại hay chưa
-     * @param customerEmail
-     * @return 
-     */
-    public Boolean checkCustomerEmailExists(String customerEmail);
-    
-    /**
-     * Đăng ký mới tài khoản người dùng
-     * @param customer
-     * @return 
+     * @return
      */
     public Boolean insertCustomer(Customers customer);
-    
-       /**
-     * Lấy thông tin người dùng theo CustomerId (trang quản trị)
-     * @param customerEmail
-     * @return 
-     */
-    public Customers getCustomerByEmail(String customerEmail);
-    
-        /**
-     * Mở khoá tài khoản người dùng
+
+    public Customers checkCustomerLogin(String customerEmail);
+
+    public Boolean changeCustomerPassword(Integer customerId, String customerPassword);
+
+    /**
+     * Thay đổi ảnh đại diện của người dùng, sau khi thay đổi yêu cầu đăng nhập
+     * lại Thay đổi dữ liệu trường CustomerAvatar của bản ghi tương ứng
+     *
      * @param customerId
-     * @return 
+     * @param customerAvatar
+     * @return
      */
-    public Boolean enableCustomer(Integer customerId);
+    public Boolean changeCustomerAvatar(Integer customerId, String customerAvatar);
+
+    public Boolean updateCustomerStatus(Integer customerId, Integer customerStatus);
+
+    /**
+     * Kiểm tra email người dùng nhập vào đã tồn tại hay chưa
+     *
+     * @param customerEmail
+     * @return
+     */
+    public Boolean checkCustomerEmailExists(String customerEmail);
+
+    /**
+     * Đăng ký mới tài khoản người dùng
+     *
+     * @param customer
+     * @return
+     */
+    public Boolean checkCustomerAvatarExists(String customerAvatar);
+
+    public ProductComments getProductCommentById(Integer productCommentId);
+
+    /**
+     * Lấy thông tin người dùng theo CustomerId (trang quản trị)
+     *
+     * @param customerEmail
+     * @return
+     */
+    public List<ProductComments> getProductCommentsByCustomerId(Integer customerId);
+
+    public Boolean updateProductCommentStatus(Integer productCommentId, Integer status);
+
+    /**
+     * Mở khoá tài khoản người dùng
+     *
+     * @param customerId
+     * @return
+     */
+    public Boolean deleteCustomer(Integer customerId);
+
+    public Integer countBoughtProductsByCustomerId(Integer customerId);
 
 }

@@ -507,9 +507,9 @@ public class AdminSettingController {
         newFileName += "." + extension;
 
         if (!"".equals(file)) {
-            String path = request.getServletContext().getRealPath("views/backend/uploads/images/Logoes");
+            String path = request.getServletContext().getRealPath("jsp/Admin/uploads/images/Admins");
             path = path.substring(0, path.indexOf("\\build"));
-            path = path + "\\web\\views\\backend\\uploads\\images\\Logoes";
+            path = path + "\\web\\jsp\\Admin\\uploads\\images\\Logos";
             File fileDir = new File(path);
 
             if (!fileDir.exists()) {

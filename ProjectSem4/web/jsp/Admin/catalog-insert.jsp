@@ -1,8 +1,3 @@
-<%-- 
-    Document   : catalog-insert
-    Created on : Jun 6, 2019, 5:12:43 PM
-    Author     : QuanKoiNA
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +10,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Trang quản trị QTCStore</h2>
+                        <h2 class="pageheader-title">Trang quản trị QTBStore</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
