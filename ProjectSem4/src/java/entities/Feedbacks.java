@@ -35,7 +35,6 @@ public class Feedbacks implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "FeedbackId")
     private Integer feedbackId;
     @Size(max = 250)

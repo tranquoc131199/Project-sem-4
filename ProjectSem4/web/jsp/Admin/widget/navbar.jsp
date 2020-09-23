@@ -42,10 +42,10 @@
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendCustomer"><i class="fas fa-fw fa-users"></i> Khách hàng</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/customer.htm"><i class="fas fa-fw fa-users"></i> Khách hàng</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendCustomer/Feedback"><i class="fas fa-fw fa-road"></i> Phản hồi</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/feedback.htm"><i class="fas fa-fw fa-road"></i> Phản hồi</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -90,7 +90,7 @@
                                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/banner.htm"><i class="fas fa-fw fa-desktop"></i> Banner</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendLogo"><i class="fas fa-fw fa-image"></i> Logo</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/logo.htm"><i class="fas fa-fw fa-image"></i> Logo</a>
                                         </li>
                                     </ul>
                                 </div>
