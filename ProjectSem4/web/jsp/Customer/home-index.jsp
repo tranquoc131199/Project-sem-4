@@ -16,30 +16,18 @@
     <div class="container">
         <div class="home-wrap">
             <div id="home-slick">
-                <div class='banner banner-1'>
-                    <img src='${pageContext.request.contextPath}/jsp/Admin/uploads/images/Banner/banner01.jpg' alt=''>
-                    <div class='banner-caption text-center'>
-                        <h1></h1>
-                        <h3 class='white-color font-weak text-border-neon'></h3>
-                        <a class='primary-btn border-1-fff' href='/New/Detail/?NewId=1'>Xem chi tiết</a>
-                    </div>
-                </div>
-                <div class='banner banner-1'>
-                    <img src='${pageContext.request.contextPath}/jsp/Admin/uploads/images/Banner/banner02.jpg' alt=''>
-                    <div class='banner-caption text-center'>
-                        <h1></h1>
-                        <h3 class='white-color font-weak text-border-neon'></h3>
-                        <a class='primary-btn border-1-fff' href='/New/Detail/?NewId=2'>Xem chi tiết</a>
-                    </div>
-                </div>
-                <div class='banner banner-1'>
-                    <img src='${pageContext.request.contextPath}/jsp/Admin/uploads/images/Banner/banner03.jpg' alt=''>
-                    <div class='banner-caption text-center'>
-                        <h1></h1>
-                        <h3 class='white-color font-weak text-border-neon'></h3>
-                        <a class='primary-btn border-1-fff' href='/New/Detail/?NewId=3'>Xem chi tiết</a>
-                    </div>
-                </div>
+                <c:if test="${not empty banners}">
+                    <c:forEach items="${banners}" var="b">
+                        <div class='banner banner-1'>
+                            <img src='${pageContext.request.contextPath}/jsp/Admin/uploads/images/Banner/${b.bannerImage}' alt=''>
+                            <div class='banner-caption text-center'>
+                                <h1>${b.bannerDescription}</h1>
+                                <h3 class='white-color font-weak text-border-neon'>${b.bannerDescription}</h3>
+                                <a class='primary-btn border-1-fff' href='${pageContext.request.contextPath}/new.htm'>Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>

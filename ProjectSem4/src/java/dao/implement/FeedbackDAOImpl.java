@@ -311,7 +311,7 @@ public class FeedbackDAOImpl implements FeedbackDAO {
         
         try {
             Feedbacks feedback = getFeedbackById(feedbackId);
-            feedback.setFeedbackStatus(1);
+            feedback.setFeedbackStatus(0);
             result = updateFeedback(feedback);
             session.getTransaction().commit();
         } catch (Exception e) {

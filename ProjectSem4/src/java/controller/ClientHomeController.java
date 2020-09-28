@@ -7,6 +7,7 @@ package controller;
 
 import common.CompleteProduct;
 import common.validate;
+import dao.BannerDAO;
 import dao.CatalogDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
@@ -14,6 +15,7 @@ import dao.FeedbackDAO;
 import dao.NewDAO;
 import dao.ProductDAO;
 import dao.WishlistDAO;
+import entities.Banners;
 import entities.Catalogs;
 import entities.Categories;
 import entities.Customers;
@@ -44,9 +46,15 @@ public class ClientHomeController {
     private CustomerDAO customerDAO;
     private NewDAO newDAO;
     private CatalogDAO catalogDAO;
-     private FeedbackDAO feedbackDAO;
-     
-     @Autowired
+    private FeedbackDAO feedbackDAO;
+    private BannerDAO bannerDAO;
+
+    @Autowired
+    public void setBannerDAO(BannerDAO bannerDAO) {
+        this.bannerDAO = bannerDAO;
+    }
+
+    @Autowired
     public void setFeedbackDAO(FeedbackDAO feedbackDAO) {
         this.feedbackDAO = feedbackDAO;
     }
@@ -99,6 +107,8 @@ public class ClientHomeController {
         List<CompleteProduct> pro12Sale = new ArrayList<>();
         List<CompleteProduct> pro12Sell = new ArrayList<>();
         List<CompleteProduct> fourNewProList = new ArrayList<>();
+        //hiên thị banner
+        List<Banners> banners = bannerDAO.getAllBannersFrontEnd();
 
         //nếu chưa đăng nhập chỉ hiên thị sản ph  ẩm và không hiển thị ra whislist
         if (customer == null) {
@@ -175,6 +185,10 @@ public class ClientHomeController {
             model.addAttribute("newHtml", newHtml);
         }
 
+        if (banners.size() > 0) {
+            model.addAttribute("banners", banners);
+        }
+
         if (customer != null) {
             model.addAttribute("customer", customer);
         }
@@ -204,7 +218,7 @@ public class ClientHomeController {
         model.addAttribute("title", "QTB-Store");
         return "Customer/home-index";
     }
-    
+
     @RequestMapping(value = "feedback")
     public String feedback(Model model, HttpSession session) {
         Customers customer = (Customers) session.getAttribute("customerLogin");
@@ -219,7 +233,7 @@ public class ClientHomeController {
         if (newHtml.length() > 0) {
             model.addAttribute("newHtml", newHtml);
         }
-        
+
         if (feedbackCatalogs.size() > 0) {
             model.addAttribute("feedbackCatalogs", feedbackCatalogs);
         }
@@ -231,14 +245,14 @@ public class ClientHomeController {
         model.addAttribute("title", "Phản hồi");
         return "Customer/feedback";
     }
-    
-     @RequestMapping(value = "send-feedback")
+
+    @RequestMapping(value = "send-feedback")
     public String sendFeedback(RedirectAttributes attributes, String feedbackCatalogId, String feedbackFullname, String feedbackEmail, String feedbackPhone, String feedbackAddress, String feedbackContent) {
         if (validate.isEmpty(feedbackContent)) {
             attributes.addFlashAttribute("error", "Nội dung phản hồi không được để trống!");
             return "redirect:feedback.htm";
         }
-        
+
         if (feedbackCatalogId.equals("0")) {
             attributes.addFlashAttribute("error", "Danh mục phản hồi không được chọn!");
             return "redirect:feedback.htm";

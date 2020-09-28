@@ -458,6 +458,7 @@ public class AdminCustomerController {
         }
 
         model.addAttribute("title", "Phản hồi");
+        
         return "Admin/feedback-list";
     }
 
@@ -468,6 +469,7 @@ public class AdminCustomerController {
         }
 
         Feedbacks feedback = feedbackDAO.getFeedbackById(feedbackId);
+        boolean check = feedbackDAO.setReadFeedback(feedbackId);
         List<FeedbackCatalogs> feedbackCatalogs = feedbackDAO.getAllFeedbackCatalogs();
 
         if (feedback == null) {
