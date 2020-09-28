@@ -97,8 +97,8 @@ public class AdminCustomerController {
         }
 
         int totalRecords = customerDAO.countAllCustomers();
-        String firstLink = "/QTCStore/admin/customer.htm?customerName=" + customerName;
-        String currentLink = "/QTCStore/admin/customer.htm{p}&customerName=" + customerName;
+        String firstLink = "/ProjectSem4/admin/customer.htm?customerName=" + customerName;
+        String currentLink = "/ProjectSem4/admin/customer.htm{p}&customerName=" + customerName;
         Logoes logo = logoDAO.getLogoToDisplay();
         String logoImage = "";
         String iconImage = "";
@@ -393,8 +393,8 @@ public class AdminCustomerController {
         }
 
         int totalRecords;
-        String firstLink = "/QTCStore/admin/feedback.htm";
-        String currentLink = "/QTCStore/admin/feedback.htm{p}";
+        String firstLink = "/ProjectSem4/admin/feedback.htm";
+        String currentLink = "/ProjectSem4/admin/feedback.htm{p}";
         paging paging;
         String pagingHtml = "";
         List<Feedbacks> feedbacks;
@@ -425,8 +425,8 @@ public class AdminCustomerController {
             }
 
             totalRecords = feedbackDAO.countAllFeedback(feedbackCatalog);
-            firstLink = "/QTCStore/admin/feedback.htm?feedbackCatalogId" + feedbackCatalogId;
-            currentLink = "/QTCStore/admin/feedback.htm{p}&feedbackCatalogId" + feedbackCatalogId;
+            firstLink = "/ProjectSem4/admin/feedback.htm?feedbackCatalogId" + feedbackCatalogId;
+            currentLink = "/ProjectSem4/admin/feedback.htm{p}&feedbackCatalogId" + feedbackCatalogId;
 
             if (totalRecords > 12) {
                 paging = new paging(page, totalRecords, 12, currentLink, firstLink);

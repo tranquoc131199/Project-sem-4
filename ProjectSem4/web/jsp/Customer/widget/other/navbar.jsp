@@ -43,8 +43,8 @@
                             </div>
                         </div>
                     </li>
-                    <li><a href="/Home/About">Giới thiệu</a></li>
-                    <li><a href="/Home/Feedback">Liên hệ</a></li>
+                    <li><a href="about-us.jsp">Giới thiệu</a></li>
+                    <li><a href="${pageContext.request.contextPath}/feedback.htm">Liên hệ</a></li>
                 </ul>
             </div>
         </div>

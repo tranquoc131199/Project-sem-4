@@ -74,7 +74,7 @@ public class AdminSettingController {
         String iconImage = "";
         int totalRecords = bannerDAO.countAllBanners();
         paging paging;
-        String firstLink = "/QTCStore/admin/banner.htm";
+        String firstLink = "/ProjectSem4/admin/banner.htm";
         String currentLink = firstLink + "{p}";
         List<Banners> banners;
         String pagingHtml = "";
@@ -418,7 +418,7 @@ public class AdminSettingController {
         String iconImage = "";
         int totalRecords = logoDAO.countAllLogoes();
         paging paging;
-        String firstLink = "/QTCStore/admin/banner.htm";
+        String firstLink = "/ProjectSem4/admin/banner.htm";
         String currentLink = firstLink + "{p}";
         List<Logoes> logoes;
         String pagingHtml = "";

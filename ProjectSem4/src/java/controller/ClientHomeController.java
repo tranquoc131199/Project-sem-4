@@ -6,24 +6,31 @@
 package controller;
 
 import common.CompleteProduct;
+import common.validate;
 import dao.CatalogDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
+import dao.FeedbackDAO;
 import dao.NewDAO;
 import dao.ProductDAO;
 import dao.WishlistDAO;
 import entities.Catalogs;
 import entities.Categories;
 import entities.Customers;
+import entities.FeedbackCatalogs;
+import entities.Feedbacks;
+import entities.Logoes;
 import entities.Products;
 import entities.Wishlists;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -37,6 +44,12 @@ public class ClientHomeController {
     private CustomerDAO customerDAO;
     private NewDAO newDAO;
     private CatalogDAO catalogDAO;
+     private FeedbackDAO feedbackDAO;
+     
+     @Autowired
+    public void setFeedbackDAO(FeedbackDAO feedbackDAO) {
+        this.feedbackDAO = feedbackDAO;
+    }
 
     @Autowired
     public void setCatalogDAO(CatalogDAO catalogDAO) {
@@ -190,6 +203,71 @@ public class ClientHomeController {
 
         model.addAttribute("title", "QTB-Store");
         return "Customer/home-index";
+    }
+    
+    @RequestMapping(value = "feedback")
+    public String feedback(Model model, HttpSession session) {
+        Customers customer = (Customers) session.getAttribute("customerLogin");
+        String navbarHtm = categoryDAO.generateNavbar();
+        String newHtml = generateNewsHtml();
+        List<FeedbackCatalogs> feedbackCatalogs = feedbackDAO.getAllFeedbackCatalogsFrontEnd();
+
+        if (navbarHtm.length() > 0) {
+            model.addAttribute("navbarHtm", navbarHtm);
+        }
+
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
+        }
+        
+        if (feedbackCatalogs.size() > 0) {
+            model.addAttribute("feedbackCatalogs", feedbackCatalogs);
+        }
+
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+        }
+
+        model.addAttribute("title", "Phản hồi");
+        return "Customer/feedback";
+    }
+    
+     @RequestMapping(value = "send-feedback")
+    public String sendFeedback(RedirectAttributes attributes, String feedbackCatalogId, String feedbackFullname, String feedbackEmail, String feedbackPhone, String feedbackAddress, String feedbackContent) {
+        if (validate.isEmpty(feedbackContent)) {
+            attributes.addFlashAttribute("error", "Nội dung phản hồi không được để trống!");
+            return "redirect:feedback.htm";
+        }
+        
+        if (feedbackCatalogId.equals("0")) {
+            attributes.addFlashAttribute("error", "Danh mục phản hồi không được chọn!");
+            return "redirect:feedback.htm";
+        }
+
+        FeedbackCatalogs fc = feedbackDAO.getFeedbackCatalogById(validate.convertStringToInt(feedbackCatalogId, 0));
+
+        if (fc == null) {
+            attributes.addFlashAttribute("error", "Mã danh mục phản hồi không tồn tại!");
+            return "redirect:feedback.htm";
+        }
+
+        Feedbacks feedback = new Feedbacks();
+        feedback.setFeedbackAddress(feedbackAddress);
+        feedback.setFeedbackCatalogId(fc);
+        feedback.setFeedbackEmail(feedbackEmail);
+        feedback.setFeedbackPhone(feedbackPhone);
+        feedback.setFeedbackFullname(feedbackFullname);
+        feedback.setFeedbackContent(feedbackContent);
+        feedback.setFeedbackStatus(1);
+        feedback.setFeedbacksTime(new Date());
+
+        if (!feedbackDAO.insertFeedback(feedback)) {
+            attributes.addFlashAttribute("error", "Không thể gửi phản hồi vào lúc này!");
+            return "redirect:feedback.htm";
+        } else {
+            attributes.addFlashAttribute("success", "Gửi phản hồi thành công!");
+            return "redirect:index.htm";
+        }
     }
 
     private String generateNavbar() {
