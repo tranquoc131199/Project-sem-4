@@ -154,7 +154,8 @@
                                                 <c:forEach items="${productComments}" var="cmt">
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <img class="img-responsive" src="${pageContext.request.contextPath}/views/backend/uploads/images/Customers/${cmt.customerId.customerAvatar}" />
+                                                            <img class="img-responsive" style="width: 5%" src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Customers/${cmt.customerId.customerAvatar}" />
+                                                            <a href="${pageContext.request.contextPath}/admin/customer/detail.htm?customerId=${cmt.customerId}">${cmt.customerId.customerFullName}</a>
                                                         </div>
                                                         <div class="col-md-9">
                                                             <span>

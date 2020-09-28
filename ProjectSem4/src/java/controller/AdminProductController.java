@@ -13,6 +13,7 @@ import dao.ProductDAO;
 import entities.Admins;
 import entities.Brands;
 import entities.Categories;
+import entities.ProductComments;
 import entities.ProductImages;
 import entities.Products;
 import java.util.Date;
@@ -511,11 +512,15 @@ public class AdminProductController {
             return "redirect:/admin/login.htm";
         }
 
+        List<ProductComments> productComments = productDAO.getAllCommentsOfProductById(productId);
         List<ProductImages> listImage = productDAO.getAllImagesByProductId(productId);
 
         Products product = productDAO.getProductById(productId);
         if (listImage.size() > 0) {
             model.addAttribute("listImage", listImage);
+        }
+        if (productComments.size() > 0) {
+            model.addAttribute("productComments", productComments);
         }
         model.addAttribute("product", product);
         model.addAttribute("title", "Chi tiết sản phẩm");
