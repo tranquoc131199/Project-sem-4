@@ -37,29 +37,29 @@
                             <div class="card-body">
                                 <div class="clearfix"><br></div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="order-code" value="<c:if test="${not empty orderCode}">${orderId}</c:if>" />
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary" id="search-order">Tìm kiếm</button>
+                                    <input type="text" class="form-control" id="order-code" value="<c:if test="${not empty orderId}">${orderId}</c:if>" />
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-primary" id="search-order">Tìm kiếm</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clearfix"><br></div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered first">
-                                        <thead>
-                                            <tr>
-                                                <th>Mã đơn hàng</th>
-                                                <th>Ngày đặt</th>
-                                                <th>Người đặt</th>
-                                                <th>Email</th>
-                                                <th>Điện thoại</th>
-                                                <th>Tổng tiền</th>
-                                                <th>Kiểu thanh toán</th>
-                                                <th>Kiểu giao hàng</th>
-                                                <th>Trạng thái</th>
-                                                <th>Hành động</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <div class="clearfix"><br></div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered first">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn hàng</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Người đặt</th>
+                                                    <th>Email</th>
+                                                    <th>Điện thoại</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Kiểu thanh toán</th>
+                                                    <th>Kiểu giao hàng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                             <c:if test="${not empty orders}">
                                                 <c:forEach items="${orders}" var="o">
                                                     <tr>
@@ -104,11 +104,16 @@
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>
-                                            <c:if test="${empty orders}">
-                                                <tr>
-                                                    <td colspan="10">Chưa có đơn hàng nào</td>
-                                                </tr>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <c:if test="${not empty pagingHtml}">
+                                                ${pagingHtml}
                                             </c:if>
+                                        </div>
+                                        <c:if test="${empty orders}">
+                                            <tr>
+                                                <td colspan="10">Chưa có đơn hàng nào</td>
+                                            </tr>
+                                        </c:if>
                                         </tbody>
                                     </table>
                                 </div>
@@ -122,19 +127,19 @@
 </section>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#search-order").click(function(e) {
+    $(document).ready(function () {
+        $("#search-order").click(function (e) {
             e.preventDefault();
-            window.location.href = "${pageContext.request.contextPath}/admin/order.htm?orderCode=" + $("#order-code").val();
+            window.location.href = "${pageContext.request.contextPath}/admin/order/detail.htm?orderId=" + $("#order-code").val();
         });
 
         $("#order-code").keypress(function (e) {
             var key = e.which;
 
             if (key == 13) {
-                window.location.href = "${pageContext.request.contextPath}/admin/order.htm?orderCode=" + $("#order-code").val(); 
+                window.location.href = "${pageContext.request.contextPath}/admin/order/detail.htm?orderId=" + $("#order-code").val();
             }
-        }); 
+        });
     });
 </script>                                       
 <jsp:include page="widget/footer.jsp" flush="true"/>

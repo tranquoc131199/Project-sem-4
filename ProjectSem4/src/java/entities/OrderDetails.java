@@ -180,7 +180,7 @@ public class OrderDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "controller.OrderDetails[ orderDetailId=" + orderDetailId + " ]";
+        return "entities.OrderDetails[ orderDetailId=" + orderDetailId + " ]";
     }
     
 }

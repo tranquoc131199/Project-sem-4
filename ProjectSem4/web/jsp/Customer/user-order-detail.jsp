@@ -80,7 +80,7 @@
                                                 <a href="${pageContext.request.contextPath}/product/detail.htm?productId=${p.productId.productId}">${p.productId.productName}</a>
                                             </td>
                                             <td style="width: 25%;">
-                                                <img src="${p.productId.productFeatureImage}" class="img-responsive" alt="${p.productId.productName}">
+                                                <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${p.productId.productFeatureImage}" class="img-responsive" alt="${p.productId.productName}">
                                             </td>
                                             <td style="width: 10%;" class="text-center">${p.orderDetailQuantity}</td>
                                             <td><fmt:formatNumber value="${p.orderDetailPrice}" /></td>

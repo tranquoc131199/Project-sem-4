@@ -352,14 +352,14 @@ public class FeedbackDAOImpl implements FeedbackDAO {
     }
 
     @Override
-    public Integer countFeedbackForDisplayOnDashboard() {
+    public long countFeedbackForDisplayOnDashboard() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Integer count = 0;
+        long count = 0;
         
         try {
             Query query = session.createQuery("select count(feedbackId) from Feedbacks where feedbackStatus = 0");
-            count = (Integer) query.uniqueResult();
+            count = (Long) query.uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("dao.impl.FeedbackDAOImpl.countFeedbackForDisplayOnDashboard()");

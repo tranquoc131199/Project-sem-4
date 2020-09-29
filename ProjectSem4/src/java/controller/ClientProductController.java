@@ -233,6 +233,12 @@ public class ClientProductController {
         return "Customer/product-list";
     }
 
+     @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchProducts(HttpSession session, String productName) {
+        session.setAttribute("productNameClient", productName);
+        return "redirect:/product/index.htm";
+    }
+    
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public String detail(RedirectAttributes attributes, HttpSession session, Model model, String productId) {
         Customers customer = (Customers) session.getAttribute("customerLogin");

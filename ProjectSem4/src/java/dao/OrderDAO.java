@@ -78,7 +78,7 @@ public interface OrderDAO {
      * @param orderId
      * @return
      */
-    public List<OrderDetails> getOrderDetailByOrderId(int orderId);
+    public List<OrderDetails> getOrderDetailByOrderId(Integer orderId);
 
     /**
      * Cập nhật trạng thái đơn hàng

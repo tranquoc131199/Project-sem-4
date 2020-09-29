@@ -142,7 +142,7 @@ public class AdminController {
         
         long countProduct = productDAO.countProductForDisplayOnDashboard();
         long countOrder = orderDAO.countOrderForDisplayOnDashboard();
-        int countFeedback = feedbackDAO.countFeedbackForDisplayOnDashboard();
+        Long countFeedback = feedbackDAO.countFeedbackForDisplayOnDashboard();
         double sumRevenue = orderDAO.sumRevenueForDisplayOnDashboard();
         List<Orders> newestOrders = orderDAO.getTopTenOrderToDisplayOnDashboard();
         List<Products> bestSaleProducts = productDAO.getTopTenBestSaleProductForDisplayDashboard();

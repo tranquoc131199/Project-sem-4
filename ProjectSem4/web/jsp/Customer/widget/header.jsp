@@ -51,9 +51,9 @@
                             </a>
                         </div>
                         <div class="header-search">
-                            <form action="/Product/Search" method="post">
+                            <form action="${pageContext.request.contextPath}/product/search.htm" method="post">
                                 <input name="__RequestVerificationToken" type="hidden" value="YBVt7S5iWcxNIllVarDBR67tPoYzOFpd8aQIuBnpfCCPslBtIAFt3xAD7gUnlv3CT0S6Qz7JgGcMLC6bxOmTrETje_PM1R2-QCA8d1dGrlk1" />
-                                <input class="input search-input" name="ProductName" type="text" placeholder="Nhập từ khoá cần tìm...">
+                                <input class="input search-input" name="productName" type="text" placeholder="Nhập từ khoá cần tìm...">
                                 <button class="search-btn"><i class="fa fa-search"></i></button>
                             </form>
                         </div>

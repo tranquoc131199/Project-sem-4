@@ -43,7 +43,7 @@ public interface FeedbackDAO {
     
     public Boolean deleteFeedback(Integer feedbackId);
     
-    public Integer countFeedbackForDisplayOnDashboard();
+    public long countFeedbackForDisplayOnDashboard();
     
     public Boolean checkFeedbackCatalogNameExists(String feedbackCatalogName);
 }

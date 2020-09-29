@@ -35,7 +35,7 @@
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item">
-                            <form method="POST" action="/Admin/BackendProduct/Search" id="search-form" enctype="multipart/form-data">
+                            <form method="POST" action="${pageContext.request.contextPath}/admin/product/search.htm" id="search-form" enctype="multipart/form-data">
                                 <input name="__RequestVerificationToken" type="hidden" value="ETYGG0-sbiwIbw4wg2IqkTbNnOCyikyFziVt5GkOHPToEli_9TexOPJqYWpgBkCvXHPzRmMREw5ZIX9baXsuEecmUSAA3KO2rKKYWHLKujo1" />
                                 <div id="custom-search" class="top-search-bar">
                                     <input class="form-control" id="searchProduct" type="text" name="ProductName" placeholder="Tìm kiếm sản phẩm..">

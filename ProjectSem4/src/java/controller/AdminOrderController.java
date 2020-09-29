@@ -98,7 +98,7 @@ public class AdminOrderController {
         }
 
         if (pagingHtml.length() > 0) {
-            model.addAttribute("paging", pagingHtml);
+            model.addAttribute("pagingHtml", pagingHtml);
         }
 
         model.addAttribute("title", "Quản lý đơn hàng");

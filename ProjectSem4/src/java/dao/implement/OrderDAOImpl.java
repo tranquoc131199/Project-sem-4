@@ -183,11 +183,12 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderDetails> getOrderDetailByOrderId(int orderId) {
+    public List<OrderDetails> getOrderDetailByOrderId(Integer orderId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
-            List<OrderDetails> listOrderDeatil = session.createQuery("from OrderDetails where orderId = :orderId").setParameter("orderId", orderId).list();
+            List<OrderDetails> listOrderDeatil = session.createQuery("from OrderDetails where OrderId = :OrderId").setParameter("OrderId", orderId).list();
+//            List<OrderDetails> listOrderDeatil = session.createSQLQuery("select * from OrderDetails where OrderId = ?").setParameter("orderId", orderId).list();
             if (listOrderDeatil == null) {
                 return null;
             }
@@ -256,7 +257,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         try {
             Query query = session.createQuery("select count(orderId) from Orders where orderStatus = 1");
-            count =  (long) query.uniqueResult();
+            count = (long) query.uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.getMessage();
@@ -283,8 +284,8 @@ public class OrderDAOImpl implements OrderDAO {
             Date date = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
 
             for (Orders o : orders) {
-                query = session.createQuery("from OrderDetails where orderId = :orderId and createdDate >= :createdDate");
-                query.setParameter("orderId", o.getOrderId());
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :createdDate");
+                query.setParameter("OrderId", o.getOrderId());
                 query.setParameter("createdDate", date);
                 orderDetails.addAll(query.list());
             }
@@ -301,7 +302,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         return revenue;
     }
-    
+
     @Override
     public List<Orders> getTopTenOrderToDisplayOnDashboard() {
         Session session = sessionFactory.openSession();

@@ -34,6 +34,11 @@
                         <a href="${pageContext.request.contextPath}/admin/product/initInsertProduct.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới sản phẩm</a>
                         <div class="clearfix"><br></div>
                         <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <c:if test="${not empty pagingHtml}">
+                                    ${pagingHtml}
+                                </c:if>
+                            </div>
                             <c:if test="${not empty allProduct}">
                                 <c:forEach items="${allProduct}" var="allPro">
                                     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -55,7 +60,14 @@
                                                     <h3 class="product-title">
                                                         <a href="${pageContext.request.contextPath}/admin/product/detail.html?productId=${allPro.productId}" title="${allPro.productName}">
                                                             ${allPro.productName}</a>
+
                                                     </h3>
+                                                    <c:if test="${allPro.productStatus == 1}">
+                                                        <span class='badge badge-warning'>Kích hoạt</span>
+                                                    </c:if>
+                                                    <c:if test="${allPro.productStatus == 0}">1
+                                                        <span class='badge badge-danger'>Không kích hoạt</span>
+                                                    </c:if>
                                                     <div class="product-rating d-inline-block">
                                                         <c:if test="${allPro.productStarAvg == 5}">
                                                             <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>
