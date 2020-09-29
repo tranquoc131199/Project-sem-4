@@ -30,4 +30,23 @@ public interface TransportDAO {
      */
     public Transports getTransportById(Integer transportId);
 
+    public Integer countAllTransport();
+
+    public List<Transports> getAllTransportsForPaging(Integer start, Integer limit);
+
+    public Boolean checkTransportNameExists(String transportName);
+
+    public Boolean insertTransport(Transports transport);
+
+    public Boolean updateTransport(Transports transport);
+
+    public Boolean disableTransport(Integer transportId);
+
+    /**
+     * Mở khoá phương thức vận chuyển theo mã
+     *
+     * @param transportId
+     * @return
+     */
+    public Boolean enableTransport(Integer transportId);
 }
