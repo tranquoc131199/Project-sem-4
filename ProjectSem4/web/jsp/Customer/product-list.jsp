@@ -28,7 +28,7 @@
                     <form action="/Product/Search" method="post">
                         <div class="dp-flex">
                             <input name="__RequestVerificationToken" type="hidden" value="Gt2WKWQBo6gf_d634stJjbkr6_uPO6Gkwk_qPjpawZOFDAFGRF8u_M2E1kiNg34zT7ZFNqUKgQE24G-BeQDXzCTcTC33ogphbsuEHREgRTc1" />
-                            <input type="text" class="input" id="search-product" name="ProductName" placeholder="Tên sản phẩm...">
+                            <input type="text" class="input" id="search-product" name="productName" placeholder="Tên sản phẩm...">
                             <button type="submit" class="btn btn-custom" id="btn-product" style="border-radius: 0;"><i class="fa fa-search"></i></button>
                         </div>
                     </form>

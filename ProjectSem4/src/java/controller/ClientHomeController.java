@@ -218,8 +218,8 @@ public class ClientHomeController {
         model.addAttribute("title", "QTB-Store");
         return "Customer/home-index";
     }
-
-    @RequestMapping(value = "feedback")
+    
+        @RequestMapping(value = "feedback")
     public String feedback(Model model, HttpSession session) {
         Customers customer = (Customers) session.getAttribute("customerLogin");
         String navbarHtm = categoryDAO.generateNavbar();
@@ -244,6 +244,30 @@ public class ClientHomeController {
 
         model.addAttribute("title", "Phản hồi");
         return "Customer/feedback";
+    }
+
+    @RequestMapping(value = "info")
+    public String info(Model model, HttpSession session) {
+        Customers customer = (Customers) session.getAttribute("customerLogin");
+        String navbarHtm = categoryDAO.generateNavbar();
+        String newHtml = generateNewsHtml();
+       
+
+        if (navbarHtm.length() > 0) {
+            model.addAttribute("navbarHtm", navbarHtm);
+        }
+
+        if (newHtml.length() > 0) {
+            model.addAttribute("newHtml", newHtml);
+        }
+
+       
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+        }
+
+        model.addAttribute("title", "Giới thiệu");
+        return "Customer/about-us";
     }
 
     @RequestMapping(value = "send-feedback")
