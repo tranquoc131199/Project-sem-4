@@ -1,8 +1,4 @@
-<%-- 
-    Document   : transport-insert
-    Created on : Jun 6, 2019, 5:24:36 PM
-    Author     : QuanKoiNA
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="widget/header.jsp" flush="true"/>
@@ -14,7 +10,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Trang quản trị QTCStore</h2>
+                        <h2 class="pageheader-title">Trang quản trị QTBStore</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">

@@ -185,6 +185,11 @@ public class AdminProductController {
         Brands brand = null;
         Categories category = null;
         String keyword = "";
+        
+        //kiểm tra từ khóa để tìm kiếm tên sản phẩm
+        if (session.getAttribute("productName") != null) {
+            keyword = (String) session.getAttribute("productName");
+        }
 
         //check xem hãng sản xuất có tồn tại không hoặc status có được sử dụng k 
         if (brandId != null && !brandId.equals("")) {
@@ -277,6 +282,16 @@ public class AdminProductController {
 
         model.addAttribute("title", "Quản lý sản phẩm");
         return "Admin/product-list";
+    }
+    
+     @RequestMapping(value = "product/search", method = RequestMethod.POST)
+    public String searchProducts(HttpSession session, String productName) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+        
+        session.setAttribute("productName", productName);
+        return "redirect:/admin/product.htm";
     }
 
     @RequestMapping(value = "product/initInsertProduct")
