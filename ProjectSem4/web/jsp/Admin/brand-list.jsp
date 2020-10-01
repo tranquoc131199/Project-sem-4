@@ -34,7 +34,7 @@
                         <div class="card">
                             <h3 class="card-header"><b>Danh sách</b></h3>
                             <div class="card-body">
-                                <a href="${pageContext.request.contextPath}/admin/brand/initUpdateBrand.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới hãng</a>
+                                <a href="${pageContext.request.contextPath}/admin/brand/initinsertbrand.htm" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Thêm mới hãng</a>
                                 <div class="clearfix"><br></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">

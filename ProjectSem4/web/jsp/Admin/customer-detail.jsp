@@ -204,16 +204,16 @@
                                                                 <td><fmt:formatNumber value="${o.orderTotalAmount}" /> VNĐ</td>
                                                                 <td>${o.orderAddress}</td>
                                                                 <td>
-                                                                    <a href="${pageContext.request.contextPath}/admin/order/detail.html?orderId=${o.orderId}" title="" class="btn btn-sm btn-info">Chi tiết</a>
+                                                                    <a href="${pageContext.request.contextPath}/admin/order/detail.htm?orderId=${o.orderId}" title="" class="btn btn-sm btn-info">Chi tiết</a>
                                                                     <c:if test="${o.orderStatus == 4}">
-                                                                        <a href="${pageContext.request.contextPath}/admin/order/denied.html?orderId=${o.orderId}" title="" class="btn btn-sm btn-secondary">Huỷ đơn</a>
-                                                                        <a href="${pageContext.request.contextPath}/admin/order/accept.html?orderId=${o.orderId}" title="" class="btn btn-sm btn-primary">Nhận đơn</a>
+                                                                        <a href="${pageContext.request.contextPath}/admin/order/denied.htm?orderId=${o.orderId}" title="" class="btn btn-sm btn-secondary">Huỷ đơn</a>
+                                                                        <a href="${pageContext.request.contextPath}/admin/order/accept.htm?orderId=${o.orderId}" title="" class="btn btn-sm btn-primary">Nhận đơn</a>
                                                                     </c:if>
                                                                     <c:if test="${o.orderStatus == 3}">
-                                                                        <a href="${pageContext.request.contextPath}/admin/order/transport.html?orderId=${o.orderId}" title="" class="btn btn-sm btn-warning">Vận chuyển đơn</a>
+                                                                        <a href="${pageContext.request.contextPath}/admin/order/transport.htm?orderId=${o.orderId}" title="" class="btn btn-sm btn-warning">Vận chuyển đơn</a>
                                                                     </c:if>
                                                                     <c:if test="${o.orderStatus == 2}">
-                                                                        <a href="${pageContext.request.contextPath}/admin/order/success.html?orderId=${o.orderId}" title="" class="btn btn-sm btn-success">Thành công</a>
+                                                                        <a href="${pageContext.request.contextPath}/admin/order/success.htm?orderId=${o.orderId}" title="" class="btn btn-sm btn-success">Thành công</a>
                                                                     </c:if>
                                                                 </td>
                                                             </tr>

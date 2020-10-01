@@ -20,8 +20,8 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.html" class="breadcrumb-link">Trang quản trị</a></li>
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/catalog.html" class="breadcrumb-link">Danh mục tin tức</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.htm" class="breadcrumb-link">Trang quản trị</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/catalog.htm" class="breadcrumb-link">Danh mục tin tức</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Cập nhật danh mục tin tức</li>
                                 </ol>
                             </nav>

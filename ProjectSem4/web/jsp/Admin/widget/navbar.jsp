@@ -74,7 +74,7 @@
                                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/transport.htm"><i class="fas fa-fw fa-truck"></i> Vận chuyển</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/Admin/BackendPayment"><i class="fas fa-fw fa-credit-card"></i> Thanh toán</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/payment.htm"><i class="fas fa-fw fa-credit-card"></i> Thanh toán</a>
                                         </li>
                                     </ul>
                                 </div>

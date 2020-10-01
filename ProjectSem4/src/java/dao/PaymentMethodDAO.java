@@ -29,4 +29,18 @@ public interface PaymentMethodDAO {
      * @return
      */
     public PaymentMethods getPaymentMethodById(Integer paymentMethodId);
+
+    public Integer countAllPaymentMethods();
+
+    public List<PaymentMethods> getAllPaymentMethodsForPaging(Integer start, Integer limit);
+
+    public Boolean checkPaymentMethodNameExists(String paymentMethodName);
+
+    public Boolean insertPaymentMethod(PaymentMethods paymentMethod);
+
+    public Boolean updatePaymentMethod(PaymentMethods paymentMethod);
+
+    public Boolean disablePaymentMethod(Integer paymentMethodId);
+
+    public Boolean enablePaymentMethod(Integer paymentMethodId);
 }
