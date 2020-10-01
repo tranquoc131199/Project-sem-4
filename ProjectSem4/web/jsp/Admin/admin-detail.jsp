@@ -20,8 +20,8 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.html" class="breadcrumb-link">Trang quản trị</a></li>
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/index.html" class="breadcrumb-link">Quản trị viên</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.htm" class="breadcrumb-link">Trang quản trị</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/index.htm" class="breadcrumb-link">Quản trị viên</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Thông tin quản trị viên</li>
                                 </ol>
                             </nav>
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <a href="${pageContext.request.contextPath}/admin/index.html" class="btn btn-sm btn-primary"><i class="fas fa-reply"></i> Quay lại</a>
+            <a href="${pageContext.request.contextPath}/admin/index.htm" class="btn btn-sm btn-primary"><i class="fas fa-reply"></i> Quay lại</a>
             <br/>
             <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">

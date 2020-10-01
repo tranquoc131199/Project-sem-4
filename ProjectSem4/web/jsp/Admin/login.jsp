@@ -3,10 +3,10 @@
     Created on : Aug 20, 2020, 11:14:39 PM
     Author     : Acer Nitro 5
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
-    <html lang="">
+<!DOCTYPE html>
+<html lang="">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,5 +58,21 @@
         <script src="${pageContext.request.contextPath}/jsp/Admin/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/Admin/assets/libs/css/sweetalert2.min.css">
         <script src="${pageContext.request.contextPath}/jsp/Admin/assets/libs/js/sweetalert2.min.js"></script>
-    </body>
-    </html>
+    <c:if test="${not empty error}">
+        <script>
+            Swal.fire({
+                type: 'error',
+                title: '${error}'
+            })
+        </script>
+    </c:if>
+    <c:if test="${not empty success}">
+        <script>
+            Swal.fire({
+                type: 'success',
+                title: '${success}',
+            })
+        </script>
+    </c:if>
+</body>
+</html>

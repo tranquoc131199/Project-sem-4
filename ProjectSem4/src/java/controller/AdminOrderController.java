@@ -15,6 +15,7 @@ import entities.Admins;
 import entities.Logoes;
 import entities.OrderDetails;
 import entities.Orders;
+import entities.PaymentMethods;
 import entities.Transports;
 import java.util.Date;
 import java.util.List;
@@ -272,7 +273,6 @@ public class AdminOrderController {
 //        if (logo != null) {
 //            logoImage = logo.getLogoImage();
 //        }
-
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
@@ -318,7 +318,6 @@ public class AdminOrderController {
 //        if (logo != null) {
 //            logoImage = logo.getLogoImage();
 //        }
-
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
@@ -415,7 +414,6 @@ public class AdminOrderController {
 //        if (logo != null) {
 //            logoImage = logo.getLogoImage();
 //        }
-
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
@@ -541,6 +539,276 @@ public class AdminOrderController {
         } else {
             attributes.addFlashAttribute("success", "Cập nhật phương thức vận chuyển thành công!");
             return "redirect:/admin/transport.htm";
+        }
+    }
+
+    @RequestMapping(value = "/payment")
+    public String payment(HttpSession session, Model model, Integer page) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        } else {
+            model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
+        }
+
+        if (page == null || page <= 0) {
+            page = 1;
+        }
+
+        int totalRecords = paymentMethodDAO.countAllPaymentMethods();
+        paging paging;
+        String pagingHtml = "";
+        List<PaymentMethods> paymentMethods;
+//        Logoes logo = logoDAO.getLogoToDisplay();
+        String logoImage = "";
+        String iconImage = "";
+
+//        if (logo != null) {
+//            logoImage = logo.getLogoImage();
+//        }
+
+
+        if (logoImage.length() > 0) {
+            model.addAttribute("logo", logoImage);
+        }
+
+        if (iconImage.length() > 0) {
+            model.addAttribute("icon", iconImage);
+        }
+
+        if (totalRecords > 12) {
+            String firstLink = "/QTCStore/admin/payment/index.htm";
+            String currentLink = "/QTCStore/admin/payment/index.htm{p}";
+            paging = new paging(page, totalRecords, 12, currentLink, firstLink);
+            paymentMethods = paymentMethodDAO.getAllPaymentMethodsForPaging(paging.startRecord, 12);
+            pagingHtml = paging.generateHtml();
+        } else {
+            paymentMethods = paymentMethodDAO.getAllPaymentMethodsForPaging(0, totalRecords);
+        }
+
+        if (paymentMethods.size() > 0) {
+            model.addAttribute("paymentMethods", paymentMethods);
+        }
+
+        if (pagingHtml.length() > 0) {
+            model.addAttribute("paging", pagingHtml);
+        }
+
+        model.addAttribute("title", "Quản lý phương thức thanh toán");
+        return "Admin/payment-list";
+    }
+
+    @RequestMapping(value = "/payment/insert")
+    public String insertPayment(HttpSession session, Model model) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        } else {
+            model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
+        }
+
+//        Logoes logo = logoDAO.getLogoToDisplay();
+        String logoImage = "";
+        String iconImage = "";
+
+//        if (logo != null) {
+//            logoImage = logo.getLogoImage();
+//        }
+
+
+        if (logoImage.length() > 0) {
+            model.addAttribute("logo", logoImage);
+        }
+
+        if (iconImage.length() > 0) {
+            model.addAttribute("icon", iconImage);
+        }
+
+        model.addAttribute("title", "Thêm mới phương thức thanh toán");
+        return "Admin/payment-insert";
+    }
+
+    @RequestMapping(value = "/payment/do-insert")
+    public String doInsertPayment(RedirectAttributes attributes, HttpSession session, String paymentMethodName, String paymentMethodDescription, String paymentMethodStatus) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
+        if (validate.isEmpty(paymentMethodName)) {
+            attributes.addFlashAttribute("error", "Tên phương thức thanh toán không được để trống!");
+            return "redirect:/admin/payment/insert.htm";
+        }
+
+        if (validate.isEmpty(paymentMethodDescription)) {
+            attributes.addFlashAttribute("error", "Mô tả phương thức thanh toán không được để trống!");
+            return "redirect:/admin/payment/insert.htm";
+        }
+
+        if (!validate.checkMaxLenght(paymentMethodName, 250)) {
+            attributes.addFlashAttribute("error", "Độ dài tên phương thức thanh toán không được vượt quá 250 ký tự!");
+            return "redirect:/admin/payment/insert.htm";
+        }
+
+        boolean check = paymentMethodDAO.checkPaymentMethodNameExists(paymentMethodName);
+
+        if (check) {
+            attributes.addFlashAttribute("error", "Tên phương thức thanh toán đã tồn tại!");
+            return "redirect:/admin/payment/insert.htm";
+        }
+
+        int paymentStatus = validate.convertStringToInt(paymentMethodStatus, 1);
+        PaymentMethods paymentMethod = new PaymentMethods();
+
+//        paymentMethod.setAdminId((Admins) session.getAttribute("adminLogin"));
+        paymentMethod.setPaymentMethodName(paymentMethodName);
+        paymentMethod.setPaymentMethodDescription(paymentMethodDescription);
+        paymentMethod.setPaymentMethodStatus(paymentStatus);
+        paymentMethod.setCreatedDate(new Date());
+        paymentMethod.setUpdatedDate(new Date());
+
+        check = paymentMethodDAO.insertPaymentMethod(paymentMethod);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Thêm mới phương thức thanh toán không thành công!");
+            return "redirect:/admin/payment/insert.htm";
+        } else {
+            attributes.addFlashAttribute("success", "Thêm mới phương thức thanh toán thành công!");
+            return "redirect:/admin/payment.htm";
+        }
+    }
+
+    @RequestMapping(value = "/payment/update")
+    public String updatePayment(RedirectAttributes attributes, HttpSession session, Model model, Integer paymentMethodId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        } else {
+            model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
+        }
+
+        PaymentMethods paymentMethod = paymentMethodDAO.getPaymentMethodById(paymentMethodId);
+
+        if (paymentMethod == null) {
+            attributes.addFlashAttribute("error", "Mã phương thức thanh toán không tồn tại!");
+            return "redirect:/admin/payment.htm";
+        }
+
+//        Logoes logo = logoDAO.getLogoToDisplay();
+        String logoImage = "";
+        String iconImage = "";
+
+//        if (logo != null) {
+//            logoImage = logo.getLogoImage();
+//        }
+
+        if (logoImage.length() > 0) {
+            model.addAttribute("logo", logoImage);
+        }
+
+        if (iconImage.length() > 0) {
+            model.addAttribute("icon", iconImage);
+        }
+
+        model.addAttribute("title", "Cập nhật phương thức thanh toán");
+        model.addAttribute("payment", paymentMethod);
+        return "Admin/payment-update";
+    }
+
+    @RequestMapping(value = "/payment/do-update")
+    public String doUpdatePayment(RedirectAttributes attributes, HttpSession session, Integer paymentMethodId, String paymentMethodName, String paymentMethodDescription, String paymentMethodStatus) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
+        PaymentMethods paymentMethod = paymentMethodDAO.getPaymentMethodById(paymentMethodId);
+
+        if (paymentMethod == null) {
+            attributes.addFlashAttribute("error", "Mã phương thức thanh toán không tồn tại!");
+            return "redirect:/admin/payment.htm";
+        }
+
+        if (validate.isEmpty(paymentMethodName)) {
+            attributes.addFlashAttribute("error", "Tên phương thức thanh toán không được để trống!");
+            return "redirect:/admin/payment/update.htm?paymentMethodId=" + paymentMethodId;
+        }
+
+        if (validate.isEmpty(paymentMethodDescription)) {
+            attributes.addFlashAttribute("error", "Mô tả phương thức thanh toán không được để trống!");
+            return "redirect:/admin/payment/update.htm?paymentMethodId=" + paymentMethodId;
+        }
+
+        if (!validate.checkMaxLenght(paymentMethodName, 250)) {
+            attributes.addFlashAttribute("error", "Độ dài tên phương thức thanh toán không được vượt quá 250 ký tự!");
+            return "redirect:/admin/payment/update.htm?paymentMethodId=" + paymentMethodId;
+        }
+
+        boolean check = paymentMethodDAO.checkPaymentMethodNameExists(paymentMethodName);
+
+        if (check && paymentMethodName.equals(paymentMethod.getPaymentMethodName())) {
+            attributes.addFlashAttribute("error", "Tên phương thức thanh toán đã tồn tại!");
+            return "redirect:/admin/payment/update.htm?paymentMethodId=" + paymentMethodId;
+        }
+
+        int paymentStatus = validate.convertStringToInt(paymentMethodStatus, 1);
+//        paymentMethod.setAdminId((Admins) session.getAttribute("adminLogin"));
+        paymentMethod.setPaymentMethodName(paymentMethodName);
+        paymentMethod.setPaymentMethodDescription(paymentMethodDescription);
+        paymentMethod.setUpdatedDate(new Date());
+        paymentMethod.setPaymentMethodStatus(paymentStatus);
+
+        check = paymentMethodDAO.updatePaymentMethod(paymentMethod);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Cập nhật phương thức thanh toán không thành công!");
+            return "redirect:/admin/payment/update.htm?paymentMethodId=" + paymentMethodId;
+        } else {
+            attributes.addFlashAttribute("success", "Cập nhật phương thức thanh toán thành công!");
+            return "redirect:/admin/payment.htm";
+        }
+    }
+
+    @RequestMapping(value = "/payment/disable")
+    public String disablePayment(RedirectAttributes attributes, HttpSession session, Integer paymentMethodId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
+        PaymentMethods paymentMethod = paymentMethodDAO.getPaymentMethodById(paymentMethodId);
+
+        if (paymentMethod == null) {
+            attributes.addFlashAttribute("error", "Mã phương thức thanh toán không tồn tại!");
+            return "redirect:/admin/payment.htm";
+        }
+
+        boolean check = paymentMethodDAO.disablePaymentMethod(paymentMethodId);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Cập nhật phương thức thanh toán không thành công!");
+            return "redirect:/admin/payment.htm";
+        } else {
+            attributes.addFlashAttribute("success", "Cập nhật phương thức thanh toán thành công!");
+            return "redirect:/admin/payment.htm";
+        }
+    }
+
+    @RequestMapping(value = "/payment/enable")
+    public String enablePayment(RedirectAttributes attributes, HttpSession session, Integer paymentMethodId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
+        PaymentMethods paymentMethod = paymentMethodDAO.getPaymentMethodById(paymentMethodId);
+
+        if (paymentMethod == null) {
+            attributes.addFlashAttribute("error", "Mã phương thức thanh toán không tồn tại!");
+            return "redirect:/admin/payment.htm";
+        }
+
+        boolean check = paymentMethodDAO.enablePaymentMethod(paymentMethodId);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Cập nhật phương thức thanh toán không thành công!");
+            return "redirect:/admin/payment.htm";
+        } else {
+            attributes.addFlashAttribute("success", "Cập nhật phương thức thanh toán thành công!");
+            return "redirect:/admin/payment.htm";
         }
     }
 }

@@ -18,8 +18,8 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.html" class="breadcrumb-link">Trang quản trị</a></li>
-                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/index.html" class="breadcrumb-link">Quản trị viên</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard.htm" class="breadcrumb-link">Trang quản trị</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/index.htm" class="breadcrumb-link">Quản trị viên</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Thêm mới quản trị viên</li>
                                 </ol>
                             </nav>
@@ -34,7 +34,7 @@
                         <div class="card">
                             <h3 class="card-header"><b>Tạo mới quản trị viên</b></h3>
                             <div class="card-body">
-                                <a href="${pageContext.request.contextPath}/admin/index.html" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
+                                <a href="${pageContext.request.contextPath}/admin/index.htm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
                                 <form method="POST" action="${pageContext.request.contextPath}/admin/admin-do-insert.htm" enctype="multipart/form-data">
                                     <div class="form-group">

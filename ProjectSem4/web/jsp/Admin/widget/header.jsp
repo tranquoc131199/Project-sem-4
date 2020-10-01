@@ -43,13 +43,13 @@
                             </form>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/1adminavatar23295223122018.jpeg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/Admins/${adminLogin.adminAvatar}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">Trần Mạnh Quốc </h5>
+                                    <h5 class="mb-0 text-white nav-user-name">${adminLogin.adminFullName} </h5>
                                     <span class="status"></span><span class="badge-dot badge-success mr-1"></span> Sẵn sàng
                                 </div>
-                                <a class="dropdown-item" href="/Admin/BackendAdmin/Info?AdminId=1"><i class="fas fa-user mr-2"></i>Trang cá nhân</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin-info.htm?adminId=${adminLogin.adminId}"><i class="fas fa-user mr-2"></i>Trang cá nhân</a>
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout.htm"><i class="fas fa-power-off mr-2"></i>Đăng xuất</a>
                             </div>
                         </li>

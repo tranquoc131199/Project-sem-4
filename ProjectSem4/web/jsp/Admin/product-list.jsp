@@ -45,7 +45,7 @@
                                         <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <a href="${pageContext.request.contextPath}/admin/product/detail.html?productId=${allPro.productId}">
+                                                    <a href="${pageContext.request.contextPath}/admin/product/detail.htm?productId=${allPro.productId}">
                                                         <img src="${pageContext.request.contextPath}/jsp/Admin/uploads/images/ProductImages/${allPro.productFeatureImage}" alt="" class="img-fluid">
                                                     </a>
                                                 </div>
@@ -58,7 +58,7 @@
                                             <div class="product-content">
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">
-                                                        <a href="${pageContext.request.contextPath}/admin/product/detail.html?productId=${allPro.productId}" title="${allPro.productName}">
+                                                        <a href="${pageContext.request.contextPath}/admin/product/detail.htm?productId=${allPro.productId}" title="${allPro.productName}">
                                                             ${allPro.productName}</a>
 
                                                     </h3>
