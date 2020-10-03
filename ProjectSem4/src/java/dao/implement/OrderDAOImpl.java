@@ -323,4 +323,157 @@ public class OrderDAOImpl implements OrderDAO {
 
         return orders;
     }
+
+    @Override
+    public List<OrderDetails> weekOrder() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<OrderDetails> orderDetails = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+
+            long DAY_IN_MS = 1000 * 60 * 60 * 24;
+            Date date = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :createdDate");
+                query.setParameter("OrderId", o.getOrderId());
+                query.setParameter("createdDate", date);
+                orderDetails.addAll(query.list());
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orderDetails;
+    }
+
+    @Override
+    public List<OrderDetails> monthOrder() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<OrderDetails> orderDetails = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+
+            long DAY_IN_MS = 1000 * 60 * 60 * 24;
+            Date date = new Date(System.currentTimeMillis() - (30 * DAY_IN_MS));
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :createdDate");
+                query.setParameter("OrderId", o.getOrderId());
+                query.setParameter("createdDate", date);
+                orderDetails.addAll(query.list());
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orderDetails;
+    }
+
+    @Override
+    public List<OrderDetails> quarterOrder() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<OrderDetails> orderDetails = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+
+            long DAY_IN_MS = 1000 * 60 * 60 * 24;
+            Date date = new Date(System.currentTimeMillis() - (90 * DAY_IN_MS));
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :createdDate");
+                query.setParameter("OrderId", o.getOrderId());
+                query.setParameter("createdDate", date);
+                orderDetails.addAll(query.list());
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orderDetails;
+    }
+
+    @Override
+    public List<OrderDetails> yearOrder() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<OrderDetails> orderDetails = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+
+            long DAY_IN_MS = 1000 * 60 * 60 * 24;
+            Date date = new Date(System.currentTimeMillis() - (365 * DAY_IN_MS));
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :createdDate");
+                query.setParameter("OrderId", o.getOrderId());
+                query.setParameter("createdDate", date);
+                orderDetails.addAll(query.list());
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orderDetails;
+    }
+
+    @Override
+    public List<OrderDetails> customOrder(Date startDate, Date endDate) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<OrderDetails> orderDetails = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("from Orders where orderStatus = 1");
+            List<Orders> orders = query.list();
+
+            for (Orders o : orders) {
+                query = session.createQuery("from OrderDetails where OrderId = :OrderId and createdDate >= :startDate and createdDate <= :endDate");
+                query.setParameter("OrderId", o.getOrderId());
+                query.setParameter("startDate", startDate);
+                query.setParameter("endDate", endDate);
+                orderDetails.addAll(query.list());
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+
+        return orderDetails;
+    }
 }

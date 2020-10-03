@@ -395,4 +395,41 @@ public class CategoryDAOImpl implements CategoryDAO {
         return categories;
     }
 
+    @Override
+    public Boolean updatePiority(Categories category, Integer categoryPiority) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Boolean result = false;
+        
+        try {
+            category.setCategoryPiority(categoryPiority);
+            session.update(category);
+            List<Categories> categories = getAllCategory();
+            
+            categories.forEach((c) -> {
+                if (categoryPiority > category.getCategoryPiority()) {
+                    if (c.getCategoryPiority() <= categoryPiority && c.getCategoryPiority() > category.getCategoryPiority()) {
+                        c.setCategoryPiority(c.getCategoryPiority() - 1);
+                        session.update(c);
+                    }
+                } else {
+                    if (c.getCategoryPiority() >= categoryPiority && c.getCategoryPiority() < category.getCategoryPiority()) {
+                        c.setCategoryPiority(c.getCategoryPiority() + 1);
+                        session.update(c);
+                    }
+                }
+            });
+            
+            session.getTransaction().commit();
+            result = true;
+        } catch (Exception e) {
+            e.getMessage();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        
+        return result;
+    }
+    
 }

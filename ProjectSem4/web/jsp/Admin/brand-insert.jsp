@@ -35,7 +35,7 @@
                         <div class="card">
                             <h3 class="card-header"><b>Thêm mới hãng</b></h3>
                             <div class="card-body">
-                                <a href="/Admin/BackendBrand" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
+                                <a href="${pageContext.request.contextPath}/admin/brand.htm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Quay lại</a>
                                 <div class="clearfix"><br></div>
                                 <form method="POST" action="${pageContext.request.contextPath}/admin/brand/insertbrand.htm" role="form" enctype="multipart/form-data">
                                     <div class="form-group">

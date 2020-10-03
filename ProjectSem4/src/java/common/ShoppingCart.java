@@ -203,6 +203,6 @@ public class ShoppingCart implements Serializable {
             }
         }
 
-        this.lastAmount = this.totalAmount - transportPrice;
+        this.lastAmount = this.totalAmount + transportPrice;
     }
 }

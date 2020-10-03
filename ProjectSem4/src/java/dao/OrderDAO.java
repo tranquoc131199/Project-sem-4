@@ -7,6 +7,7 @@ package dao;
 
 import entities.OrderDetails;
 import entities.Orders;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,5 +120,42 @@ public interface OrderDAO {
      * @return
      */
     public List<Orders> getTopTenOrderToDisplayOnDashboard();
+    
+    /**
+     * Tính tổng doanh thu theo tuần
+     *
+     * @return
+     */
+    public List<OrderDetails> weekOrder();
+
+    /**
+     * Tính tổng doanh thu theo tháng
+     *
+     * @return
+     */
+    public List<OrderDetails> monthOrder();
+
+    /**
+     * Tính tổng doanh thu theo quý
+     *
+     * @return
+     */
+    public List<OrderDetails> quarterOrder();
+
+    /**
+     * Tính tổng doanh thu theo năm
+     *
+     * @return
+     */
+    public List<OrderDetails> yearOrder();
+
+    /**
+     * Tính tổng doanh thu theo tuỳ biến (ngày bắt đầu và ngày kết thúc)
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<OrderDetails> customOrder(Date startDate, Date endDate);
 
 }

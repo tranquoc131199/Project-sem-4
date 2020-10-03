@@ -150,5 +150,13 @@ public interface CategoryDAO {
      * @return
      */
     public List<Categories> getAllParentCategoriesForClient();
+    
+      /**
+     * Cập nhật mới độ ưu tiên
+     * @param category tham số là danh mục sản phẩm cần cập nhật độ ưu tiên
+     * @param categoryPiority độ ưu tiên mới
+     * @return trả về true false cho kết quả của method
+     */
+    public Boolean updatePiority(Categories category, Integer categoryPiority);
 
 }

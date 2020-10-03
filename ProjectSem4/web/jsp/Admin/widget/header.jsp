@@ -38,7 +38,7 @@
                             <form method="POST" action="${pageContext.request.contextPath}/admin/product/search.htm" id="search-form" enctype="multipart/form-data">
                                 <input name="__RequestVerificationToken" type="hidden" value="ETYGG0-sbiwIbw4wg2IqkTbNnOCyikyFziVt5GkOHPToEli_9TexOPJqYWpgBkCvXHPzRmMREw5ZIX9baXsuEecmUSAA3KO2rKKYWHLKujo1" />
                                 <div id="custom-search" class="top-search-bar">
-                                    <input class="form-control" id="searchProduct" type="text" name="ProductName" placeholder="Tìm kiếm sản phẩm..">
+                                    <input class="form-control" id="searchProduct" type="text" name="productName" placeholder="Tìm kiếm sản phẩm..">
                                 </div>
                             </form>
                         </li>

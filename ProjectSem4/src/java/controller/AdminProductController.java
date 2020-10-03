@@ -13,6 +13,7 @@ import dao.ProductDAO;
 import entities.Admins;
 import entities.Brands;
 import entities.Categories;
+import entities.Logoes;
 import entities.ProductComments;
 import entities.ProductImages;
 import entities.Products;
@@ -600,6 +601,98 @@ public class AdminProductController {
         } else {
             attributes.addFlashAttribute("error", "Cập nhật sản phẩm không thành công!");
             return "redirect:/admin/product/detailProduct.htm?productId=" + productId;
+        }
+    }
+    
+    @RequestMapping(value = "category/update")
+    public String updateCategory(HttpSession session, RedirectAttributes attributes, Model model, Integer categoryId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        } else {
+            model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
+        }
+
+        Categories category = categoryDAO.getCategoryById(categoryId);
+
+        if (category == null) {
+            attributes.addFlashAttribute("error", "Mã danh mục không tồn tại!");
+            return "redirect:index.html";
+        }
+
+        List<Categories> categories = categoryDAO.getAllCategory();
+
+        if (categories.size() > 0) {
+            model.addAttribute("categories", categories);
+        }
+
+
+        model.addAttribute("category", category);
+        return "Admin/category-update";
+    }
+    
+    @RequestMapping(value = "/category/do-update")
+    public String doUpdateCategory(RedirectAttributes attributes, HttpSession session, Integer categoryId, String categoryName, Integer parentId, Integer categoryPiority, Integer categoryStatus) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        }
+
+        Categories category = categoryDAO.getCategoryById(categoryId);
+
+        if (category == null) {
+            attributes.addFlashAttribute("error", "Mã danh mục không tồn tại!");
+            return "redirect:/admin/category.htm";
+        }
+
+        if (validate.isEmpty(categoryName)) {
+            attributes.addFlashAttribute("error", "Tên danh mục không được để trống!");
+            return "redirect:/admin/category/update.htm?categoryId=" + categoryId;
+        }
+
+        if (!validate.checkMaxLenght(categoryName, 250)) {
+            attributes.addFlashAttribute("error", "Độ dài tên danh mục không vượt quá 250 ký tự!");
+            return "redirect:/admin/category/update.htm?categoryId=" + categoryId;
+        }
+
+        Admins admin = (Admins) session.getAttribute("adminLogin");
+        String parentName;
+        
+        if (parentId <= 0) {
+            parentName = "Không có";
+        } else {
+            Categories category2 = categoryDAO.getCategoryById(parentId);
+            
+            if (category2 == null) {
+                attributes.addFlashAttribute("error", "Danh mục cha không tồn tại!");
+                return "redirect:/admin/category/insert.htm";
+            } else {
+                parentName = category.getCategoryName();
+            }
+        }
+        
+
+        category.setCategoryName(categoryName);
+        categoryDAO.updatePiority(category, categoryPiority);
+        category.setCategoryStatus(categoryStatus);
+        category.setParentId(parentId);
+        category.setParentName(parentName);
+        category.setUpdatedDate(new Date());
+
+        boolean check = categoryDAO.checkCategoryNameExists(categoryName);
+
+        if (check && !categoryName.equals(category.getCategoryName())) {
+            attributes.addFlashAttribute("error", "Tên danh mục sản phẩm đã tồn tại!");
+            return "redirect:/admin/category/update.htm?categoryId=" + categoryId;
+        }
+
+        check = categoryDAO.updateCategory(category);
+
+        if (!check) {
+            attributes.addFlashAttribute("error", "Cập nhật danh mục sản phẩm không thành công!");
+            return "redirect:/admin/category/update.htm?categoryId=" + categoryId;
+        } else {
+            attributes.addFlashAttribute("success", "Cập nhật danh mục sản phẩm thành công!");
+            categoryDAO.updatePiority(category, categoryPiority);
+            return "redirect:/admin/category.htm";
         }
     }
 

@@ -37,7 +37,7 @@
                             <div class="clearfix"><br></div>
                             <form method="POST" action="${pageContext.request.contextPath}/admin/admin-search.htm">
                                 <input class="form-control form-control-lg" name="adminEmail" type="search" placeholder="Tìm kiếm quản trị viên theo email..." aria-label="Search">
-                                <button class="btn btn-primary search-btn" type="submit">Tìm</button>
+                                
                             </form>
                         </div>
                     </div>

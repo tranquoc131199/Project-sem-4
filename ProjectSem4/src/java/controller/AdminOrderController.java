@@ -5,6 +5,7 @@
  */
 package controller;
 
+import common.Revenue;
 import common.paging;
 import common.validate;
 import dao.LogoDAO;
@@ -266,24 +267,10 @@ public class AdminOrderController {
         paging paging;
         String pagingHtml = "";
         List<Transports> transports;
-//        Logoes logo = logoDAO.getLogoToDisplay();
-        String logoImage = "";
-        String iconImage = "";
-
-//        if (logo != null) {
-//            logoImage = logo.getLogoImage();
-//        }
-        if (logoImage.length() > 0) {
-            model.addAttribute("logo", logoImage);
-        }
-
-        if (iconImage.length() > 0) {
-            model.addAttribute("icon", iconImage);
-        }
 
         if (totalRecords > 12) {
-            String firstLink = "/QTCStore/admin/transport/index.htm";
-            String currentLink = "/QTCStore/admin/transport/index.htm{p}";
+            String firstLink = "/ProjectSem4/admin/transport/index.htm";
+            String currentLink = "/ProjectSem4/admin/transport/index.htm{p}";
             paging = new paging(page, totalRecords, 12, currentLink, firstLink);
             transports = transportDAO.getAllTransportsForPaging(paging.startRecord, 12);
             pagingHtml = paging.generateHtml();
@@ -554,37 +541,19 @@ public class AdminOrderController {
             page = 1;
         }
 
-        int totalRecords = paymentMethodDAO.countAllPaymentMethods();
+        Integer totalRecords = paymentMethodDAO.countAllPaymentMethods();
         paging paging;
         String pagingHtml = "";
         List<PaymentMethods> paymentMethods;
-//        Logoes logo = logoDAO.getLogoToDisplay();
-        String logoImage = "";
-        String iconImage = "";
-
-//        if (logo != null) {
-//            logoImage = logo.getLogoImage();
-//        }
-
-
-        if (logoImage.length() > 0) {
-            model.addAttribute("logo", logoImage);
-        }
-
-        if (iconImage.length() > 0) {
-            model.addAttribute("icon", iconImage);
-        }
-
         if (totalRecords > 12) {
-            String firstLink = "/QTCStore/admin/payment/index.htm";
-            String currentLink = "/QTCStore/admin/payment/index.htm{p}";
+            String firstLink = "/ProjectSem4/admin/payment/index.htm";
+            String currentLink = "/ProjectSem4/admin/payment/index.htm{p}";
             paging = new paging(page, totalRecords, 12, currentLink, firstLink);
             paymentMethods = paymentMethodDAO.getAllPaymentMethodsForPaging(paging.startRecord, 12);
             pagingHtml = paging.generateHtml();
         } else {
             paymentMethods = paymentMethodDAO.getAllPaymentMethodsForPaging(0, totalRecords);
         }
-
         if (paymentMethods.size() > 0) {
             model.addAttribute("paymentMethods", paymentMethods);
         }
@@ -612,8 +581,6 @@ public class AdminOrderController {
 //        if (logo != null) {
 //            logoImage = logo.getLogoImage();
 //        }
-
-
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
         }
@@ -690,13 +657,8 @@ public class AdminOrderController {
             return "redirect:/admin/payment.htm";
         }
 
-//        Logoes logo = logoDAO.getLogoToDisplay();
         String logoImage = "";
         String iconImage = "";
-
-//        if (logo != null) {
-//            logoImage = logo.getLogoImage();
-//        }
 
         if (logoImage.length() > 0) {
             model.addAttribute("logo", logoImage);
@@ -810,5 +772,54 @@ public class AdminOrderController {
             attributes.addFlashAttribute("success", "Cập nhật phương thức thanh toán thành công!");
             return "redirect:/admin/payment.htm";
         }
+    }
+    
+     @RequestMapping(value = "revenue")
+    public String revenue(HttpSession session, Model model, Integer promotionId) {
+        if (session.getAttribute("adminLogin") == null) {
+            return "redirect:/admin/login.htm";
+        } else {
+            model.addAttribute("adminLogin", (Admins) session.getAttribute("adminLogin"));
+        }
+        
+    
+        List<OrderDetails> weekOrder = orderDAO.weekOrder();
+        List<OrderDetails> monthOrder = orderDAO.monthOrder();
+        List<OrderDetails> quarterOrder = orderDAO.quarterOrder();
+        List<OrderDetails> yearOrder = orderDAO.yearOrder();
+        
+        if (weekOrder.size() > 0) {
+            Revenue weekRevenue = new Revenue(weekOrder);
+
+            if (weekRevenue != null) {
+                model.addAttribute("weekRevenue", weekRevenue);
+            }
+        }
+        
+        if (monthOrder.size() > 0) {
+            Revenue monthRevenue = new Revenue(monthOrder);
+
+            if (monthRevenue != null) {
+                model.addAttribute("monthRevenue", monthRevenue);
+            }
+        }
+        
+        if (quarterOrder.size() > 0) {
+            Revenue quarterRevenue = new Revenue(quarterOrder);
+
+            if (quarterRevenue != null) {
+                model.addAttribute("quarterRevenue", quarterRevenue);
+            }
+        }
+        
+        if (yearOrder.size() > 0) {
+            Revenue yearRevenue = new Revenue(yearOrder);
+
+            if (yearRevenue != null) {
+                model.addAttribute("yearRevenue", yearRevenue);
+            }
+        }
+        model.addAttribute("title", "Doanh thu");
+        return "Admin/revenue";
     }
 }

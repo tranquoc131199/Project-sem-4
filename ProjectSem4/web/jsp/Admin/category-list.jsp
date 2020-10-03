@@ -63,7 +63,7 @@
                                                             </c:if>
                                                         </td>
                                                         <td>
-                                                             <a href="${pageContext.request.contextPath}/admin/category/preUpdate.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
+                                                             <a href="${pageContext.request.contextPath}/admin/category/update.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Cập nhật</a>
                                                             <c:if test="${allCate.categoryStatus == 1}">
                                                                 <a href="${pageContext.request.contextPath}/admin/category/disable.htm?categoryId=${allCate.categoryId}" class="btn btn-sm btn-secondary"><i class="fas fa-lock"></i> Huỷ kích hoạt</a>
                                                             </c:if>
